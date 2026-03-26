@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cardano-mcp-ingest
+spec:
+  schedule: "0 4 * * 0"  # Weekly on Sunday at 4am
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: ingest
+              image: cardano-unified-mcp-server:latest
+              command: ["node", "dist/ingest/cli.js"]
+              env:
+                - name: EMBEDDINGS_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: cardano-mcp-secrets
+                      key: embeddings-api-key
+              volumeMounts:
+                - name: data
+                  mountPath: /app/data
+                - name: repos
+                  mountPath: /app/repos
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 1Gi
+                limits:
+                  cpu: "2"
+                  memory: 4Gi
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: cardano-mcp-data
+            - name: repos
+              emptyDir:
+                sizeLimit: 10Gi

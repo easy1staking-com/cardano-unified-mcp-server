@@ -1,0 +1,12 @@
+node_modules
+dist
+data
+repos
+.git
+.env
+.env.*
+!.env.example
+.claude
+*.md
+!SOURCES.md
+k8s

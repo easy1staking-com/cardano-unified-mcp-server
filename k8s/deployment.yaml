@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cardano-mcp
+  labels:
+    app: cardano-mcp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cardano-mcp
+  template:
+    metadata:
+      labels:
+        app: cardano-mcp
+    spec:
+      containers:
+        - name: cardano-mcp
+          image: cardano-unified-mcp-server:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: HOST
+              value: "0.0.0.0"
+            - name: EMBEDDINGS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cardano-mcp-secrets
+                  key: embeddings-api-key
+            - name: MCP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cardano-mcp-secrets
+                  key: mcp-api-key
+                  optional: true
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+            - name: repos
+              mountPath: /app/repos
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 2Gi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: cardano-mcp-data
+        - name: repos
+          emptyDir:
+            sizeLimit: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cardano-mcp
+spec:
+  selector:
+    app: cardano-mcp
+  ports:
+    - port: 80
+      targetPort: 3000
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cardano-mcp-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cardano-mcp
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+spec:
+  rules:
+    - host: cardano-mcp.example.com  # Change to your domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cardano-mcp
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - cardano-mcp.example.com  # Change to your domain
+      secretName: cardano-mcp-tls
