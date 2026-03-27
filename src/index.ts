@@ -1,4 +1,5 @@
 import express from "express";
+import type { Request, Response } from "express";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { VectorDB } from "./db/vectordb.js";
@@ -46,33 +47,50 @@ function authMiddleware(
   next();
 }
 
-// MCP endpoint — Streamable HTTP
-app.post("/mcp", authMiddleware, async (req, res) => {
-  const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: undefined, // Stateless for K8s scaling
-  });
-
+// MCP endpoint — Streamable HTTP (stateless)
+app.post("/mcp", authMiddleware, async (req: Request, res: Response) => {
   const server = createMcpServer();
-  await server.connect(transport);
-
-  await transport.handleRequest(req, res, req.body);
+  try {
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined, // Stateless for K8s scaling
+    });
+    await server.connect(transport);
+    await transport.handleRequest(req, res, req.body);
+    res.on("close", () => {
+      transport.close();
+      server.close();
+    });
+  } catch (error) {
+    console.error("Error handling MCP request:", error);
+    if (!res.headersSent) {
+      res.status(500).json({
+        jsonrpc: "2.0",
+        error: { code: -32603, message: "Internal server error" },
+        id: null,
+      });
+    }
+  }
 });
 
-// Handle GET for SSE stream (server-initiated messages)
-app.get("/mcp", authMiddleware, async (req, res) => {
-  const transport = new StreamableHTTPServerTransport({
-    sessionIdGenerator: undefined,
-  });
-
-  const server = createMcpServer();
-  await server.connect(transport);
-
-  await transport.handleRequest(req, res);
+// Stateless: GET and DELETE not supported
+app.get("/mcp", (_req: Request, res: Response) => {
+  res.writeHead(405).end(
+    JSON.stringify({
+      jsonrpc: "2.0",
+      error: { code: -32000, message: "Method not allowed." },
+      id: null,
+    })
+  );
 });
 
-// Handle DELETE for session termination
-app.delete("/mcp", (_req, res) => {
-  res.status(200).end();
+app.delete("/mcp", (_req: Request, res: Response) => {
+  res.writeHead(405).end(
+    JSON.stringify({
+      jsonrpc: "2.0",
+      error: { code: -32000, message: "Method not allowed." },
+      id: null,
+    })
+  );
 });
 
 // Start server
