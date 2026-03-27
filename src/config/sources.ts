@@ -141,6 +141,23 @@ export const DOC_SOURCES: DocSource[] = [
     priority: "medium",
   },
 
+  // --- CIP-113 Programmable Tokens (reference implementation) ---
+  {
+    name: "CIP-113 Programmable Tokens",
+    repo: "https://github.com/cardano-foundation/cip113-programmable-tokens.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "high",
+    globPatterns: [
+      "README.md",
+      "RFI-REVIEW-SUMMARY.md",
+      "src/programmable-tokens-onchain-aiken/README.md",
+      "src/programmable-tokens-onchain-aiken/documentation/**/*.md",
+      "src/programmable-tokens-offchain-java/README.md",
+    ],
+  },
+
   // --- Standards & Portals ---
   {
     name: "CIPs",
