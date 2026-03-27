@@ -7,14 +7,14 @@ import { config } from "./config/env.js";
 
 const db = new VectorDB();
 
-// Create MCP server
-const mcpServer = new McpServer({
-  name: "Cardano Unified MCP",
-  version: "0.1.0",
-});
-
-// Register tools
-registerDocTools(mcpServer, db);
+function createMcpServer() {
+  const server = new McpServer({
+    name: "Cardano Unified MCP",
+    version: "0.1.0",
+  });
+  registerDocTools(server, db);
+  return server;
+}
 
 // Express app
 const app = express();
@@ -52,7 +52,8 @@ app.post("/mcp", authMiddleware, async (req, res) => {
     sessionIdGenerator: undefined, // Stateless for K8s scaling
   });
 
-  await mcpServer.connect(transport);
+  const server = createMcpServer();
+  await server.connect(transport);
 
   await transport.handleRequest(req, res, req.body);
 });
@@ -63,7 +64,8 @@ app.get("/mcp", authMiddleware, async (req, res) => {
     sessionIdGenerator: undefined,
   });
 
-  await mcpServer.connect(transport);
+  const server = createMcpServer();
+  await server.connect(transport);
 
   await transport.handleRequest(req, res);
 });
