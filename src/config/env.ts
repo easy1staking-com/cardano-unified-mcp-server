@@ -7,8 +7,8 @@ export const config = {
   embeddingsApiKey: process.env.EMBEDDINGS_API_KEY || "",
   embeddingsApiBase:
     process.env.EMBEDDINGS_API_BASE || "https://api.openai.com/v1",
-  embeddingsModel: process.env.EMBEDDINGS_MODEL || "text-embedding-3-small",
-  embeddingsDimensions: 1536,
+  embeddingsModel: process.env.EMBEDDINGS_MODEL || "text-embedding-3-large",
+  embeddingsDimensions: 3072,
 
   mcpApiKey: process.env.MCP_API_KEY || "",
 

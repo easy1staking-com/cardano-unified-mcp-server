@@ -50,7 +50,7 @@ export async function generateEmbedding(text: string): Promise<number[]> {
 
 export async function generateEmbeddingsBatch(
   texts: string[],
-  batchSize: number = 20
+  batchSize: number = 100
 ): Promise<number[][]> {
   const results: number[][] = [];
   const totalBatches = Math.ceil(texts.length / batchSize);
@@ -119,7 +119,7 @@ export async function generateEmbeddingsBatch(
 
     if (i + batchSize < texts.length) {
       // Delay between batches to respect rate limits
-      await new Promise((r) => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 500));
     }
   }
 
