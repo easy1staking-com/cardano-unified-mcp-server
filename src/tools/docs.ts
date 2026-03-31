@@ -4,10 +4,20 @@ import { VectorDB } from "../db/vectordb.js";
 import { generateEmbedding } from "../db/embeddings.js";
 import { config } from "../config/env.js";
 
+const CATEGORIES = [
+  "infrastructure",
+  "smart-contracts",
+  "sdk",
+  "standards",
+  "governance",
+  "scaling",
+  "testing",
+] as const;
+
 export function registerDocTools(server: McpServer, db: VectorDB) {
   server.tool(
     "search_docs",
-    "Search across all Cardano development documentation — infrastructure (Ogmios, Kupo, Blockfrost), smart contracts (Aiken, Plutus, OpShin), SDKs (Mesh, Evolution SDK, PyCardano), standards (CIPs), and developer guides. Returns the most relevant documentation chunks for your query.",
+    "Search across all Cardano development documentation — infrastructure (Ogmios, Kupo, Blockfrost), smart contracts (Aiken, Plutus, OpShin), SDKs (Mesh, Evolution SDK, PyCardano), governance (GovTool, SanchoNet), scaling (Hydra, Leios), testing (Yaci DevKit), and standards (CIPs). Returns the most relevant documentation chunks for your query.",
     {
       query: z
         .string()
@@ -15,14 +25,14 @@ export function registerDocTools(server: McpServer, db: VectorDB) {
           "Natural language search query, e.g. 'how to build a transaction with Mesh SDK' or 'Aiken validator example'"
         ),
       category: z
-        .enum(["infrastructure", "smart-contracts", "sdk", "standards"])
+        .enum(CATEGORIES)
         .optional()
         .describe("Filter by category to narrow results"),
       source: z
         .string()
         .optional()
         .describe(
-          "Filter by specific source, e.g. 'Aiken', 'Mesh SDK', 'CIPs', 'Ogmios'"
+          "Filter by specific source, e.g. 'Aiken', 'Mesh SDK', 'CIPs', 'Ogmios', 'Hydra'"
         ),
       limit: z
         .number()
@@ -38,40 +48,31 @@ export function registerDocTools(server: McpServer, db: VectorDB) {
         ),
     },
     async ({ query, category, source, limit, mode }) => {
+      // Apply source filter at the DB level by fetching more and filtering early
+      const fetchLimit = source ? limit * 4 : limit;
+
       let results;
 
       if (mode === "keyword" || !config.embeddingsApiKey) {
-        // FTS only
-        const ftsQuery = query
-          .replace(/[^\w\s]/g, " ")
-          .split(/\s+/)
-          .filter((w) => w.length > 2)
-          .map((w) => `"${w}"`)
-          .join(" OR ");
-        results = db.searchFTS(ftsQuery, limit, category);
+        const ftsQuery = buildFtsQuery(query);
+        results = db.searchFTS(ftsQuery, fetchLimit, category);
       } else if (mode === "semantic") {
         const embedding = await generateEmbedding(query);
-        results = db.searchVector(embedding, limit, category);
+        results = db.searchVector(embedding, fetchLimit, category);
       } else {
         // Hybrid: run both and merge
-        const ftsQuery = query
-          .replace(/[^\w\s]/g, " ")
-          .split(/\s+/)
-          .filter((w) => w.length > 2)
-          .map((w) => `"${w}"`)
-          .join(" OR ");
-        const ftsResults = db.searchFTS(ftsQuery, limit * 2, category);
+        const ftsQuery = buildFtsQuery(query);
+        const ftsResults = db.searchFTS(ftsQuery, fetchLimit * 2, category);
 
         let vectorResults: typeof ftsResults = [];
         if (config.embeddingsApiKey) {
           const embedding = await generateEmbedding(query);
-          vectorResults = db.searchVector(embedding, limit * 2, category);
+          vectorResults = db.searchVector(embedding, fetchLimit * 2, category);
         }
 
-        // Merge and deduplicate by ID, keeping best score
+        // Merge and deduplicate by ID
         const seen = new Map<string, (typeof ftsResults)[0]>();
 
-        // Normalize scores: FTS scores vary widely, vector scores are 0-1
         const maxFts = Math.max(...ftsResults.map((r) => r.score), 1);
         for (const r of ftsResults) {
           const normalized = r.score / maxFts;
@@ -80,23 +81,24 @@ export function registerDocTools(server: McpServer, db: VectorDB) {
         for (const r of vectorResults) {
           const existing = seen.get(r.id);
           if (existing) {
-            existing.score += r.score * 0.6; // Boost items found by both
+            existing.score += r.score * 0.6;
           } else {
             seen.set(r.id, { ...r, score: r.score * 0.6 });
           }
         }
 
         results = [...seen.values()]
-          .sort((a, b) => b.score - a.score)
-          .slice(0, limit);
+          .sort((a, b) => b.score - a.score);
       }
 
-      // Filter by source if specified
+      // Apply source filter before limit so we don't lose relevant results
       if (source) {
         results = results.filter((r) =>
           r.source.toLowerCase().includes(source.toLowerCase())
         );
       }
+
+      results = results.slice(0, limit);
 
       if (results.length === 0) {
         return {
@@ -241,4 +243,13 @@ export function registerDocTools(server: McpServer, db: VectorDB) {
       return { content: [{ type: "text" as const, text: output }] };
     }
   );
+}
+
+function buildFtsQuery(query: string): string {
+  return query
+    .replace(/[^\w\s]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 2)
+    .map((w) => `"${w}"`)
+    .join(" OR ");
 }

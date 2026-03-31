@@ -3,7 +3,14 @@ export interface DocSource {
   repo: string;
   docsPath: string;
   format: "markdown" | "mdx" | "rst" | "openapi";
-  category: "infrastructure" | "smart-contracts" | "sdk" | "standards";
+  category:
+    | "infrastructure"
+    | "smart-contracts"
+    | "sdk"
+    | "standards"
+    | "governance"
+    | "scaling"
+    | "testing";
   priority: "high" | "medium" | "low";
   branch?: string;
   globPatterns?: string[];
@@ -90,6 +97,24 @@ export const DOC_SOURCES: DocSource[] = [
     priority: "medium",
     globPatterns: ["**/*.md"],
   },
+  {
+    name: "Dolos",
+    repo: "https://github.com/txpipe/dolos.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "infrastructure",
+    priority: "medium",
+    globPatterns: ["**/*.md", "**/*.mdx"],
+  },
+  {
+    name: "Yaci Store",
+    repo: "https://github.com/bloxbean/yaci-store.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "infrastructure",
+    priority: "medium",
+    globPatterns: ["README.md", "docs/**/*.md"],
+  },
 
   // --- Smart Contract Languages ---
   {
@@ -154,6 +179,23 @@ export const DOC_SOURCES: DocSource[] = [
     priority: "low",
   },
 
+  // --- CIP-113 Programmable Tokens (reference implementation) ---
+  {
+    name: "CIP-113 Programmable Tokens",
+    repo: "https://github.com/cardano-foundation/cip113-programmable-tokens.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "high",
+    globPatterns: [
+      "README.md",
+      "RFI-REVIEW-SUMMARY.md",
+      "src/programmable-tokens-onchain-aiken/README.md",
+      "src/programmable-tokens-onchain-aiken/documentation/**/*.md",
+      "src/programmable-tokens-offchain-java/README.md",
+    ],
+  },
+
   // --- Off-chain SDKs & Frameworks ---
   {
     // FIX: apps/docs/ is 404 — repo restructured, packages/ has current content
@@ -214,14 +256,6 @@ export const DOC_SOURCES: DocSource[] = [
     priority: "medium",
   },
   {
-    name: "Yaci DevKit",
-    repo: "https://github.com/bloxbean/yaci-devkit.git",
-    docsPath: "docs",
-    format: "markdown",
-    category: "sdk",
-    priority: "medium",
-  },
-  {
     name: "cardano-client-lib",
     repo: "https://github.com/bloxbean/cardano-client-lib.git",
     docsPath: ".",
@@ -240,21 +274,72 @@ export const DOC_SOURCES: DocSource[] = [
     globPatterns: ["README.md", "doc/**/*.md", "examples/**/*.md"],
   },
 
-  // --- CIP-113 Programmable Tokens (reference implementation) ---
+  // --- Testing & DevNets ---
   {
-    name: "CIP-113 Programmable Tokens",
-    repo: "https://github.com/cardano-foundation/cip113-programmable-tokens.git",
+    name: "Yaci DevKit",
+    repo: "https://github.com/bloxbean/yaci-devkit.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "testing",
+    priority: "high",
+  },
+  {
+    name: "Plutip",
+    repo: "https://github.com/mlabs-haskell/plutip.git",
     docsPath: ".",
     format: "markdown",
-    category: "smart-contracts",
+    category: "testing",
+    priority: "medium",
+    globPatterns: ["README.md", "docs/**/*.md", "local-cluster/**/*.md"],
+  },
+
+  // --- Governance (Conway Era) ---
+  {
+    name: "GovTool",
+    repo: "https://github.com/IntersectMBO/govtool.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "governance",
     priority: "high",
-    globPatterns: [
-      "README.md",
-      "RFI-REVIEW-SUMMARY.md",
-      "src/programmable-tokens-onchain-aiken/README.md",
-      "src/programmable-tokens-onchain-aiken/documentation/**/*.md",
-      "src/programmable-tokens-offchain-java/README.md",
-    ],
+    globPatterns: ["**/*.md", "**/*.mdx"],
+  },
+  {
+    name: "SanchoNet",
+    repo: "https://github.com/input-output-hk/sanchonet.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "governance",
+    priority: "high",
+    globPatterns: ["**/*.md", "**/*.mdx"],
+  },
+  {
+    name: "Intersect Docs",
+    repo: "https://github.com/IntersectMBO/intersect-documentation.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "governance",
+    priority: "medium",
+    globPatterns: ["**/*.md", "**/*.mdx"],
+  },
+
+  // --- Scaling / Layer 2 ---
+  {
+    name: "Hydra",
+    repo: "https://github.com/cardano-scaling/hydra.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "scaling",
+    priority: "high",
+    globPatterns: ["**/*.md", "**/*.mdx"],
+  },
+  {
+    name: "Ouroboros Leios",
+    repo: "https://github.com/input-output-hk/ouroboros-leios.git",
+    docsPath: "docs",
+    format: "markdown",
+    category: "scaling",
+    priority: "medium",
+    globPatterns: ["**/*.md"],
   },
 
   // --- Standards & Portals ---
