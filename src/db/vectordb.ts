@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import * as sqliteVec from "sqlite-vec";
 import { mkdirSync } from "fs";
 import { dirname } from "path";
 import { config } from "../config/env.js";
@@ -31,6 +32,7 @@ export class VectorDB {
   constructor(dbPath: string = config.dbPath) {
     mkdirSync(dirname(dbPath), { recursive: true });
     this.db = new Database(dbPath);
+    sqliteVec.load(this.db);
     this.init();
   }
 
@@ -46,7 +48,6 @@ export class VectorDB {
         title TEXT NOT NULL,
         content TEXT NOT NULL,
         url TEXT,
-        embedding BLOB,
         created_at TEXT DEFAULT (datetime('now'))
       );
 
@@ -61,18 +62,20 @@ export class VectorDB {
         content,
         tokenize='porter unicode61'
       );
+
+      CREATE VIRTUAL TABLE IF NOT EXISTS doc_chunks_vec USING vec0(
+        id text primary key,
+        embedding float[${config.embeddingsDimensions}] distance_metric=cosine
+      );
     `);
   }
 
   upsertChunk(chunk: DocChunk) {
-    const embeddingBlob = chunk.embedding
-      ? Buffer.from(new Float32Array(chunk.embedding).buffer)
-      : null;
-
+    // Main table
     this.db
       .prepare(
-        `INSERT OR REPLACE INTO doc_chunks (id, source, category, path, title, content, url, embedding)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT OR REPLACE INTO doc_chunks (id, source, category, path, title, content, url)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
       )
       .run(
         chunk.id,
@@ -81,11 +84,10 @@ export class VectorDB {
         chunk.path,
         chunk.title,
         chunk.content,
-        chunk.url || null,
-        embeddingBlob
+        chunk.url || null
       );
 
-    // Update FTS index
+    // FTS index
     this.db
       .prepare(`DELETE FROM doc_chunks_fts WHERE id = ?`)
       .run(chunk.id);
@@ -95,6 +97,16 @@ export class VectorDB {
        VALUES (?, ?, ?, ?, ?)`
       )
       .run(chunk.id, chunk.source, chunk.category, chunk.title, chunk.content);
+
+    // Vector index
+    if (chunk.embedding) {
+      this.db
+        .prepare(`DELETE FROM doc_chunks_vec WHERE id = ?`)
+        .run(chunk.id);
+      this.db
+        .prepare(`INSERT INTO doc_chunks_vec (id, embedding) VALUES (?, ?)`)
+        .run(chunk.id, new Float32Array(chunk.embedding));
+    }
   }
 
   upsertChunks(chunks: DocChunk[]) {
@@ -134,60 +146,30 @@ export class VectorDB {
     limit: number = 10,
     category?: string
   ): SearchResult[] {
-    // Cosine similarity via manual computation
-    // For production, consider sqlite-vss or pgvector
     const queryBuf = new Float32Array(queryEmbedding);
 
-    let rows: Array<{
-      id: string;
-      source: string;
-      category: string;
-      path: string;
-      title: string;
-      content: string;
-      url: string | null;
-      embedding: Buffer;
-    }>;
+    // sqlite-vec returns distance (0 = identical, 2 = opposite for cosine)
+    // Convert to similarity score: 1 - (distance / 2)
+    // Over-fetch when filtering by category since k is applied before the JOIN
+    const fetchK = category ? limit * 4 : limit;
+
+    const rows = this.db
+      .prepare(
+        `SELECT
+          v.id, d.source, d.category, d.path, d.title, d.content, d.url,
+          (1.0 - v.distance / 2.0) as score
+        FROM doc_chunks_vec v
+        JOIN doc_chunks d ON d.id = v.id
+        WHERE v.embedding MATCH ?
+          AND k = ?
+        ORDER BY v.distance`
+      )
+      .all(queryBuf, fetchK) as SearchResult[];
 
     if (category) {
-      rows = this.db
-        .prepare(
-          `SELECT id, source, category, path, title, content, url, embedding
-           FROM doc_chunks WHERE embedding IS NOT NULL AND category = ?`
-        )
-        .all(category) as typeof rows;
-    } else {
-      rows = this.db
-        .prepare(
-          `SELECT id, source, category, path, title, content, url, embedding
-           FROM doc_chunks WHERE embedding IS NOT NULL`
-        )
-        .all() as typeof rows;
+      return rows.filter((r) => r.category === category).slice(0, limit);
     }
-
-    const scored = rows
-      .map((row) => {
-        const stored = new Float32Array(
-          row.embedding.buffer,
-          row.embedding.byteOffset,
-          row.embedding.byteLength / 4
-        );
-        const score = cosineSimilarity(queryBuf, stored);
-        return {
-          id: row.id,
-          source: row.source,
-          category: row.category,
-          path: row.path,
-          title: row.title,
-          content: row.content,
-          url: row.url || undefined,
-          score,
-        };
-      })
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit);
-
-    return scored;
+    return rows;
   }
 
   getDoc(id: string): DocChunk | null {
@@ -240,6 +222,7 @@ export class VectorDB {
         .all(source) as Array<{ id: string }>;
       for (const { id } of ids) {
         this.db.prepare(`DELETE FROM doc_chunks_fts WHERE id = ?`).run(id);
+        this.db.prepare(`DELETE FROM doc_chunks_vec WHERE id = ?`).run(id);
       }
       this.db.prepare(`DELETE FROM doc_chunks WHERE source = ?`).run(source);
     })();
@@ -257,17 +240,4 @@ export class VectorDB {
   close() {
     this.db.close();
   }
-}
-
-function cosineSimilarity(a: Float32Array, b: Float32Array): number {
-  let dot = 0;
-  let normA = 0;
-  let normB = 0;
-  for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i];
-    normA += a[i] * a[i];
-    normB += b[i] * b[i];
-  }
-  const denom = Math.sqrt(normA) * Math.sqrt(normB);
-  return denom === 0 ? 0 : dot / denom;
 }
