@@ -29,11 +29,16 @@ export interface SearchResult {
 export class VectorDB {
   private db: Database.Database;
 
-  constructor(dbPath: string = config.dbPath) {
-    mkdirSync(dirname(dbPath), { recursive: true });
-    this.db = new Database(dbPath);
+  constructor(dbPath: string = config.dbPath, readOnly?: boolean) {
+    const isReadOnly = readOnly ?? config.dbReadOnly;
+    if (!isReadOnly) {
+      mkdirSync(dirname(dbPath), { recursive: true });
+    }
+    this.db = new Database(dbPath, { readonly: isReadOnly });
     sqliteVec.load(this.db);
-    this.init();
+    if (!isReadOnly) {
+      this.init();
+    }
   }
 
   private init() {
