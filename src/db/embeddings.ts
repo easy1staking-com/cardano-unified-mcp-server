@@ -1,23 +1,51 @@
 import { config } from "../config/env.js";
 
-function fuzzKey(key: string): string {
-  if (!key || key.length < 8) return "***";
-  return `${key.slice(0, 5)}...${key.slice(-4)}`;
+const LOG_LEVEL = process.env.EMBEDDINGS_LOG_LEVEL || "info"; // "debug" | "info" | "error"
+
+// ---------------------------------------------------------------------------
+// LRU cache for query embeddings — avoids redundant OpenAI calls
+// ---------------------------------------------------------------------------
+
+const CACHE_MAX = parseInt(process.env.EMBEDDINGS_CACHE_SIZE || "500", 10);
+
+const cache = new Map<string, number[]>();
+
+function cacheGet(key: string): number[] | undefined {
+  const val = cache.get(key);
+  if (val) {
+    // Move to end (most recently used)
+    cache.delete(key);
+    cache.set(key, val);
+  }
+  return val;
 }
 
-function logEmbeddingsConfig() {
-  const url = `${config.embeddingsApiBase}/embeddings`;
-  console.log(`  [embeddings] URL: ${url}`);
-  console.log(`  [embeddings] Model: ${config.embeddingsModel}`);
-  console.log(`  [embeddings] Dimensions: ${config.embeddingsDimensions}`);
-  console.log(`  [embeddings] API Key: ${fuzzKey(config.embeddingsApiKey)}`);
-  console.log(`  [embeddings] API Base: ${config.embeddingsApiBase}`);
+function cacheSet(key: string, val: number[]) {
+  if (cache.size >= CACHE_MAX) {
+    // Evict oldest (first entry)
+    const oldest = cache.keys().next().value!;
+    cache.delete(oldest);
+  }
+  cache.set(key, val);
+}
+
+function log(level: "debug" | "info" | "error", msg: string) {
+  const levels = { debug: 0, info: 1, error: 2 };
+  if (levels[level] >= levels[LOG_LEVEL as keyof typeof levels]) {
+    const fn = level === "error" ? console.error : console.log;
+    fn(msg);
+  }
 }
 
 export async function generateEmbedding(text: string): Promise<number[]> {
+  const cached = cacheGet(text);
+  if (cached) {
+    log("debug", `  [embeddings] Cache hit`);
+    return cached;
+  }
+
   const url = `${config.embeddingsApiBase}/embeddings`;
-  console.log(`  [embeddings] Single request → ${url}`);
-  console.log(`  [embeddings] Key: ${fuzzKey(config.embeddingsApiKey)}`);
+  log("debug", `  [embeddings] POST ${url}`);
 
   const response = await fetch(url, {
     method: "POST",
@@ -32,20 +60,18 @@ export async function generateEmbedding(text: string): Promise<number[]> {
     }),
   });
 
-  console.log(`  [embeddings] Response: ${response.status} ${response.statusText}`);
-  console.log(`  [embeddings] Response headers: content-type=${response.headers.get("content-type")}, x-request-id=${response.headers.get("x-request-id")}`);
-
   if (!response.ok) {
     const err = await response.text();
-    console.error(`  [embeddings] Error body: ${err}`);
+    log("error", `  [embeddings] Error ${response.status}: ${err}`);
     throw new Error(`Embeddings API error ${response.status}: ${err}`);
   }
 
   const data = (await response.json()) as {
     data: Array<{ embedding: number[] }>;
   };
-  console.log(`  [embeddings] Success — got ${data.data[0].embedding.length}-dim embedding`);
-  return data.data[0].embedding;
+  const embedding = data.data[0].embedding;
+  cacheSet(text, embedding);
+  return embedding;
 }
 
 export async function generateEmbeddingsBatch(
@@ -55,9 +81,7 @@ export async function generateEmbeddingsBatch(
   const results: number[][] = [];
   const totalBatches = Math.ceil(texts.length / batchSize);
 
-  console.log(`\n  [embeddings] === Batch embedding config ===`);
-  logEmbeddingsConfig();
-  console.log(`  [embeddings] Total texts: ${texts.length}, batch size: ${batchSize}, batches: ${totalBatches}`);
+  log("info", `  [embeddings] Generating ${texts.length} embeddings (${totalBatches} batches, model: ${config.embeddingsModel})`);
 
   for (let i = 0; i < texts.length; i += batchSize) {
     const batch = texts.slice(i, i + batchSize);
@@ -68,7 +92,7 @@ export async function generateEmbeddingsBatch(
 
     while (true) {
       const url = `${config.embeddingsApiBase}/embeddings`;
-      console.log(`\n  [embeddings] Batch ${batchNum}/${totalBatches} — POST ${url} (${batch.length} texts)`);
+      log("debug", `  [embeddings] Batch ${batchNum}/${totalBatches} (${batch.length} texts)`);
 
       const response = await fetch(url, {
         method: "POST",
@@ -83,17 +107,12 @@ export async function generateEmbeddingsBatch(
         }),
       });
 
-      console.log(`  [embeddings] Response: ${response.status} ${response.statusText}`);
-      console.log(`  [embeddings] Headers: content-type=${response.headers.get("content-type")}, x-request-id=${response.headers.get("x-request-id")}, x-ratelimit-remaining-requests=${response.headers.get("x-ratelimit-remaining-requests")}, x-ratelimit-remaining-tokens=${response.headers.get("x-ratelimit-remaining-tokens")}, x-ratelimit-reset-requests=${response.headers.get("x-ratelimit-reset-requests")}`);
-
       if (response.status === 429) {
         const errBody = await response.text();
-        console.warn(`  [embeddings] 429 body: ${errBody}`);
-
         if (retries < maxRetries) {
           retries++;
           const backoff = Math.min(2 ** retries * 1000, 60000);
-          console.log(`  [embeddings] Rate limited, retrying in ${backoff / 1000}s (attempt ${retries}/${maxRetries})...`);
+          log("info", `  [embeddings] Rate limited, retry ${retries}/${maxRetries} in ${backoff / 1000}s`);
           await new Promise((r) => setTimeout(r, backoff));
           continue;
         }
@@ -102,7 +121,7 @@ export async function generateEmbeddingsBatch(
 
       if (!response.ok) {
         const err = await response.text();
-        console.error(`  [embeddings] Error body: ${err}`);
+        log("error", `  [embeddings] Error ${response.status}: ${err}`);
         throw new Error(`Embeddings API error ${response.status}: ${err}`);
       }
 
@@ -110,19 +129,17 @@ export async function generateEmbeddingsBatch(
         data: Array<{ embedding: number[]; index: number }>;
       };
 
-      // Sort by index to maintain order
       const sorted = data.data.sort((a, b) => a.index - b.index);
       results.push(...sorted.map((d) => d.embedding));
-      console.log(`  [embeddings] Batch ${batchNum}/${totalBatches} done (${results.length}/${texts.length} embeddings)`);
+      log("info", `  [embeddings] Batch ${batchNum}/${totalBatches} done (${results.length}/${texts.length})`);
       break;
     }
 
     if (i + batchSize < texts.length) {
-      // Delay between batches to respect rate limits
       await new Promise((r) => setTimeout(r, 500));
     }
   }
 
-  console.log(`\n  [embeddings] === All done: ${results.length} embeddings generated ===`);
+  log("info", `  [embeddings] Done: ${results.length} embeddings generated`);
   return results;
 }
