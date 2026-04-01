@@ -46,7 +46,8 @@ export const DOC_SOURCES: DocSource[] = [
     formatOverrides: { "**/*.yaml": "openapi", "**/*.yml": "openapi" },
     category: "infrastructure",
     priority: "high",
-    globPatterns: ["README.md", "docs/api/**/*.yaml", "docs/api/**/*.yml"],
+    // Only ingest latest version to avoid duplicate endpoint chunks
+    globPatterns: ["README.md", "docs/api/nightly.yaml"],
   },
   {
     name: "Blockfrost OpenAPI",
@@ -199,7 +200,7 @@ export const DOC_SOURCES: DocSource[] = [
     docsPath: ".",
     format: "markdown",
     category: "smart-contracts",
-    priority: "high",
+    priority: "medium",
     globPatterns: [
       "README.md",
       "RFI-REVIEW-SUMMARY.md",
@@ -282,10 +283,11 @@ export const DOC_SOURCES: DocSource[] = [
   {
     name: "Yaci DevKit",
     repo: "https://github.com/bloxbean/yaci-devkit.git",
-    docsPath: "docs",
-    format: "markdown",
+    docsPath: "docs/pages",
+    format: "mdx",
     category: "testing",
     priority: "high",
+    globPatterns: ["**/*.mdx", "**/*.md"],
   },
   {
     name: "Plutip",

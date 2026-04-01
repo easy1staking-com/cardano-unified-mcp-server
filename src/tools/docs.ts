@@ -246,10 +246,18 @@ export function registerDocTools(server: McpServer, db: VectorDB) {
 }
 
 function buildFtsQuery(query: string): string {
-  return query
+  const words = query
     .replace(/[^\w\s]/g, " ")
     .split(/\s+/)
-    .filter((w) => w.length > 2)
-    .map((w) => `"${w}"`)
-    .join(" OR ");
+    .filter((w) => w.length > 2);
+
+  if (words.length === 0) return query;
+  if (words.length === 1) return `"${words[0]}"`;
+
+  // Build a query that rewards docs matching multiple terms:
+  // NEAR groups co-located words (within 10 tokens), plus individual OR fallback.
+  // FTS5 ranks NEAR matches higher than scattered individual matches.
+  const nearGroup = `NEAR(${words.map((w) => `"${w}"`).join(" ")}, 10)`;
+  const orFallback = words.map((w) => `"${w}"`).join(" OR ");
+  return `(${nearGroup}) OR (${orFallback})`;
 }

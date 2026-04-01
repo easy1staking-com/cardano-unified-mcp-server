@@ -61,7 +61,7 @@ export class VectorDB {
 
       CREATE VIRTUAL TABLE IF NOT EXISTS doc_chunks_fts USING fts5(
         id UNINDEXED,
-        source UNINDEXED,
+        source,
         category,
         title,
         content,
@@ -131,15 +131,16 @@ export class VectorDB {
       params.splice(1, 0, category);
     }
 
+    // bm25 weights: source=20, category=1, title=8, content=1
     const stmt = this.db.prepare(`
       SELECT
         f.id, d.source, d.category, d.path, d.title, d.content, d.url,
-        rank * -1 as score
+        bm25(doc_chunks_fts, 20.0, 1.0, 8.0, 1.0) * -1 as score
       FROM doc_chunks_fts f
       JOIN doc_chunks d ON d.id = f.id
       WHERE doc_chunks_fts MATCH ?
       ${categoryFilter}
-      ORDER BY rank
+      ORDER BY bm25(doc_chunks_fts, 20.0, 1.0, 8.0, 1.0)
       LIMIT ?
     `);
 
