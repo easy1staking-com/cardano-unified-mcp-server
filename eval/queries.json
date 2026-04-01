@@ -1,0 +1,202 @@
+[
+  {
+    "id": "mesh-tx",
+    "query": "how to build a transaction with Mesh SDK",
+    "expectedSources": ["Mesh SDK"],
+    "category": null,
+    "mode": "hybrid",
+    "description": "Core SDK usage — transaction building"
+  },
+  {
+    "id": "aiken-validator",
+    "query": "Aiken validator example",
+    "expectedSources": ["Aiken", "Aiken Examples"],
+    "category": "smart-contracts",
+    "mode": "hybrid",
+    "description": "Smart contract example lookup"
+  },
+  {
+    "id": "cip30-wallet",
+    "query": "CIP-30 dApp wallet web bridge",
+    "expectedSources": ["CIPs"],
+    "category": "standards",
+    "mode": "hybrid",
+    "description": "Standard CIP lookup"
+  },
+  {
+    "id": "kupo-api",
+    "query": "Kupo REST API endpoints matches",
+    "expectedSources": ["Kupo"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "OpenAPI format — should return endpoint descriptions, not raw YAML"
+  },
+  {
+    "id": "mithril-signer",
+    "query": "Mithril signer node setup",
+    "expectedSources": ["Mithril"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "MDX source — should return real content, not import statements"
+  },
+  {
+    "id": "pycardano-tx",
+    "query": "PyCardano transaction building tutorial",
+    "expectedSources": ["PyCardano"],
+    "category": "sdk",
+    "mode": "hybrid",
+    "description": "RST format — should have proper section titles"
+  },
+  {
+    "id": "ogmios-websocket",
+    "query": "Ogmios WebSocket protocol chain sync",
+    "expectedSources": ["Ogmios"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "Core infrastructure docs"
+  },
+  {
+    "id": "blockfrost-api",
+    "query": "Blockfrost API address UTxO query",
+    "expectedSources": ["Blockfrost OpenAPI"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "OpenAPI format — endpoint extraction quality"
+  },
+  {
+    "id": "plutus-script",
+    "query": "Plutus smart contract script",
+    "expectedSources": ["Plutus"],
+    "category": "smart-contracts",
+    "mode": "hybrid",
+    "description": "Haskell SC language docs"
+  },
+  {
+    "id": "evolution-sdk",
+    "query": "Evolution SDK Effect transaction builder",
+    "expectedSources": ["Evolution SDK"],
+    "category": "sdk",
+    "mode": "hybrid",
+    "description": "MDX format — newer SDK docs"
+  },
+  {
+    "id": "cip68-datum",
+    "query": "CIP-68 datum metadata standard NFT",
+    "expectedSources": ["CIPs"],
+    "category": "standards",
+    "mode": "hybrid",
+    "description": "Common CIP lookup"
+  },
+  {
+    "id": "aiken-stdlib-list",
+    "query": "Aiken stdlib list functions map filter",
+    "expectedSources": ["Aiken Stdlib"],
+    "category": "smart-contracts",
+    "mode": "hybrid",
+    "description": "Aiken .ak format — should split on function boundaries"
+  },
+  {
+    "id": "lucid-evolution-tx",
+    "query": "Lucid Evolution build sign submit transaction",
+    "expectedSources": ["Lucid Evolution", "Lucid Evolution Packages"],
+    "category": "sdk",
+    "mode": "hybrid",
+    "description": "MDX format SDK docs"
+  },
+  {
+    "id": "cardano-cli-query",
+    "query": "cardano-cli query utxo tip protocol-parameters",
+    "expectedSources": ["Cardano Node Wiki", "Developer Portal"],
+    "category": null,
+    "mode": "hybrid",
+    "description": "CLI usage across multiple sources"
+  },
+  {
+    "id": "hydra-head",
+    "query": "Hydra head protocol state channel",
+    "expectedSources": ["Hydra"],
+    "category": "scaling",
+    "mode": "hybrid",
+    "description": "Scaling/L2 docs — new category"
+  },
+  {
+    "id": "govtool-drep",
+    "query": "GovTool DRep registration delegation voting",
+    "expectedSources": ["GovTool", "SanchoNet"],
+    "category": "governance",
+    "mode": "hybrid",
+    "description": "Governance docs — new category"
+  },
+  {
+    "id": "yaci-devkit-local",
+    "query": "Yaci DevKit local devnet setup",
+    "expectedSources": ["Yaci DevKit"],
+    "category": "testing",
+    "mode": "hybrid",
+    "description": "Testing category — recategorized source"
+  },
+  {
+    "id": "cip1694-governance",
+    "query": "CIP-1694 Voltaire governance DRep SPO constitutional committee",
+    "expectedSources": ["CIPs"],
+    "category": "standards",
+    "mode": "hybrid",
+    "description": "High-value governance CIP"
+  },
+  {
+    "id": "opshin-python",
+    "query": "OpShin Python smart contract on Cardano",
+    "expectedSources": ["OpShin"],
+    "category": "smart-contracts",
+    "mode": "hybrid",
+    "description": "Alternative SC language"
+  },
+  {
+    "id": "cardano-js-sdk",
+    "query": "cardano-js-sdk getting started provider",
+    "expectedSources": ["cardano-js-sdk"],
+    "category": "sdk",
+    "mode": "hybrid",
+    "description": "TypeScript SDK"
+  },
+  {
+    "id": "oura-pipeline",
+    "query": "Oura pipeline event streaming sink",
+    "expectedSources": ["Oura"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "Event streaming infrastructure"
+  },
+  {
+    "id": "cip113-programmable",
+    "query": "CIP-113 programmable tokens standard",
+    "expectedSources": ["CIP-113 Programmable Tokens", "CIPs"],
+    "category": "smart-contracts",
+    "mode": "hybrid",
+    "description": "New token standard"
+  },
+  {
+    "id": "keyword-only-aiken",
+    "query": "Aiken hello world validator",
+    "expectedSources": ["Aiken", "Aiken Examples"],
+    "category": null,
+    "mode": "keyword",
+    "description": "Keyword-only search — no embeddings"
+  },
+  {
+    "id": "semantic-only-mesh",
+    "query": "how do I connect a wallet to my dApp",
+    "expectedSources": ["Mesh SDK", "Developer Portal"],
+    "category": null,
+    "mode": "semantic",
+    "description": "Semantic search — natural language, no exact keywords"
+  },
+  {
+    "id": "db-sync-schema",
+    "query": "DB-Sync PostgreSQL schema tables",
+    "expectedSources": ["DB-Sync"],
+    "category": "infrastructure",
+    "mode": "hybrid",
+    "description": "Low-priority source, still should return results"
+  }
+]

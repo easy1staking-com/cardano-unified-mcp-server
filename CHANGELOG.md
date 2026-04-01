@@ -15,8 +15,9 @@ All notable changes to the Cardano Unified MCP Server are documented here.
 - **stdio transport** — Run with `--stdio` for local use with Claude Desktop, Claude Code, Cursor
 - **New source categories** — `governance`, `scaling`, `testing` alongside existing `infrastructure`, `smart-contracts`, `sdk`, `standards`
 - **9 new documentation sources** — GovTool, SanchoNet, Intersect Docs, Hydra, Ouroboros Leios, Dolos, Yaci Store, Plutip. Yaci DevKit recategorized from sdk to testing.
+- **Evaluation harness** (`eval/`) — 25 golden queries with snapshot/compare workflow. `npm run eval:snapshot` to baseline, `npm run eval -- --compare <file>` to detect regressions. Exits with code 1 on quality regression for CI use.
 - `ECOSYSTEM.md` — Comprehensive Cardano developer tooling landscape
-- `CONTRIBUTING.md` and `CODE_OF_CONDUCT.md`
+- `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `CHANGELOG.md`
 
 ### Fixed
 - **Source filter bug** — `search_docs` source filter was applied after the limit, potentially returning 0 results. Now filters before limiting.

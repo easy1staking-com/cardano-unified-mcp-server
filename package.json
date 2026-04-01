@@ -9,7 +9,10 @@
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "ingest": "tsx src/ingest/cli.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "eval": "tsx eval/run.ts",
+    "eval:snapshot": "tsx eval/run.ts --snapshot",
+    "eval:keyword": "tsx eval/run.ts --keyword-only"
   },
   "keywords": [
     "cardano",
