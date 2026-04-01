@@ -25,7 +25,7 @@
   },
   {
     "id": "kupo-api",
-    "query": "Kupo REST API endpoints matches",
+    "query": "Kupo chain index matches endpoint GET",
     "expectedSources": ["Kupo"],
     "category": "infrastructure",
     "mode": "hybrid",
@@ -57,7 +57,7 @@
   },
   {
     "id": "blockfrost-api",
-    "query": "Blockfrost API address UTxO query",
+    "query": "Blockfrost address UTxO balance lookup",
     "expectedSources": ["Blockfrost OpenAPI"],
     "category": "infrastructure",
     "mode": "hybrid",
@@ -90,15 +90,15 @@
   {
     "id": "aiken-stdlib-list",
     "query": "Aiken stdlib list functions map filter",
-    "expectedSources": ["Aiken Stdlib"],
+    "expectedSources": ["Aiken Stdlib", "Aiken"],
     "category": "smart-contracts",
     "mode": "hybrid",
     "description": "Aiken .ak format — should split on function boundaries"
   },
   {
-    "id": "lucid-evolution-tx",
-    "query": "Lucid Evolution build sign submit transaction",
-    "expectedSources": ["Lucid Evolution", "Lucid Evolution Packages"],
+    "id": "evolution-sdk-tx",
+    "query": "Evolution SDK build sign submit transaction",
+    "expectedSources": ["Evolution SDK", "Evolution SDK Packages"],
     "category": "sdk",
     "mode": "hybrid",
     "description": "MDX format SDK docs"
@@ -130,7 +130,7 @@
   {
     "id": "yaci-devkit-local",
     "query": "Yaci DevKit local devnet setup",
-    "expectedSources": ["Yaci DevKit"],
+    "expectedSources": ["Yaci DevKit", "Plutip"],
     "category": "testing",
     "mode": "hybrid",
     "description": "Testing category — recategorized source"
@@ -186,7 +186,7 @@
   {
     "id": "semantic-only-mesh",
     "query": "how do I connect a wallet to my dApp",
-    "expectedSources": ["Mesh SDK", "Developer Portal"],
+    "expectedSources": ["Mesh SDK", "Developer Portal", "CIPs"],
     "category": null,
     "mode": "semantic",
     "description": "Semantic search — natural language, no exact keywords"
