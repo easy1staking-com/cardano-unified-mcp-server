@@ -1,0 +1,679 @@
+{
+  "version": "0.2.0",
+  "tag": "v0.1.0-baseline",
+  "timestamp": "2026-04-01T11:19:51.656Z",
+  "dbStats": {
+    "total_chunks": 92,
+    "sources": 1,
+    "categories": 1
+  },
+  "queries": [
+    {
+      "queryId": "mesh-tx",
+      "query": "how to build a transaction with Mesh SDK",
+      "mode": "hybrid",
+      "category": null,
+      "expectedSources": [
+        "Mesh SDK"
+      ],
+      "results": [
+        {
+          "id": "59f58a894164521d",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (7/28)",
+          "score": 4.566,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "ad7b66180311b73d",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (7/26)",
+          "score": 4.558,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "f8b12f8c7ad6551c",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (7/26)",
+          "score": 4.558,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "aa197b7455059d8b",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (6/28)",
+          "score": 4.06,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "77a8df744d519b42",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (6/26)",
+          "score": 4.051,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.649Z"
+    },
+    {
+      "queryId": "aiken-validator",
+      "query": "Aiken validator example",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Aiken",
+        "Aiken Examples"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.650Z"
+    },
+    {
+      "queryId": "cip30-wallet",
+      "query": "CIP-30 dApp wallet web bridge",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.650Z"
+    },
+    {
+      "queryId": "kupo-api",
+      "query": "Kupo REST API endpoints matches",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Kupo"
+      ],
+      "results": [
+        {
+          "id": "265fe96b2081d364",
+          "source": "Kupo",
+          "title": "SEE ALSO",
+          "score": 2.773,
+          "contentPreview": "# SEE ALSO Online documentation and API reference: <https://cardanosolutions.github.io/kupo/>"
+        },
+        {
+          "id": "aa197b7455059d8b",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (6/28)",
+          "score": 2.748,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "77a8df744d519b42",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (6/26)",
+          "score": 2.742,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "e7c5ca94dc99e2d4",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (6/26)",
+          "score": 2.742,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "86a1e5383b0bf7cc",
+          "source": "Kupo",
+          "title": "EXAMPLES",
+          "score": 2.489,
+          "contentPreview": "# EXAMPLES **kupo**\\   --node-socket /tmp/node.socket \\   --node-config /usr/share/cardano/network/mainnet/cardano-node/config.json \\   --workdir $HOME/.cache/kupo \\   --match * \\   --defer-db-indexes"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-01T11:19:51.651Z"
+    },
+    {
+      "queryId": "mithril-signer",
+      "query": "Mithril signer node setup",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Mithril"
+      ],
+      "results": [
+        {
+          "id": "7bf871e0cd73a6fc",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (2/28)",
+          "score": 2.16,
+          "contentPreview": "ardano-node`, one can start a Kupo server as     follows:      ```console     $ kupo \\       --node-socket some-folder/cardano-node/node.socket \\       --node-config some-folder/cardano-node/config.js"
+        },
+        {
+          "id": "92362eac0b09d44e",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (2/26)",
+          "score": 2.159,
+          "contentPreview": "ardano-node`, one can start a Kupo server as     follows:      ```console     $ kupo \\       --node-socket some-folder/cardano-node/node.socket \\       --node-config some-folder/cardano-node/config.js"
+        },
+        {
+          "id": "361eabfdb0e2e514",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (2/26)",
+          "score": 2.159,
+          "contentPreview": "ardano-node`, one can start a Kupo server as     follows:      ```console     $ kupo \\       --node-socket some-folder/cardano-node/node.socket \\       --node-config some-folder/cardano-node/config.js"
+        },
+        {
+          "id": "86a1e5383b0bf7cc",
+          "source": "Kupo",
+          "title": "EXAMPLES",
+          "score": 2.124,
+          "contentPreview": "# EXAMPLES **kupo**\\   --node-socket /tmp/node.socket \\   --node-config /usr/share/cardano/network/mainnet/cardano-node/config.json \\   --workdir $HOME/.cache/kupo \\   --match * \\   --defer-db-indexes"
+        },
+        {
+          "id": "79e8d3d4d18c4bdd",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (1/26)",
+          "score": 2.068,
+          "contentPreview": "openapi: 3.0.0  servers:   - url: http://localhost:1442/  info:   title: Kupo   version: v2.10.0   license:     name: MPL-2.0     url: https://raw.githubusercontent.com/cardanosolutions/kupo/master/LI"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.651Z"
+    },
+    {
+      "queryId": "pycardano-tx",
+      "query": "PyCardano transaction building tutorial",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "PyCardano"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.651Z"
+    },
+    {
+      "queryId": "ogmios-websocket",
+      "query": "Ogmios WebSocket protocol chain sync",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Ogmios"
+      ],
+      "results": [
+        {
+          "id": "5b5ffeaf0709050d",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (3/28)",
+          "score": 7.15,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "62348a1d1e02f995",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (3/26)",
+          "score": 7.143,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "39ce6dc1fed32a6f",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (3/26)",
+          "score": 7.143,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "69c153dea721e15c",
+          "source": "Kupo",
+          "title": "OPTIONS (1/2)",
+          "score": 7.02,
+          "contentPreview": "# OPTIONS **--node-socket** :   Path to the Cardano node domain socket file.      (**NOTE**: Unused when connecting to Ogmios or Hydra)  **--node-config** :   Path to the Cardano node configuration fi"
+        },
+        {
+          "id": "86a1e5383b0bf7cc",
+          "source": "Kupo",
+          "title": "EXAMPLES",
+          "score": 4.107,
+          "contentPreview": "# EXAMPLES **kupo**\\   --node-socket /tmp/node.socket \\   --node-config /usr/share/cardano/network/mainnet/cardano-node/config.json \\   --workdir $HOME/.cache/kupo \\   --match * \\   --defer-db-indexes"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.652Z"
+    },
+    {
+      "queryId": "blockfrost-api",
+      "query": "Blockfrost API address UTxO query",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Blockfrost OpenAPI"
+      ],
+      "results": [
+        {
+          "id": "86a1e5383b0bf7cc",
+          "source": "Kupo",
+          "title": "EXAMPLES",
+          "score": 4.542,
+          "contentPreview": "# EXAMPLES **kupo**\\   --node-socket /tmp/node.socket \\   --node-config /usr/share/cardano/network/mainnet/cardano-node/config.json \\   --workdir $HOME/.cache/kupo \\   --match * \\   --defer-db-indexes"
+        },
+        {
+          "id": "5b5ffeaf0709050d",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (3/28)",
+          "score": 3.848,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "62348a1d1e02f995",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (3/26)",
+          "score": 3.843,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "39ce6dc1fed32a6f",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (3/26)",
+          "score": 3.843,
+          "contentPreview": "und. This is a little trick to speed up the     initial indexer synchronization. Indeed, when synchronizing over large chunks     of the chain, Kupo needs to ingest and filter a lot of data. Later, to"
+        },
+        {
+          "id": "265fe96b2081d364",
+          "source": "Kupo",
+          "title": "SEE ALSO",
+          "score": 2.773,
+          "contentPreview": "# SEE ALSO Online documentation and API reference: <https://cardanosolutions.github.io/kupo/>"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.652Z"
+    },
+    {
+      "queryId": "plutus-script",
+      "query": "Plutus smart contract script",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Plutus"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.652Z"
+    },
+    {
+      "queryId": "evolution-sdk",
+      "query": "Evolution SDK Effect transaction builder",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "Evolution SDK"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.653Z"
+    },
+    {
+      "queryId": "cip68-datum",
+      "query": "CIP-68 datum metadata standard NFT",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.653Z"
+    },
+    {
+      "queryId": "aiken-stdlib-list",
+      "query": "Aiken stdlib list functions map filter",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Aiken Stdlib"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.653Z"
+    },
+    {
+      "queryId": "lucid-evolution-tx",
+      "query": "Lucid Evolution build sign submit transaction",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "Lucid Evolution",
+        "Lucid Evolution Packages"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.653Z"
+    },
+    {
+      "queryId": "cardano-cli-query",
+      "query": "cardano-cli query utxo tip protocol-parameters",
+      "mode": "hybrid",
+      "category": null,
+      "expectedSources": [
+        "Cardano Node Wiki",
+        "Developer Portal"
+      ],
+      "results": [
+        {
+          "id": "59f58a894164521d",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (7/28)",
+          "score": 5.808,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "ad7b66180311b73d",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (7/26)",
+          "score": 5.797,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "f8b12f8c7ad6551c",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (7/26)",
+          "score": 5.797,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "aa197b7455059d8b",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (6/28)",
+          "score": 4.493,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "77a8df744d519b42",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (6/26)",
+          "score": 4.486,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.654Z"
+    },
+    {
+      "queryId": "hydra-head",
+      "query": "Hydra head protocol state channel",
+      "mode": "hybrid",
+      "category": "scaling",
+      "expectedSources": [
+        "Hydra"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.654Z"
+    },
+    {
+      "queryId": "govtool-drep",
+      "query": "GovTool DRep registration delegation voting",
+      "mode": "hybrid",
+      "category": "governance",
+      "expectedSources": [
+        "GovTool",
+        "SanchoNet"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.654Z"
+    },
+    {
+      "queryId": "yaci-devkit-local",
+      "query": "Yaci DevKit local devnet setup",
+      "mode": "hybrid",
+      "category": "testing",
+      "expectedSources": [
+        "Yaci DevKit"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.654Z"
+    },
+    {
+      "queryId": "cip1694-governance",
+      "query": "CIP-1694 Voltaire governance DRep SPO constitutional committee",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.655Z"
+    },
+    {
+      "queryId": "opshin-python",
+      "query": "OpShin Python smart contract on Cardano",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "OpShin"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.655Z"
+    },
+    {
+      "queryId": "cardano-js-sdk",
+      "query": "cardano-js-sdk getting started provider",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "cardano-js-sdk"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.655Z"
+    },
+    {
+      "queryId": "oura-pipeline",
+      "query": "Oura pipeline event streaming sink",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Oura"
+      ],
+      "results": [
+        {
+          "id": "732f11fce6654498",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (23/28)",
+          "score": 3.996,
+          "contentPreview": "enerally quite fast but likely not suitable for fetching large batches of metadata.   - name: Patterns     description: |       Dynamically managing the server's configuration. Note that modifying pat"
+        },
+        {
+          "id": "afd98e2cce8ff054",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (21/26)",
+          "score": 3.827,
+          "contentPreview": "enerally quite fast but likely not suitable for fetching large batches of metadata.   - name: Patterns     description: |       Dynamically managing the server's configuration. Note that modifying pat"
+        },
+        {
+          "id": "24275ff73f49866b",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (21/26)",
+          "score": 3.827,
+          "contentPreview": "enerally quite fast but likely not suitable for fetching large batches of metadata.   - name: Patterns     description: |       Dynamically managing the server's configuration. Note that modifying pat"
+        },
+        {
+          "id": "bbe2af9ff40380df",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (24/28)",
+          "score": 2.908,
+          "contentPreview": "/matches/{pattern}:     get: &getMatches       operationId: getMatches       tags: [\"Matches\"]       summary: Get Matches (*)       description: |         Retrieve matches from the database matching t"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.655Z"
+    },
+    {
+      "queryId": "cip113-programmable",
+      "query": "CIP-113 programmable tokens standard",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "CIP-113 Programmable Tokens",
+        "CIPs"
+      ],
+      "results": [],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.655Z"
+    },
+    {
+      "queryId": "keyword-only-aiken",
+      "query": "Aiken hello world validator",
+      "mode": "keyword",
+      "category": null,
+      "expectedSources": [
+        "Aiken",
+        "Aiken Examples"
+      ],
+      "results": [
+        {
+          "id": "b9fd2c638c3cc72a",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (4/28)",
+          "score": 2.652,
+          "contentPreview": "Kupo can construct patterns from pretty much every constituant of an     address, an asset id or an output reference, in any kind of format     (bech32, base16, base58, you name it!).      It also acc"
+        },
+        {
+          "id": "ac064e69257e5ee5",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (4/26)",
+          "score": 2.644,
+          "contentPreview": "Kupo can construct patterns from pretty much every constituant of an     address, an asset id or an output reference, in any kind of format     (bech32, base16, base58, you name it!).      It also acc"
+        },
+        {
+          "id": "1858310c4fb7207b",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (4/26)",
+          "score": 2.644,
+          "contentPreview": "Kupo can construct patterns from pretty much every constituant of an     address, an asset id or an output reference, in any kind of format     (bech32, base16, base58, you name it!).      It also acc"
+        },
+        {
+          "id": "2358ec92a5cbb93d",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (24/26)",
+          "score": 2.128,
+          "contentPreview": "`y`.       parameters:         - $ref: \"#/components/parameters/pattern\"       responses:         200:           description: OK           Content-Type:             $ref: \"#/components/headers/Content"
+        },
+        {
+          "id": "64a574ad9cd4fd4a",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (24/26)",
+          "score": 2.128,
+          "contentPreview": "`y`.       parameters:         - $ref: \"#/components/parameters/pattern\"       responses:         200:           description: OK           Content-Type:             $ref: \"#/components/headers/Content"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.656Z"
+    },
+    {
+      "queryId": "semantic-only-mesh",
+      "query": "how do I connect a wallet to my dApp",
+      "mode": "semantic",
+      "category": null,
+      "expectedSources": [
+        "Mesh SDK",
+        "Developer Portal"
+      ],
+      "results": [
+        {
+          "id": "aa197b7455059d8b",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (6/28)",
+          "score": 3.706,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "77a8df744d519b42",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (6/26)",
+          "score": 3.698,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "e7c5ca94dc99e2d4",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (6/26)",
+          "score": 3.698,
+          "contentPreview": "ains any quantity of a specific asset |      ## Output reference      ```     OUTPUT_INDEX =                          TRANSACTION_ID =             ┏━━━━━━━━━━━┓                          ┏━━━━━━━━━━━┓ "
+        },
+        {
+          "id": "59f58a894164521d",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (7/28)",
+          "score": 3.104,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        },
+        {
+          "id": "ad7b66180311b73d",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (7/26)",
+          "score": 3.1,
+          "contentPreview": "ocol's security parameter,     defined in each network's genesis configuration. For example, on `mainnet`     and `preprod`, this security parameter equals `2160`; on `preview`, it     equals `432`. F"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.656Z"
+    },
+    {
+      "queryId": "db-sync-schema",
+      "query": "DB-Sync PostgreSQL schema tables",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "DB-Sync"
+      ],
+      "results": [
+        {
+          "id": "4b2252ed8766d725",
+          "source": "Kupo",
+          "title": "DESCRIPTION",
+          "score": 3.665,
+          "contentPreview": "# DESCRIPTION **Kupo** is fast, lightweight and configurable chain-index for the **Cardano** blockchain. **Kupo** synchronizes data from the blockchain according to <u>patterns</u> matching *addresses"
+        },
+        {
+          "id": "a60397a985434f68",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (26/26)",
+          "score": 2.599,
+          "contentPreview": "sponse codes:         - 200: when healthy         - 202: when connected to a chain producer but still syncing         - 503: when disconnected from a chain producer       responses:         200:      "
+        },
+        {
+          "id": "4ef3f08e7c2cc2bf",
+          "source": "Kupo",
+          "title": "V2.11.0.Yaml (22/26)",
+          "score": 2.449,
+          "contentPreview": "tion/json;charset=utf-8\":               schema:                 type: array                 items:                   $ref: \"#/components/schemas/Match\"         304:           $ref: \"#/components/respo"
+        },
+        {
+          "id": "94ea881f793d6e84",
+          "source": "Kupo",
+          "title": "V2.10.0.Yaml (22/26)",
+          "score": 2.449,
+          "contentPreview": "tion/json;charset=utf-8\":               schema:                 type: array                 items:                   $ref: \"#/components/schemas/Match\"         304:           $ref: \"#/components/respo"
+        },
+        {
+          "id": "f941210ec76605c0",
+          "source": "Kupo",
+          "title": "Nightly.Yaml (25/28)",
+          "score": 2.437,
+          "contentPreview": "hema:                 oneOf:                   - $ref: \"#/components/schemas/Datum\"                   - title: Nothing                     type: \"null\"         304:           $ref: \"#/components/respo"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-01T11:19:51.656Z"
+    }
+  ],
+  "summary": {
+    "total": 25,
+    "passed": 1,
+    "failed": 24,
+    "avgScore": 1.641,
+    "avgResultCount": 2
+  }
+}

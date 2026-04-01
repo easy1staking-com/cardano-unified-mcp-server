@@ -1,15 +1,19 @@
 import { execSync } from "child_process";
-import { existsSync, readFileSync, readdirSync, statSync } from "fs";
-import { join, relative, extname } from "path";
+import { existsSync, readFileSync, statSync } from "fs";
+import { join, extname } from "path";
 import { glob } from "glob";
 import { config } from "../config/env.js";
 import type { DocSource } from "../config/sources.js";
 import type { RawDoc } from "./chunker.js";
+import { resolveFormat } from "./formats/index.js";
 
-export async function fetchSource(source: DocSource): Promise<RawDoc[]> {
+/**
+ * Phase 1: Clone or pull a source repo. Returns the repo directory path.
+ * Does NOT read any files — just ensures the repo is up to date.
+ */
+export function cloneSource(source: DocSource): string {
   const repoDir = join(config.reposDir, sanitizeName(source.name));
 
-  // Clone or pull
   if (existsSync(join(repoDir, ".git"))) {
     console.log(`  Pulling ${source.name}...`);
     execSync("git pull --ff-only 2>/dev/null || true", {
@@ -25,6 +29,17 @@ export async function fetchSource(source: DocSource): Promise<RawDoc[]> {
     );
   }
 
+  return repoDir;
+}
+
+/**
+ * Phase 2: Read files from a cloned repo, resolve format per file,
+ * and return RawDocs with format attached.
+ */
+export async function readSourceFiles(
+  source: DocSource,
+  repoDir: string
+): Promise<RawDoc[]> {
   const docsDir = join(repoDir, source.docsPath);
   if (!existsSync(docsDir)) {
     console.warn(`  Warning: docs path not found: ${docsDir}`);
@@ -37,9 +52,12 @@ export async function fetchSource(source: DocSource): Promise<RawDoc[]> {
     mdx: ["**/*.md", "**/*.mdx"],
     rst: ["**/*.rst"],
     openapi: ["**/*.yaml", "**/*.yml", "**/*.json"],
+    aiken: ["**/*.ak"],
+    toml: ["**/*.toml"],
   };
 
-  const patterns = source.globPatterns || defaultPatterns[source.format] || ["**/*.md"];
+  const patterns =
+    source.globPatterns || defaultPatterns[source.format] || ["**/*.md"];
   const files: string[] = [];
 
   for (const pattern of patterns) {
@@ -70,27 +88,25 @@ export async function fetchSource(source: DocSource): Promise<RawDoc[]> {
     try {
       const stat = statSync(fullPath);
       if (stat.size > 500_000) {
-        console.log(`  Skipping large file: ${file} (${(stat.size / 1024).toFixed(0)}KB)`);
+        console.log(
+          `  Skipping large file: ${file} (${(stat.size / 1024).toFixed(0)}KB)`
+        );
         continue;
       }
 
-      let content = readFileSync(fullPath, "utf-8");
-
-      // Strip frontmatter
-      content = stripFrontmatter(content);
-
-      // Strip MDX/JSX components (keep text content)
-      if (extname(file) === ".mdx") {
-        content = stripMDX(content);
-      }
+      const content = readFileSync(fullPath, "utf-8");
 
       if (content.trim().length < 100) continue;
+
+      // Resolve format for this specific file
+      const format = resolveFormat(file, source);
 
       docs.push({
         source: source.name,
         category: source.category,
         path: file,
         content,
+        format,
         url: buildUrl(source.repo, source.docsPath, file),
       });
     } catch (err) {
@@ -98,7 +114,7 @@ export async function fetchSource(source: DocSource): Promise<RawDoc[]> {
     }
   }
 
-  console.log(`  Extracted ${docs.length} docs from ${source.name}`);
+  console.log(`  Read ${docs.length} files from ${source.name}`);
   return docs;
 }
 
@@ -106,34 +122,7 @@ function sanitizeName(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 }
 
-function stripFrontmatter(content: string): string {
-  if (content.startsWith("---")) {
-    const end = content.indexOf("---", 3);
-    if (end !== -1) {
-      return content.slice(end + 3).trim();
-    }
-  }
-  return content;
-}
-
-function stripMDX(content: string): string {
-  // Remove import statements
-  content = content.replace(/^import\s+.*$/gm, "");
-  // Remove export statements (but keep default export content)
-  content = content.replace(/^export\s+(default\s+)?/gm, "");
-  // Remove JSX self-closing tags
-  content = content.replace(/<[A-Z][a-zA-Z]*\s*[^>]*\/>/g, "");
-  // Remove JSX opening/closing tags but keep children
-  content = content.replace(/<\/?[A-Z][a-zA-Z]*[^>]*>/g, "");
-  // Remove {expressions} but keep simple string content
-  content = content.replace(/\{`([^`]*)`\}/g, "$1");
-  return content;
-}
-
 function buildUrl(repo: string, docsPath: string, file: string): string {
-  // Convert git URL to GitHub raw URL
-  const base = repo
-    .replace(/\.git$/, "")
-    .replace("https://github.com/", "https://github.com/");
+  const base = repo.replace(/\.git$/, "");
   return `${base}/blob/main/${docsPath}/${file}`;
 }

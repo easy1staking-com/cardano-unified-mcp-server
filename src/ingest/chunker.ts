@@ -1,10 +1,20 @@
 import { createHash } from "crypto";
+import type { DocFormat } from "../config/sources.js";
+import { getFormatHandler } from "./formats/index.js";
+
+// Ensure all format handlers are registered
+import "./formats/markdown.js";
+import "./formats/rst.js";
+import "./formats/openapi.js";
+import "./formats/aiken.js";
+import "./formats/toml.js";
 
 export interface RawDoc {
   source: string;
   category: string;
   path: string;
   content: string;
+  format: DocFormat;
   url?: string;
 }
 
@@ -26,7 +36,13 @@ export function chunkDocuments(docs: RawDoc[]): Chunk[] {
   const chunks: Chunk[] = [];
 
   for (const doc of docs) {
-    const sections = splitBySections(doc.content);
+    const handler = getFormatHandler(doc.format);
+
+    // Format-specific preprocessing
+    const processed = handler.preprocess(doc.content);
+
+    // Format-specific section splitting
+    const sections = handler.splitSections(processed);
 
     for (const section of sections) {
       const title = section.title || extractTitle(doc.path);
@@ -50,7 +66,10 @@ export function chunkDocuments(docs: RawDoc[]): Chunk[] {
           source: doc.source,
           category: doc.category,
           path: doc.path,
-          title: textChunks.length > 1 ? `${title} (${i + 1}/${textChunks.length})` : title,
+          title:
+            textChunks.length > 1
+              ? `${title} (${i + 1}/${textChunks.length})`
+              : title,
           content: chunkContent,
           url: doc.url,
         });
@@ -59,48 +78,6 @@ export function chunkDocuments(docs: RawDoc[]): Chunk[] {
   }
 
   return chunks;
-}
-
-interface Section {
-  title: string;
-  content: string;
-}
-
-function splitBySections(content: string): Section[] {
-  const lines = content.split("\n");
-  const sections: Section[] = [];
-  let currentTitle = "";
-  let currentContent: string[] = [];
-
-  for (const line of lines) {
-    const headerMatch = line.match(/^(#{1,3})\s+(.+)/);
-    if (headerMatch) {
-      if (currentContent.length > 0) {
-        sections.push({
-          title: currentTitle,
-          content: currentContent.join("\n"),
-        });
-      }
-      currentTitle = headerMatch[2].replace(/[*_`]/g, "").trim();
-      currentContent = [line];
-    } else {
-      currentContent.push(line);
-    }
-  }
-
-  if (currentContent.length > 0) {
-    sections.push({
-      title: currentTitle,
-      content: currentContent.join("\n"),
-    });
-  }
-
-  // If no sections found, return the whole doc as one section
-  if (sections.length === 0) {
-    return [{ title: "", content }];
-  }
-
-  return sections;
 }
 
 function splitBySize(
@@ -144,7 +121,7 @@ function splitBySize(
 function extractTitle(path: string): string {
   const parts = path.split("/");
   const filename = parts[parts.length - 1]
-    .replace(/\.(md|mdx|rst)$/, "")
+    .replace(/\.(md|mdx|rst|yaml|yml|json|ak|toml)$/, "")
     .replace(/README/i, parts.length > 1 ? parts[parts.length - 2] : "Overview")
     .replace(/[-_]/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
