@@ -13,5 +13,6 @@ export const config = {
   mcpApiKey: process.env.MCP_API_KEY || "",
 
   dbPath: resolve(process.env.DB_PATH || "./data/docs.db"),
+  dbReadOnly: process.env.DB_READ_ONLY === "true",
   reposDir: resolve(process.env.REPOS_DIR || "./repos"),
 };

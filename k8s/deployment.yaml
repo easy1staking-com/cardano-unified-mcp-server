@@ -35,6 +35,8 @@ spec:
                   name: cardano-mcp-secrets
                   key: mcp-api-key
                   optional: true
+            - name: DB_READ_ONLY
+              value: "true"
           volumeMounts:
             - name: data
               mountPath: /app/data
