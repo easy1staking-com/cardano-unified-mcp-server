@@ -1,16 +1,27 @@
+export type DocFormat =
+  | "markdown"
+  | "mdx"
+  | "rst"
+  | "openapi"
+  | "aiken"
+  | "toml";
+
+export type DocCategory =
+  | "infrastructure"
+  | "smart-contracts"
+  | "sdk"
+  | "standards"
+  | "governance"
+  | "scaling"
+  | "testing";
+
 export interface DocSource {
   name: string;
   repo: string;
   docsPath: string;
-  format: "markdown" | "mdx" | "rst" | "openapi";
-  category:
-    | "infrastructure"
-    | "smart-contracts"
-    | "sdk"
-    | "standards"
-    | "governance"
-    | "scaling"
-    | "testing";
+  format: DocFormat;
+  formatOverrides?: Record<string, DocFormat>;
+  category: DocCategory;
   priority: "high" | "medium" | "low";
   branch?: string;
   globPatterns?: string[];
@@ -32,6 +43,7 @@ export const DOC_SOURCES: DocSource[] = [
     repo: "https://github.com/CardanoSolutions/kupo.git",
     docsPath: ".",
     format: "markdown",
+    formatOverrides: { "**/*.yaml": "openapi", "**/*.yml": "openapi" },
     category: "infrastructure",
     priority: "high",
     globPatterns: ["README.md", "docs/api/**/*.yaml", "docs/api/**/*.yml"],
@@ -130,7 +142,7 @@ export const DOC_SOURCES: DocSource[] = [
     name: "Aiken Stdlib",
     repo: "https://github.com/aiken-lang/stdlib.git",
     docsPath: "lib",
-    format: "markdown",
+    format: "aiken",
     category: "smart-contracts",
     priority: "high",
     globPatterns: ["**/*.ak"],
@@ -139,7 +151,8 @@ export const DOC_SOURCES: DocSource[] = [
     name: "Aiken Examples",
     repo: "https://github.com/aiken-lang/aiken.git",
     docsPath: "examples",
-    format: "markdown",
+    format: "aiken",
+    formatOverrides: { "**/*.md": "markdown", "**/aiken.toml": "toml" },
     category: "smart-contracts",
     priority: "high",
     globPatterns: ["**/*.ak", "**/*.md", "**/aiken.toml"],
