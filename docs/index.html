@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cardano Unified MCP Server</title>
+  <meta name="description" content="Give your AI assistant deep knowledge of the Cardano ecosystem. 40+ documentation sources, 14 prompts, 3 tools, one MCP endpoint.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="logo">Cardano MCP</span>
+    <ul class="nav-links">
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#prompts">Prompts</a></li>
+      <li><a href="#get-started">Get Started</a></li>
+      <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="https://github.com/easy1staking-com/cardano-unified-mcp-server">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Cardano <span>Unified MCP</span> Server</h1>
+  <p class="tagline">Give your AI assistant deep knowledge of the Cardano ecosystem &mdash; documentation, SDKs, smart contract languages, governance, scaling, and standards, all searchable from a single endpoint.</p>
+  <div class="hosted">
+    mcp.easy1staking.com/mcp
+  </div>
+  <div class="cta-group">
+    <a href="#get-started" class="btn btn-primary">Get Started</a>
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server" class="btn btn-secondary">View on GitHub</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="number">40+</div>
+      <div class="label">Documentation Sources</div>
+    </div>
+    <div class="stat">
+      <div class="number">19,844</div>
+      <div class="label">Indexed Chunks</div>
+    </div>
+    <div class="stat">
+      <div class="number">7</div>
+      <div class="label">Categories</div>
+    </div>
+    <div class="stat">
+      <div class="number">170+</div>
+      <div class="label">CIPs Indexed</div>
+    </div>
+    <div class="stat">
+      <div class="number">14</div>
+      <div class="label">Built-in Prompts</div>
+    </div>
+  </div>
+</section>
+
+<!-- What's Inside -->
+<section id="ecosystem">
+  <h2>What's Inside</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Infrastructure</h3>
+      <p>Chain indexers, APIs, and data providers for building backends and querying the blockchain.</p>
+      <div class="sources">Ogmios, Kupo, Blockfrost, Mithril, Oura, Pallas, Dolos, Yaci Store, Koios, Cardano GraphQL, Cardano Wallet, Cardano Node Wiki, DB-Sync</div>
+    </div>
+    <div class="card">
+      <h3>Smart Contracts</h3>
+      <p>On-chain languages that compile to Plutus Core, with standard libraries, examples, and design patterns.</p>
+      <div class="sources">Aiken (lang + stdlib + examples + design patterns), Plutus, OpShin, Plutarch, Plu-ts, Scalus, Pebble, CIP-113 Programmable Tokens</div>
+    </div>
+    <div class="card">
+      <h3>SDKs &amp; Tx Builders</h3>
+      <p>Off-chain libraries for building, signing, and submitting transactions across multiple languages.</p>
+      <div class="sources">Mesh SDK, Evolution SDK, cardano-js-sdk, PyCardano, cardano-client-lib, Cardano Serialization Lib, Buildooor</div>
+    </div>
+    <div class="card">
+      <h3>Standards (CIPs)</h3>
+      <p>All 170+ Cardano Improvement Proposals indexed &mdash; NFT metadata, wallet bridges, governance, and more.</p>
+      <div class="sources">CIPs, Developer Portal, Cardano Docs</div>
+    </div>
+    <div class="card">
+      <h3>Governance</h3>
+      <p>Conway era governance tools for DRep registration, delegation, and voting.</p>
+      <div class="sources">GovTool, SanchoNet</div>
+    </div>
+    <div class="card">
+      <h3>Scaling &amp; L2</h3>
+      <p>State channels and next-gen consensus for higher throughput.</p>
+      <div class="sources">Hydra, Ouroboros Leios</div>
+    </div>
+    <div class="card">
+      <h3>Testing</h3>
+      <p>Local development environments with instant devnet creation.</p>
+      <div class="sources">Yaci DevKit</div>
+    </div>
+  </div>
+  <p style="margin-top: 1.5rem; text-align: center;">
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ECOSYSTEM.md">View full ecosystem map &rarr;</a>
+  </p>
+</section>
+
+<!-- Tools -->
+<section id="tools">
+  <h2>MCP Tools</h2>
+  <p>Three tools that give your AI assistant access to the entire indexed knowledge base.</p>
+
+  <div class="tool-card">
+    <h3>search_docs</h3>
+    <p>Hybrid semantic + keyword search across all indexed documentation. Combines BM25 full-text search (40%) with vector similarity (60%) for best results.</p>
+    <div class="params">
+      <span class="param">query</span>
+      <span class="param optional">category?</span>
+      <span class="param optional">source?</span>
+      <span class="param optional">limit?</span>
+      <span class="param optional">mode? (hybrid|semantic|keyword)</span>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <h3>get_doc</h3>
+    <p>Retrieve the full content of a specific documentation page by source and path.</p>
+    <div class="params">
+      <span class="param">source</span>
+      <span class="param">path</span>
+    </div>
+  </div>
+
+  <div class="tool-card">
+    <h3>list_topics</h3>
+    <p>Browse available documentation sources and topics. Shows what's indexed and available for search.</p>
+    <div class="params">
+      <span class="param optional">source?</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 2rem;">MCP Resources</h3>
+  <ul class="resource-list">
+    <li><code>cardano://sources</code> &mdash; Overview of all indexed sources with categories and chunk counts</li>
+    <li><code>cardano://source/{name}</code> &mdash; Topic listing for a specific source (e.g., <code>cardano://source/Aiken</code>)</li>
+    <li><code>cardano://doc/{source}/{path}</code> &mdash; Full document content by source and path</li>
+  </ul>
+</section>
+
+<!-- Prompts -->
+<section id="prompts">
+  <h2>Built-in Prompts</h2>
+  <p>14 specialized prompts that guide your AI through common Cardano development tasks. Each prompt searches the indexed docs and provides context-aware guidance.</p>
+
+  <div class="prompt-group">
+    <h3>Smart Contracts</h3>
+    <div class="tool-card">
+      <h3>review-contract</h3>
+      <p>Security review for Aiken, Plutus, OpShin, or Helios smart contracts. Checks for common vulnerabilities and best practices.</p>
+      <div class="params">
+        <span class="param">language</span>
+        <span class="param">code</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>write-validator</h3>
+      <p>Write a Cardano smart contract validator from a natural language specification.</p>
+      <div class="params">
+        <span class="param">language (aiken|plutus|opshin|pebble)</span>
+        <span class="param">description</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>explain-eutxo</h3>
+      <p>Explain Cardano's eUTxO model to developers coming from account-based chains (Ethereum, Solana).</p>
+      <div class="params">
+        <span class="param">concept</span>
+        <span class="param optional">background?</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>solve-contention</h3>
+      <p>Design around UTxO contention in a smart contract protocol. Covers batching, reference inputs, and concurrency patterns.</p>
+      <div class="params">
+        <span class="param">protocol_description</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-group">
+    <h3>Transactions &amp; SDKs</h3>
+    <div class="tool-card">
+      <h3>build-transaction</h3>
+      <p>Step-by-step guide to building a specific type of transaction with your chosen SDK.</p>
+      <div class="params">
+        <span class="param">sdk (mesh|lucid-evolution|evolution-sdk|pycardano|cardano-client-lib)</span>
+        <span class="param">transaction_type</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>debug-transaction</h3>
+      <p>Debug a failing Cardano transaction. Analyzes error messages and suggests fixes.</p>
+      <div class="params">
+        <span class="param">error_message</span>
+        <span class="param optional">sdk?</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>migrate-sdk</h3>
+      <p>Migrate dApp code between Cardano SDKs with equivalent API mappings.</p>
+      <div class="params">
+        <span class="param">from_sdk</span>
+        <span class="param">to_sdk</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>connect-wallet</h3>
+      <p>Integrate a Cardano wallet into a web dApp using CIP-30.</p>
+      <div class="params">
+        <span class="param">sdk</span>
+        <span class="param optional">framework?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-group">
+    <h3>Tooling &amp; Setup</h3>
+    <div class="tool-card">
+      <h3>suggest-tooling</h3>
+      <p>Recommend the right tools, SDKs, and infrastructure for your Cardano project.</p>
+      <div class="params">
+        <span class="param">project_description</span>
+        <span class="param optional">preferred_language?</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>setup-devnet</h3>
+      <p>Set up a local Cardano development environment for testing.</p>
+      <div class="params">
+        <span class="param optional">stack? (typescript|python|java|haskell|rust)</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>query-chain</h3>
+      <p>Find the best way to query Cardano blockchain data for your use case.</p>
+      <div class="params">
+        <span class="param">data_needed</span>
+        <span class="param optional">context?</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="prompt-group">
+    <h3>Standards &amp; Governance</h3>
+    <div class="tool-card">
+      <h3>explain-cip</h3>
+      <p>Developer-focused explanation of any Cardano Improvement Proposal.</p>
+      <div class="params">
+        <span class="param">cip_number</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>governance-guide</h3>
+      <p>Guide for participating in Cardano on-chain governance (CIP-1694 / Conway era).</p>
+      <div class="params">
+        <span class="param">role (developer|drep|stake-pool-operator|ada-holder)</span>
+      </div>
+    </div>
+    <div class="tool-card">
+      <h3>design-token</h3>
+      <p>Design a Cardano native token &mdash; fungible, NFT, or programmable (CIP-113).</p>
+      <div class="params">
+        <span class="param">token_type</span>
+        <span class="param optional">requirements?</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Get Started -->
+<section id="get-started">
+  <h2>Get Started</h2>
+  <p>Connect your AI assistant to the Cardano knowledge base in seconds. Use the hosted instance or run your own.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('claude')">Claude Desktop</button>
+    <button class="tab" onclick="showTab('claude-code')">Claude Code</button>
+    <button class="tab" onclick="showTab('cursor')">Cursor</button>
+    <button class="tab" onclick="showTab('windsurf')">Windsurf</button>
+    <button class="tab" onclick="showTab('other')">Other Clients</button>
+  </div>
+
+  <div id="tab-claude" class="tab-content active">
+    <p>Add to your Claude Desktop configuration (<code>claude_desktop_config.json</code>):</p>
+    <pre>{
+  "mcpServers": {
+    "cardano": {
+      "url": "https://mcp.easy1staking.com/mcp"
+    }
+  }
+}</pre>
+  </div>
+
+  <div id="tab-claude-code" class="tab-content">
+    <p>Add to your Claude Code MCP settings (<code>.claude/settings.json</code> or via <code>/mcp</code> command):</p>
+    <pre>{
+  "mcpServers": {
+    "cardano": {
+      "url": "https://mcp.easy1staking.com/mcp"
+    }
+  }
+}</pre>
+    <p>Or run directly in the CLI:</p>
+    <pre>claude mcp add cardano --transport streamable-http --url https://mcp.easy1staking.com/mcp</pre>
+  </div>
+
+  <div id="tab-cursor" class="tab-content">
+    <p>Go to <strong>Settings &rarr; MCP</strong> and add a new server:</p>
+    <pre>{
+  "mcpServers": {
+    "cardano": {
+      "url": "https://mcp.easy1staking.com/mcp"
+    }
+  }
+}</pre>
+  </div>
+
+  <div id="tab-windsurf" class="tab-content">
+    <p>Add to your Windsurf MCP configuration:</p>
+    <pre>{
+  "mcpServers": {
+    "cardano": {
+      "serverUrl": "https://mcp.easy1staking.com/mcp"
+    }
+  }
+}</pre>
+  </div>
+
+  <div id="tab-other" class="tab-content">
+    <p>Any MCP-compatible client can connect via the streamable HTTP transport:</p>
+    <pre>Endpoint: https://mcp.easy1staking.com/mcp
+Transport: Streamable HTTP (SSE)
+Auth: None required (public instance)</pre>
+    <p>For local/stdio mode:</p>
+    <pre>{
+  "mcpServers": {
+    "cardano": {
+      "command": "node",
+      "args": ["/path/to/cardano-unified-mcp-server/dist/index.js", "--stdio"]
+    }
+  }
+}</pre>
+  </div>
+</section>
+
+<!-- Self-Hosting -->
+<section id="self-hosting">
+  <h2>Self-Hosting</h2>
+  <div class="two-col">
+    <div>
+      <h3>Docker</h3>
+      <pre>docker build -t cardano-mcp .
+docker run -p 3000:3000 \
+  -e EMBEDDINGS_API_KEY=sk-... \
+  cardano-mcp</pre>
+    </div>
+    <div>
+      <h3>From Source</h3>
+      <pre>git clone https://github.com/easy1staking-com/cardano-unified-mcp-server.git
+cd cardano-unified-mcp-server
+npm install &amp;&amp; npm run build
+
+# Ingest docs (needs OpenAI key for semantic search)
+EMBEDDINGS_API_KEY=sk-... npm run ingest
+
+# Start server
+npm start</pre>
+    </div>
+  </div>
+  <div style="margin-top: 1.5rem;">
+    <h3>Kubernetes / Helm</h3>
+    <pre>helm install cardano-mcp ./helm/cardano-mcp \
+  --set secrets.embeddingsApiKey=sk-... \
+  --set ingress.enabled=true \
+  --set ingress.host=mcp.yourdomain.com</pre>
+    <p>See the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/tree/main/helm">Helm chart</a> for full configuration options including TLS, session affinity, and ingestion CronJobs.</p>
+  </div>
+</section>
+
+<!-- Architecture -->
+<section id="architecture">
+  <h2>Architecture</h2>
+  <pre>
+MCP Clients (Claude, Cursor, Windsurf, etc.)
+    |
+    | stdio or HTTP (Streamable HTTP + SSE)
+    v
+Cardano Unified MCP Server
+    |
+    +-- Tools: search_docs, get_doc, list_topics
+    +-- Resources: cardano://sources, cardano://source/*, cardano://doc/*
+    +-- Prompts: 14 specialized developer prompts
+    |
+    v
+VectorDB (SQLite + FTS5 + sqlite-vec)
+    |
+    +-- Hybrid search: BM25 (40%) + cosine similarity (60%)
+    +-- 19,844 chunks from 40+ sources
+    +-- Weekly re-ingestion via CronJob
+
+Ingestion Pipeline:
+  GitHub repos --> clone/pull --> chunk --> embed --> upsert
+  </pre>
+  <div class="two-col" style="margin-top: 1.5rem;">
+    <div>
+      <h3>Search Modes</h3>
+      <ul class="resource-list">
+        <li><strong>Hybrid</strong> (default) &mdash; BM25 full-text (40%) + vector similarity (60%)</li>
+        <li><strong>Semantic</strong> &mdash; Embedding cosine similarity only</li>
+        <li><strong>Keyword</strong> &mdash; Full-text search with Porter stemming (no API key needed)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Configuration</h3>
+      <ul class="resource-list">
+        <li><code>PORT</code> &mdash; HTTP port (default: 3000)</li>
+        <li><code>EMBEDDINGS_API_KEY</code> &mdash; OpenAI key for semantic search</li>
+        <li><code>MCP_API_KEY</code> &mdash; Optional auth for HTTP mode</li>
+        <li><code>DB_PATH</code> &mdash; SQLite database path</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Contributing -->
+<section id="contributing">
+  <h2>Contributing</h2>
+  <p>This project aims to be the most comprehensive MCP server for Cardano developers. Contributions welcome!</p>
+  <div class="two-col">
+    <div>
+      <h3>Add a Documentation Source</h3>
+      <p>Check <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/SOURCES.md">SOURCES.md</a> for the current index and candidates. New sources need a public GitHub repo with markdown/MDX docs.</p>
+    </div>
+    <div>
+      <h3>Report Issues</h3>
+      <p>Found a bug or have a feature request? <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/issues">Open an issue</a> on GitHub.</p>
+    </div>
+  </div>
+  <p style="margin-top: 1rem;">
+    See <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines and <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> for community standards.
+  </p>
+</section>
+
+<footer>
+  <p>
+    Apache-2.0 License &middot;
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server">GitHub</a> &middot;
+    Built by <a href="https://easy1staking.com">Easy1Staking</a>
+  </p>
+</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

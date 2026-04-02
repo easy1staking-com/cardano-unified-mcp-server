@@ -1,0 +1,1226 @@
+{
+  "version": "0.2.0",
+  "tag": "openai-baseline",
+  "timestamp": "2026-04-02T21:45:25.727Z",
+  "dbStats": {
+    "total_chunks": 19838,
+    "sources": 36,
+    "categories": 7
+  },
+  "queries": [
+    {
+      "queryId": "mesh-tx",
+      "query": "how to build a transaction with Mesh SDK",
+      "mode": "hybrid",
+      "category": null,
+      "expectedSources": [
+        "Mesh SDK"
+      ],
+      "results": [
+        {
+          "id": "48e2f318f5463c81",
+          "source": "Yaci DevKit",
+          "title": "Building transactions with Mesh SDK and submit to Yaci Devnet's Cardano Node",
+          "score": 34.506,
+          "contentPreview": "# Building transactions with Mesh SDK and submit to Yaci Devnet's Cardano Node   More documentation on the Mesh SDK's Yaci DevKit Integration can be found [here](https://meshjs.dev/yaci).   This examp"
+        },
+        {
+          "id": "ef0d16b7194f6f5b",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "Off-Chain Integration (Mesh SDK)",
+          "score": 18.955,
+          "contentPreview": "## Off-Chain Integration (Mesh SDK)  This section shows how to build transactions for your substandard using the [Mesh SDK](https://meshjs.dev/) (`@meshsdk/core`)."
+        },
+        {
+          "id": "4be3aec7f164391d",
+          "source": "Mesh SDK",
+          "title": "Packages (2/2)",
+          "score": 15.224,
+          "contentPreview": "| | [@meshsdk/transaction](https://github.com/MeshJS/mesh/tree/main/packages/mesh-transaction)                        | Transactions to send assets, mint tokens, and interact with smart contracts     "
+        },
+        {
+          "id": "5e8b0e3c8962f92b",
+          "source": "Developer Portal",
+          "title": "Mesh Wallet",
+          "score": 14.888,
+          "contentPreview": "## Mesh Wallet  [App Wallet](https://meshjs.dev/apis/wallets/meshwallet) is use for building transactions in your applications. You can import App Wallet with:  ```javascript import { MeshWallet } fro"
+        },
+        {
+          "id": "bcc335af032a0033",
+          "source": "Mesh SDK",
+          "title": "Mesh Core",
+          "score": 14.693,
+          "contentPreview": "<div align=\"center\">    <picture>     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://meshjs.dev/logo-mesh/white/logo-mesh-white-512x512.png\" width=\"200\">     <source media=\"(prefers-colo"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.566Z"
+    },
+    {
+      "queryId": "aiken-validator",
+      "query": "Aiken validator example",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Aiken",
+        "Aiken Examples"
+      ],
+      "results": [
+        {
+          "id": "ec578024cb4bf4e7",
+          "source": "Aiken",
+          "title": "Bool",
+          "score": 17.182,
+          "contentPreview": "## Bool  **Definition:** Boolean type with two values: `True` and `False`. Supports operators `==`, `&&` (AND), `||` (OR), `!` (NOT), and `?` (trace-if-false).  **Context:** Fundamental type. All vali"
+        },
+        {
+          "id": "e89ff355eff7a22d",
+          "source": "Aiken Design Patterns",
+          "title": "How to Use",
+          "score": 16.2,
+          "contentPreview": "## How to Use  Install the package with `aiken`:  ```bash aiken add anastasia-labs/aiken-design-patterns --version v1.5.0 ```  And you'll be able to import functions of various patterns:  ```rs use ai"
+        },
+        {
+          "id": "dbc7f6f66983fbf1",
+          "source": "Aiken",
+          "title": "Q5: How do I create a new Aiken project?",
+          "score": 16.166,
+          "contentPreview": "## Q5: How do I create a new Aiken project?  **Answer:** Use the `aiken new` command followed by an `{organisation}/{repository}` name. This scaffolds a project with the standard folder structure, con"
+        },
+        {
+          "id": "0fd3fb9f34057eb0",
+          "source": "Aiken",
+          "title": "else (fallback handler)",
+          "score": 16.146,
+          "contentPreview": "## `else` (fallback handler)  **Definition:** Special handler in a `validator` block that serves as a catch-all for unhandled script purposes. Takes a single `ScriptContext` argument. Defaults to `fai"
+        },
+        {
+          "id": "b9216784c3979696",
+          "source": "Aiken",
+          "title": "validator",
+          "score": 15.73,
+          "contentPreview": "## `validator`  **Definition:** Keyword that defines a named block containing one or more handler functions corresponding to Cardano script purposes. Validators are the entry points for on-chain smart"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.574Z"
+    },
+    {
+      "queryId": "cip30-wallet",
+      "query": "CIP-30 dApp wallet web bridge",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [
+        {
+          "id": "d7a467e135e3c975",
+          "source": "CIPs",
+          "title": "Error Types",
+          "score": 64.214,
+          "contentPreview": "### Error Types  #### APIError See [CIP-30 (Cardano dApp-Wallet Web Bridge) APIError](https://cips.cardano.org/cips/cip30/#apierror)  #### TxSignError See [CIP-30 (Cardano dApp-Wallet Web Bridge) TxSi"
+        },
+        {
+          "id": "68bb8764be5a1bad",
+          "source": "CIPs",
+          "title": "Abstract",
+          "score": 53.415,
+          "contentPreview": "## Abstract This CIP extends [CIP-30 (Cardano dApp-Wallet Web Bridge)](https://cips.cardano.org/cips/cip30/) to provide an additional endpoint for dApp to sign multiple transactions in bulk."
+        },
+        {
+          "id": "7082305d9d67314f",
+          "source": "CIPs",
+          "title": "Abstract",
+          "score": 52.9,
+          "contentPreview": "## Abstract This CIP extends [CIP-30 (Cardano dApp-Wallet Web Bridge)](https://cips.cardano.org/cips/cip30/) to provide an additional endpoint for dApp to get the extended account public key from a co"
+        },
+        {
+          "id": "180b32baeabebe08",
+          "source": "CIPs",
+          "title": "CIP-30 Accepted Extensions Register",
+          "score": 42.576,
+          "contentPreview": "# CIP-30 Accepted Extensions Register  This registry aims to document all CIP-30 extensions accepted as CIPs.  The aim of this document is to aid the discoverability of CIP-30 extensions.  | Extension"
+        },
+        {
+          "id": "25d9a581f7e6877b",
+          "source": "CIPs",
+          "title": "Backwards Compatibility",
+          "score": 41.286,
+          "contentPreview": "### Backwards Compatibility  This proposal should not effect the backwards compatibility of either clients or wallet implementors.  #### CIP-62?  [CIP-62? | Cardano dApp-Wallet Web Bridge Catalyst Ext"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.580Z"
+    },
+    {
+      "queryId": "kupo-api",
+      "query": "Kupo REST API endpoints matches",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Kupo"
+      ],
+      "results": [
+        {
+          "id": "e393a57de3ae6b05",
+          "source": "Dolos",
+          "title": "Minikupo",
+          "score": 18.08,
+          "contentPreview": "Dolos provides an HTTP endpoint compatible with the [Kupo](https://github.com/cardanosolutions/kupo) API. The implementation is read-only and equivalent to a pruned Kupo instance."
+        },
+        {
+          "id": "cf9a71b962281c2d",
+          "source": "Cardano Wallet",
+          "title": "REST API",
+          "score": 16.983,
+          "contentPreview": "### REST API  When the executable was started in light-mode:  * The endpoints in the hierarchy `/v2/byron-wallets/*` MUST return an error. Because byron wallets use random derivation indices to genera"
+        },
+        {
+          "id": "8de41c394837daea",
+          "source": "Dolos",
+          "title": "Coverage",
+          "score": 16.409,
+          "contentPreview": "## Coverage  Dolos supports a subset of the Kupo endpoints. All write operations are intentionally disabled.  | Endpoint                     | Method | Description                                | |--"
+        },
+        {
+          "id": "b3b5e5137e7c1708",
+          "source": "Kupo",
+          "title": "API Overview (1/8)",
+          "score": 14.533,
+          "contentPreview": "> **Disclaimer**     >     > This version of the documentation might contain features that **haven't been**     > **released yet**. This is meant to preview what's coming.     >     > If you're using "
+        },
+        {
+          "id": "3f3d41cb8c6a3eca",
+          "source": "Kupo",
+          "title": "API Overview (6/8)",
+          "score": 14.525,
+          "contentPreview": "| ---     | ---                                                        |     | `{25}`  | Outputs of any transaction that has metadata with label 25 |     | `{42}`  | Outputs of any transaction that ha"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-02T21:45:25.583Z"
+    },
+    {
+      "queryId": "mithril-signer",
+      "query": "Mithril signer node setup",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Mithril"
+      ],
+      "results": [
+        {
+          "id": "8477d5b1a4ca0b7e",
+          "source": "Mithril",
+          "title": "Set up the Mithril signer node",
+          "score": 30.151,
+          "contentPreview": "## Set up the Mithril signer node  :::caution  - For **production** deployment, the **Mithril signer** setup is performed on the **Cardano block producer** machine  - For **naive** deployment, the **M"
+        },
+        {
+          "id": "cb39b66b3596f738",
+          "source": "Mithril",
+          "title": "Set up the Mithril signer node",
+          "score": 30.151,
+          "contentPreview": "## Set up the Mithril signer node  :::caution  - For **production** deployment, the **Mithril signer** setup is performed on the **Cardano block producer** machine  - For **naive** deployment, the **M"
+        },
+        {
+          "id": "30465f0d46b12fa9",
+          "source": "Mithril",
+          "title": "The Mithril signer node service recommended configuration is updated",
+          "score": 25.376,
+          "contentPreview": "### The Mithril signer node service recommended configuration is updated  **PR**: `Fix signer service recommended configuration` [#1419](https://github.com/input-output-hk/mithril/pull/1419)  **Issue*"
+        },
+        {
+          "id": "0ff3e3d2397d6ff3",
+          "source": "Mithril",
+          "title": "Run this command to upgrade your stores:",
+          "score": 21.136,
+          "contentPreview": "# Run this command to upgrade your stores: sqlite3 ${DATA_STORES_DIRECTORY}/signer.sqlite3 \"UPDATE protocol_initializer SET value = json_object('stm_initializer', json(value), 'kes_signature', null) W"
+        },
+        {
+          "id": "e67a7a56ab69fec3",
+          "source": "Mithril",
+          "title": "Mithril signer Prometheus endpoint is available",
+          "score": 18.653,
+          "contentPreview": "### Mithril signer Prometheus endpoint is available  With the release of the new distribution [2412](https://github.com/input-output-hk/mithril/releases/tag/2412.0), the Mithril signer can start an op"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.590Z"
+    },
+    {
+      "queryId": "pycardano-tx",
+      "query": "PyCardano transaction building tutorial",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "PyCardano"
+      ],
+      "results": [
+        {
+          "id": "01285e6e2fd2b391",
+          "source": "PyCardano",
+          "title": "PyCardano",
+          "score": 17.696,
+          "contentPreview": "PyCardano is a standalone Cardano client written in Python. The library is able to create and sign transactions without depending on third-party Cardano serialization tools, such as cardano-cli and ca"
+        },
+        {
+          "id": "b7b5eabdf407002e",
+          "source": "PyCardano",
+          "title": "Transaction builder",
+          "score": 14.31,
+          "contentPreview": "Step 1  To use a transaction builder, we first need to create a chain context, so the builder can read protocol parameters and search proper transaction inputs to use. Currently, the available chain c"
+        },
+        {
+          "id": "db3b420ecc23da9c",
+          "source": "PyCardano",
+          "title": "What is a transaction builder?",
+          "score": 13.459,
+          "contentPreview": "A transaction builder is a class that helps you build and sign transactions. It provides a user-friendly interface that automatically handles transaction inputs, outputs, fees, and other details based"
+        },
+        {
+          "id": "018e679236b3fae7",
+          "source": "PyCardano",
+          "title": "Instance/Object creation (1/2)",
+          "score": 13.436,
+          "contentPreview": "In PyCardano, most components and data structures are embedded in Python classes. To construct an instance, we need to start from its child components, and build everything from bottom up.  For exampl"
+        },
+        {
+          "id": "b6e35c2b54156e3a",
+          "source": "PyCardano",
+          "title": "Transaction",
+          "score": 13.266,
+          "contentPreview": ".. automodule:: pycardano.transaction    :members:    :undoc-members:    :show-inheritance:  .. automodule:: pycardano.txbuilder    :members:    :undoc-members:    :show-inheritance:"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.595Z"
+    },
+    {
+      "queryId": "ogmios-websocket",
+      "query": "Ogmios WebSocket protocol chain sync",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Ogmios"
+      ],
+      "results": [
+        {
+          "id": "942588a251043989",
+          "source": "Ogmios",
+          "title": "WebSocket vs HTTP",
+          "score": 21.562,
+          "contentPreview": "## WebSocket vs HTTP  Ogmios defaults transport protocol is WebSocket. Yet some mini-protocols (e.g. the transaction submission or the ledger state query) can also work over HTTP under some circumstan"
+        },
+        {
+          "id": "f9104cd2b2379018",
+          "source": "Ogmios",
+          "title": "[2.0.0-beta] -- 2020-10-31",
+          "score": 19.793,
+          "contentPreview": "### [2.0.0-beta] -- 2020-10-31  #### Added  - Support for the Shelley chain in the local-chain-sync protocol. - Support for the local-state-query protocol. - Health / Heartbeat endpoint for monitoring"
+        },
+        {
+          "id": "754b2c4a1755d7ad",
+          "source": "Ogmios",
+          "title": "WebSocket",
+          "score": 19.099,
+          "contentPreview": "### WebSocket  The WebSocket protocol is full-duplex, which means that Ogmios and clients can send messages to each other all at the same time. That is very convenient for clients who can pipeline man"
+        },
+        {
+          "id": "38ebbd2c81ed9c5d",
+          "source": "Ogmios",
+          "title": "Ogmios",
+          "score": 17.192,
+          "contentPreview": "# Ogmios  **Ogmios** is a lightweight bridge interface for [cardano-node](https://github.com/intersectMBO/cardano-node/). It offers a WebSockets API that enables local clients to speak [Ouroboros' min"
+        },
+        {
+          "id": "d146a13af77d325f",
+          "source": "Ogmios",
+          "title": "[3.0.0] -- 2021-02-26",
+          "score": 16.362,
+          "contentPreview": "### [3.0.0] -- 2021-02-26  #### Added  - Support for the Allegra era on the chain-sync, tx submission and state query protocols. - Support for the Mary era on the chain-sync, tx submission and state q"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.599Z"
+    },
+    {
+      "queryId": "blockfrost-api",
+      "query": "Blockfrost API address UTxO query",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Blockfrost OpenAPI"
+      ],
+      "results": [
+        {
+          "id": "a7572eafea8bac74",
+          "source": "Dolos",
+          "title": "Rich API surface",
+          "score": 16.156,
+          "contentPreview": "## Rich API surface  Dolos provides multiple query interfaces so developers can use the tools they already know. Mini-Blockfrost offers a Blockfrost-compatible HTTP API where existing integrations wor"
+        },
+        {
+          "id": "62ccfb5ac6c61c92",
+          "source": "Blockfrost OpenAPI",
+          "title": "Index",
+          "score": 13.761,
+          "contentPreview": "get:   tags:     - Cardano » Addresses   summary: Address UTXOs   description: UTXOs of the address.   parameters:     - in: path       name: address       required: true       schema:         type: s"
+        },
+        {
+          "id": "985deef61fcc9524",
+          "source": "Cardano Node Wiki",
+          "title": "Get the UTxOs for an address",
+          "score": 13.431,
+          "contentPreview": "# Get the UTxOs for an address  ``` CARDANO_NODE_SOCKET_PATH=example/main.sock \\ cardano-cli query utxo \\   --testnet-magic 42 \\   --address $ADDRESS ```"
+        },
+        {
+          "id": "aa5ec145941653ba",
+          "source": "Blockfrost OpenAPI",
+          "title": "Index",
+          "score": 13.144,
+          "contentPreview": "get:   tags:     - Cardano » Addresses   summary: Address UTXOs of a given asset   description: UTXOs of the address.   parameters:     - in: path       name: address       required: true       schema"
+        },
+        {
+          "id": "64a6581e07b95369",
+          "source": "Cardano Node Wiki",
+          "title": "Querying the UTxO",
+          "score": 12.985,
+          "contentPreview": "### Querying the UTxO  For our next trick we will inspect the UTxO. Of course we have not done any transactions yet so we expect just the initial UTxO as specified in the `genesis.json`.  There is a c"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.605Z"
+    },
+    {
+      "queryId": "plutus-script",
+      "query": "Plutus smart contract script",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Plutus"
+      ],
+      "results": [
+        {
+          "id": "30c259940ccf2443",
+          "source": "Aiken",
+          "title": "Alonzo era",
+          "score": 28.097,
+          "contentPreview": "## Alonzo era  **Definition:** The era that introduced Plutus smart contracts (V1) to Cardano, enabling on-chain script execution.  **Related:** Plutus Core, script, smart contract"
+        },
+        {
+          "id": "bb6b5c8fec5856d8",
+          "source": "Plutus",
+          "title": "Different Notions of Version",
+          "score": 20.15,
+          "contentPreview": "# Different Notions of Version  There are several different notions of version that Cardano smart contract developers must distinguish. For each Plutus script that is deployed on-chain, its execution "
+        },
+        {
+          "id": "a285ace9e45043c0",
+          "source": "Plutus",
+          "title": "Plutus Script/Validator",
+          "score": 15.383,
+          "contentPreview": "### Plutus Script/Validator  A Plutus script, or Plutus validator, is a UPLC program executed on-chain. Sometimes a program written in a high level language that compiles to UPLC, such as Plinth, is a"
+        },
+        {
+          "id": "86cbe150ec0f20fa",
+          "source": "Plutus",
+          "title": "Plutus V1",
+          "score": 14.882,
+          "contentPreview": "## Plutus V1  Plutus V1 is the initial ledger language version, enabled at the Alonzo hard fork, a hard fork that introduced the Alonzo era.  Plutus V1 scripts have four [script purposes](https://plut"
+        },
+        {
+          "id": "a8a03f3733d102b4",
+          "source": "Plutus",
+          "title": "Minting Policy Script",
+          "score": 14.873,
+          "contentPreview": "### Minting Policy Script  A Plutus script which must be satisfied in order for a transaction to mint tokens of the corresponding currency."
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.612Z"
+    },
+    {
+      "queryId": "evolution-sdk",
+      "query": "Evolution SDK Effect transaction builder",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "Evolution SDK"
+      ],
+      "results": [
+        {
+          "id": "7dfb48269b7100e7",
+          "source": "Evolution SDK",
+          "title": "Integration Points",
+          "score": 17.203,
+          "contentPreview": "## Integration Points  The provider layer integrates with other architectural components:  **Transaction Builder**: During `build()` execution, the builder queries the provider for: - Protocol paramet"
+        },
+        {
+          "id": "8ed47fcdb6252949",
+          "source": "Evolution SDK",
+          "title": "ProgramStep (type alias)",
+          "score": 17.091,
+          "contentPreview": "## ProgramStep (type alias)  A deferred Effect program that represents a single transaction building operation.  ProgramSteps are:  - Created when user calls chainable methods (payToAddress, collectFr"
+        },
+        {
+          "id": "149371425cefe385",
+          "source": "Evolution SDK Packages",
+          "title": "ProgramStep (type alias)",
+          "score": 17.034,
+          "contentPreview": "## ProgramStep (type alias)  A deferred Effect program that represents a single transaction building operation.  ProgramSteps are:  - Created when user calls chainable methods (payToAddress, collectFr"
+        },
+        {
+          "id": "b556668eecbfd6a1",
+          "source": "Evolution SDK",
+          "title": "Integration Points",
+          "score": 16.956,
+          "contentPreview": "## Integration Points  The wallet layer integrates with other architectural components:  **Client Factory**: `createClient(config)` uses conditional types to return appropriate client type based on wa"
+        },
+        {
+          "id": "e62ac98255118d43",
+          "source": "Evolution SDK",
+          "title": "Integration Points",
+          "score": 16.592,
+          "contentPreview": "## Integration Points  Deferred execution integrates with other architectural layers:  **Transaction Builder Methods**: All builder methods (`payToAddress`, `collectFrom`, `attachScript`, `readFrom`) "
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.624Z"
+    },
+    {
+      "queryId": "cip68-datum",
+      "query": "CIP-68 datum metadata standard NFT",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [
+        {
+          "id": "3e5101b1ee86cba5",
+          "source": "CIPs",
+          "title": "Abstract",
+          "score": 20.37,
+          "contentPreview": "## Abstract  This proposal defines a metadata standard for native assets making use of output datums not only for NFTs but any asset class."
+        },
+        {
+          "id": "65b0eabc971dd46d",
+          "source": "CIPs",
+          "title": "Examples",
+          "score": 18.911,
+          "contentPreview": "### Examples  In-code examples can be found in the [reference implementation](https://github.com/SamDelaney/CIP_102_Reference).  #### Retrieve metadata as 3rd party  A third party has the following NF"
+        },
+        {
+          "id": "e8c0eea6b67b04e8",
+          "source": "CIPs",
+          "title": "Constraints and conditions (1/5)",
+          "score": 18.404,
+          "contentPreview": "### Constraints and conditions  For a correct relationship between the `user token` and the `reference NFT` a few conditions MUST be met.  - The `user token` and `reference NFT` MUST be under the same"
+        },
+        {
+          "id": "dd5e2a31a73b8890",
+          "source": "CIPs",
+          "title": "cardano.nft.metadata : Array",
+          "score": 18.385,
+          "contentPreview": "### `cardano.nft.metadata : Array`   The content of the 721 key from the metadata json from the mint transaction of the current NFT - if we are rendering on behalf of a child NFT, this will be the met"
+        },
+        {
+          "id": "deb5a487a33f6631",
+          "source": "CIPs",
+          "title": "References",
+          "score": 18.081,
+          "contentPreview": "### References  - [CIP-0025](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0025): NFT Metadata Standard - [CIP-0030](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0030): Card"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.631Z"
+    },
+    {
+      "queryId": "aiken-stdlib-list",
+      "query": "Aiken stdlib list functions map filter",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "Aiken Stdlib"
+      ],
+      "results": [
+        {
+          "id": "bc2229bf64518034",
+          "source": "Aiken Stdlib",
+          "title": "pub fn filter_map",
+          "score": 22.266,
+          "contentPreview": "pub fn filter_map(self: List<a>, predicate: fn(a) -> Option<b>) -> List<b> {   when self is {     [] -> []     [x, ..xs] ->       when predicate(x) is {         None -> filter_map(xs, predicate)      "
+        },
+        {
+          "id": "9da5ff0e191831fb",
+          "source": "Aiken",
+          "title": "Anonymous function",
+          "score": 19.703,
+          "contentPreview": "## Anonymous function  **Definition:** An unnamed function defined inline using `fn(args) { body }` syntax. Assigned to variables via `let`. Cannot be recursive.  **Context:** Used for one-off transfo"
+        },
+        {
+          "id": "154dd9e5b0df37f0",
+          "source": "Aiken Stdlib",
+          "title": "test filter_map_1",
+          "score": 19.299,
+          "contentPreview": "test filter_map_1() {   filter_map([], fn(_) { Some(42) }) == [] }"
+        },
+        {
+          "id": "43bd04ce22d507df",
+          "source": "Aiken Stdlib",
+          "title": "test filter_map_2",
+          "score": 17.869,
+          "contentPreview": "test filter_map_2() {   filter_map(     [1, 2, 3, 4, 5, 6],     fn(x) {       if builtin.mod_integer(x, 2) != 0 {         Some(3 * x)       } else {         None       }     },   ) == [3, 9, 15] }"
+        },
+        {
+          "id": "3fb271242924f7fe",
+          "source": "Aiken Examples",
+          "title": "pub fn filter_map",
+          "score": 17.477,
+          "contentPreview": "pub fn filter_map(xs: List<a>, f: fn(a) -> Option<b>) -> List<b> {   foldr(     xs,     fn(x, ys) {       when f(x) is {         None -> ys         Some(y) ->           [y, ..ys]       }     },     []"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.638Z"
+    },
+    {
+      "queryId": "evolution-sdk-tx",
+      "query": "Evolution SDK build sign submit transaction",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "Evolution SDK",
+        "Evolution SDK Packages"
+      ],
+      "results": [
+        {
+          "id": "80cc67d3db103931",
+          "source": "Evolution SDK",
+          "title": "The Transaction Workflow",
+          "score": 34.202,
+          "contentPreview": "## The Transaction Workflow  Evolution SDK follows a three-stage pattern: build, sign, submit. Each stage returns a new builder with stage-specific methods, preventing invalid operations (like submitt"
+        },
+        {
+          "id": "84b449b8bad00016",
+          "source": "Evolution SDK",
+          "title": "Next Steps",
+          "score": 27.882,
+          "contentPreview": "## Next Steps  You now have complete devnet integration knowledge:  - Start clusters with custom genesis - Connect Evolution SDK clients to devnet services - Build, sign, and submit transactions - Que"
+        },
+        {
+          "id": "ffbc8de56ea5f10a",
+          "source": "Evolution SDK",
+          "title": "Complete Example",
+          "score": 18.674,
+          "contentPreview": "## Complete Example  Here's a full transaction workflow—configure once, then build, sign, and submit:  ```ts twoslash   // 1. Configure your client const client = createClient({   network: \"preprod\", "
+        },
+        {
+          "id": "da4b99229e165601",
+          "source": "Evolution SDK",
+          "title": "Decision Tree",
+          "score": 17.997,
+          "contentPreview": "## Decision Tree  ``` What do you need to do?  Build + Sign + Submit transactions? ├─ Development/Testing → Full Client (seed wallet) └─ Production automation → Full Client (private-key wallet)  Sign "
+        },
+        {
+          "id": "89356de78f1100e5",
+          "source": "Evolution SDK",
+          "title": "Frontend: Signing Only",
+          "score": 17.995,
+          "contentPreview": "## Frontend: Signing Only  Frontend applications connect to user wallets through CIP-30 but never have provider access. They retrieve addresses, sign transactions built by backends, and submit signed "
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.652Z"
+    },
+    {
+      "queryId": "cardano-cli-query",
+      "query": "cardano-cli query utxo tip protocol-parameters",
+      "mode": "hybrid",
+      "category": null,
+      "expectedSources": [
+        "Cardano Node Wiki",
+        "Developer Portal"
+      ],
+      "results": [
+        {
+          "id": "6af50e2ddd2db3ba",
+          "source": "Developer Portal",
+          "title": "Using the build-raw command",
+          "score": 24.451,
+          "contentPreview": "### Using the `build-raw` command  Using the `build-raw` command involves a slightly more intricate process. Similarly to the steps outlined in [simple transactions](/docs/get-started/infrastructure/c"
+        },
+        {
+          "id": "dd2d09a024f9cb88",
+          "source": "Developer Portal",
+          "title": "1\\. Assemble all transaction details",
+          "score": 21.975,
+          "contentPreview": "### 1\\. *Assemble* all transaction details  On your Internet-connected computer (usually your Cardano node, though you might use query services instead):  #### Get protocol parameters  Get the protoco"
+        },
+        {
+          "id": "ada03ae014e2531f",
+          "source": "Developer Portal",
+          "title": "Query the protocol-parameters",
+          "score": 21.795,
+          "contentPreview": "### Query the protocol-parameters  ``` cardano-cli query protocol-parameters --out-file pparams.json ```"
+        },
+        {
+          "id": "3740a5f62556ba18",
+          "source": "Cardano Node Wiki",
+          "title": "Creating a simple transaction",
+          "score": 20.724,
+          "contentPreview": "# Creating a simple transaction  Creating a transaction requires multiple steps:  * Get the protocol parameters * Get the UTXO to spend * Calculate the fee * Define the time-to-live (TTL) for the tran"
+        },
+        {
+          "id": "4b12d8109294bc77",
+          "source": "CIPs",
+          "title": "WIP Query Layer API Comparison (1) (7/13)",
+          "score": 20.598,
+          "contentPreview": "|                                                      | | Block protocols                                                           |                                                                  "
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.666Z"
+    },
+    {
+      "queryId": "hydra-head",
+      "query": "Hydra head protocol state channel",
+      "mode": "hybrid",
+      "category": "scaling",
+      "expectedSources": [
+        "Hydra"
+      ],
+      "results": [
+        {
+          "id": "6655814e46519ed8",
+          "source": "Hydra",
+          "title": "State channels and the Hydra Head protocol",
+          "score": 53.41,
+          "contentPreview": "## State channels and the Hydra Head protocol  The Hydra Head protocol is a form of state channel and can be classified as a horizontal scaling solution. Multiple instances can be deployed to offload "
+        },
+        {
+          "id": "6a3cd2d242eea080",
+          "source": "Hydra",
+          "title": "Artifact 1: Hydra Head Specification",
+          "score": 46.491,
+          "contentPreview": "### Artifact 1: Hydra Head Specification  The Hydra Head protocol implementation derives from [Hydra: Fast Isomorphic State Channels](https://eprint.iacr.org/2020/299.pdf) in several ways. Especially "
+        },
+        {
+          "id": "fcb78d1dd29c6a7e",
+          "source": "Hydra",
+          "title": "Open a head on testnet",
+          "score": 44.959,
+          "contentPreview": "# Open a head on testnet  This tutorial demonstrates how to use `hydra-node` on Cardano's `preprod` testing environment to open a layer 2 state channel between two participants using the Hydra Head pr"
+        },
+        {
+          "id": "cdcefc26125883b0",
+          "source": "Hydra",
+          "title": "State channels",
+          "score": 41.816,
+          "contentPreview": "## State channels  The Hydra Head protocol is a layer 2 solution within the family of **state channels**, which evolved from **payment channels**. A payment channel allows two or more parties to excha"
+        },
+        {
+          "id": "783177265b098c2d",
+          "source": "Hydra",
+          "title": "Protocol overview",
+          "score": 25.911,
+          "contentPreview": "# Protocol overview  Hydra is the layer 2 scalability solution for Cardano, designed to increase transaction speed through low latency and high throughput while minimizing transaction costs. [Hydra He"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.670Z"
+    },
+    {
+      "queryId": "govtool-drep",
+      "query": "GovTool DRep registration delegation voting",
+      "mode": "hybrid",
+      "category": "governance",
+      "expectedSources": [
+        "GovTool",
+        "SanchoNet"
+      ],
+      "results": [
+        {
+          "id": "91056a75577b6095",
+          "source": "SanchoNet",
+          "title": "SanchoNet delegate representatives (DReps) files",
+          "score": 22.317,
+          "contentPreview": "### SanchoNet delegate representatives (DReps) files  Below is a list of currently used files related to SanchoNet DRep usage.  #### Signing key  Generated as a normal ed25519 key or derived from path"
+        },
+        {
+          "id": "a9c781a2f7913f07",
+          "source": "SanchoNet",
+          "title": "4. Certificate and transaction field witnesses and deposits (1/2)",
+          "score": 19.732,
+          "contentPreview": "### 4. Certificate and transaction field witnesses and deposits  | Certificate                            | Parameters                                                   | Required witnesses           "
+        },
+        {
+          "id": "2372ef9159526e61",
+          "source": "SanchoNet",
+          "title": "Register Stake",
+          "score": 19.13,
+          "contentPreview": "To take part on the SanchoNet consensus protocol, we need to submit a stake address registration certificate to the chain. This allows to delegate stake to a SanchoNet stake pool and votes to a Sancho"
+        },
+        {
+          "id": "56f61b4d9976ce74",
+          "source": "SanchoNet",
+          "title": "Generating the vote delegation certificate",
+          "score": 18.996,
+          "contentPreview": "### Generating the vote delegation certificate  1. Generate the vote delegation certificate.  * Delegating to the `--always-abstain` default DRep:  ```shell cardano-cli conway stake-address vote-deleg"
+        },
+        {
+          "id": "d5c2f6f37892c9e2",
+          "source": "SanchoNet",
+          "title": "Delegate To Drep",
+          "score": 18.252,
+          "contentPreview": "Delegating your voting power to a SanchoNet delegate representative (DRep) operates much like delegating your stake to a stake pool. Voting power delegation involves the issuance of a delegation certi"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.673Z"
+    },
+    {
+      "queryId": "yaci-devkit-local",
+      "query": "Yaci DevKit local devnet setup",
+      "mode": "hybrid",
+      "category": "testing",
+      "expectedSources": [
+        "Yaci DevKit"
+      ],
+      "results": [
+        {
+          "id": "cbfb83cdc7b93beb",
+          "source": "Yaci DevKit",
+          "title": "Common Commands",
+          "score": 26.556,
+          "contentPreview": "## Common Commands Yaci CLI commands are used to create and interact with the local devnet."
+        },
+        {
+          "id": "24b86b2982881566",
+          "source": "Yaci DevKit",
+          "title": "Essential Commands",
+          "score": 25.244,
+          "contentPreview": "### Essential Commands  #### 1. Simple Devnet ```bash yaci-devkit up ``` Basic devnet with Cardano node only.  #### 2. Interactive Devnet ```bash yaci-devkit up --interactive ``` Devnet with CLI acces"
+        },
+        {
+          "id": "e6076ee8e43ac2a3",
+          "source": "Yaci DevKit",
+          "title": "Start background devnet",
+          "score": 25.205,
+          "contentPreview": "# Start background devnet yaci-devkit up --enable-yaci-store"
+        },
+        {
+          "id": "459559a7c9619346",
+          "source": "Yaci DevKit",
+          "title": "About",
+          "score": 25.125,
+          "contentPreview": "# About  The Yaci DevKit offers a customizable Cardano devnet that quickly launches and resets via the Yaci CLI, enabling faster iterations for developers. It features Yaci Store, a lightweight indexe"
+        },
+        {
+          "id": "3aa07c59a6c067fc",
+          "source": "Yaci DevKit",
+          "title": "🚀 Why Use DevKit in CI/CD?",
+          "score": 24.675,
+          "contentPreview": "## 🚀 Why Use DevKit in CI/CD?  - **⚡ Fast Setup** - DevKit starts in seconds, perfect for CI environments - **🔧 Zero Configuration** - Works out of the box with sensible defaults - **🧪 Isolated Tes"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.675Z"
+    },
+    {
+      "queryId": "cip1694-governance",
+      "query": "CIP-1694 Voltaire governance DRep SPO constitutional committee",
+      "mode": "hybrid",
+      "category": "standards",
+      "expectedSources": [
+        "CIPs"
+      ],
+      "results": [
+        {
+          "id": "5a161a977ed7dde6",
+          "source": "Developer Portal",
+          "title": "Cardano Protocol Governance",
+          "score": 39.048,
+          "contentPreview": "## Cardano Protocol Governance  Cardano is embarking on a transformative journey towards decentralized governance with the introduction of [CIP-1694](https://cips.cardano.org/cip/CIP-1694), marking th"
+        },
+        {
+          "id": "e9cc0f9b1e3f7cf0",
+          "source": "Developer Portal",
+          "title": "Eligibility for Voting",
+          "score": 35.286,
+          "contentPreview": "## Eligibility for Voting  The governance model described in CIP-1694 involves three primary roles:  1. **Stake Pool Operators (SPOs)**: Responsible for maintaining the network. They have a say in gov"
+        },
+        {
+          "id": "7b4629dee5998055",
+          "source": "CIPs",
+          "title": "Abstract",
+          "score": 31.398,
+          "contentPreview": "## Abstract  The Conway Ledger era introduces many new features to Cardano, notably features to support community governance via CIP-1694. This includes the introduction of the new first class credent"
+        },
+        {
+          "id": "2bdf0f5f9e1e7478",
+          "source": "Developer Portal",
+          "title": "Detailed Technical Breakdown",
+          "score": 30.25,
+          "contentPreview": "### Detailed Technical Breakdown  1. **Motion of No-Confidence**: This action is used to declare a lack of confidence in the current constitutional committee. If the CC is in a state of no-confidence "
+        },
+        {
+          "id": "929561eb43dac1a9",
+          "source": "CIPs",
+          "title": "Motivation: why is this CIP necessary?",
+          "score": 28.164,
+          "contentPreview": "## Motivation: why is this CIP necessary?  In the Conway ledger era, DRep credentials allow registered DReps to be identified on-chain, in DRep registrations, retirements, votes, and in vote delegatio"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.681Z"
+    },
+    {
+      "queryId": "opshin-python",
+      "query": "OpShin Python smart contract on Cardano",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "OpShin"
+      ],
+      "results": [
+        {
+          "id": "d982ebeb5c84e267",
+          "source": "OpShin",
+          "title": "Installation",
+          "score": 26.542,
+          "contentPreview": "### Installation  Install any of the supported Python versions. Then run   ```bash python -m pip install opshin ```"
+        },
+        {
+          "id": "15fe1f45355a64b1",
+          "source": "OpShin",
+          "title": "Architecture",
+          "score": 26.461,
+          "contentPreview": "## Architecture  This program consists of a few independent components:  1. An aggressive static type inferencer 2. Rewriting tools to simplify complex Python expressions 3. A compiler from a subset o"
+        },
+        {
+          "id": "da518a6236e205d8",
+          "source": "OpShin",
+          "title": "Why opshin?",
+          "score": 25.66,
+          "contentPreview": "## Why opshin? - 100% valid Python. Leverage the existing tool stack for Python, syntax highlighting, linting, debugging, unit-testing, [property-based testing](https://hypothesis.readthedocs.io/), [v"
+        },
+        {
+          "id": "5182669b487071e2",
+          "source": "Aiken",
+          "title": "OpShin",
+          "score": 25.514,
+          "contentPreview": "### OpShin  OpShin allows you to write Smart Contracts in 100% valid but restricted Python3. Since it uses normal Python, you have all the features that come with developing on Python, including wides"
+        },
+        {
+          "id": "e5f5732af565e17b",
+          "source": "OpShin",
+          "title": "Compile script to 'uplc', the Cardano Smart Contract assembly",
+          "score": 25.406,
+          "contentPreview": "# Compile script to 'uplc', the Cardano Smart Contract assembly opshin compile examples/smart_contracts/assert_sum.py ```  Furthermore, you can add a shebang to the first line of the python file to in"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.690Z"
+    },
+    {
+      "queryId": "cardano-js-sdk",
+      "query": "cardano-js-sdk getting started provider",
+      "mode": "hybrid",
+      "category": "sdk",
+      "expectedSources": [
+        "cardano-js-sdk"
+      ],
+      "results": [
+        {
+          "id": "92982676cd6330c6",
+          "source": "cardano-js-sdk",
+          "title": "Getting Started",
+          "score": 16.132,
+          "contentPreview": "### Getting Started  The [GETTING_STARTED](./GETTING_STARTED.md) guide provides a quick way to start experimenting."
+        },
+        {
+          "id": "82358070a3fc7957",
+          "source": "cardano-js-sdk",
+          "title": "Starting the Provider Services on Preprod testnet",
+          "score": 14.911,
+          "contentPreview": "## Starting the Provider Services on Preprod testnet  This section covers how to get `cardano-services` started on the `preprod` testnet, and begin building your idea or just explore.  Starting `mainn"
+        },
+        {
+          "id": "b59e88f011844caa",
+          "source": "Evolution SDK",
+          "title": "Next Steps",
+          "score": 12.448,
+          "contentPreview": "## Next Steps  - [Create a wallet](/docs/wallets) - [Connect a provider](/docs/clients/providers) - [Build your first transaction](/docs/introduction/getting-started)"
+        },
+        {
+          "id": "de4d5739e064c30a",
+          "source": "cardano-js-sdk",
+          "title": "Bootstrap.fromCardanoNode",
+          "score": 11.699,
+          "contentPreview": "### Bootstrap.fromCardanoNode  Creates a projection source (`Observable<ProjectionEvent>`) from:  - [ObservableCardanoNode](#observablecardanonode) - [StabilityWindowBuffer](#stabilitywindowbuffer) - "
+        },
+        {
+          "id": "fafc1976465596e7",
+          "source": "Evolution SDK",
+          "title": "Get Started",
+          "score": 11.69,
+          "contentPreview": "## Get Started  Ready to build? Start with [Installation](/docs/introduction/installation) or jump to [Getting Started](/docs/introduction/getting-started)."
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.704Z"
+    },
+    {
+      "queryId": "oura-pipeline",
+      "query": "Oura pipeline event streaming sink",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "Oura"
+      ],
+      "results": [
+        {
+          "id": "9d76584d4b451b47",
+          "source": "Oura",
+          "title": "HELP sinkeventcount number of events processed by the sink of the pipeline",
+          "score": 30.051,
+          "contentPreview": "# HELP sink_event_count number of events processed by the sink of the pipeline"
+        },
+        {
+          "id": "82a50243aab72b60",
+          "source": "Oura",
+          "title": "HELP sinkeventcount number of events processed by the sink of the pipeline",
+          "score": 30.051,
+          "contentPreview": "# HELP sink_event_count number of events processed by the sink of the pipeline"
+        },
+        {
+          "id": "dc1661027126e06d",
+          "source": "Oura",
+          "title": "Feature",
+          "score": 27.953,
+          "contentPreview": "## Feature  Oura provides an optional `/metrics` HTTP endpoint that uses Prometheus format to expose real-time opertional metrics of the pipeline. Each stage (source / sink) is responsible for notifyi"
+        },
+        {
+          "id": "9f01cacc478279d5",
+          "source": "Oura",
+          "title": "Feature",
+          "score": 27.953,
+          "contentPreview": "## Feature  Oura provides an optional `/metrics` HTTP endpoint that uses Prometheus format to expose real-time opertional metrics of the pipeline. Each stage (source / sink) is responsible for notifyi"
+        },
+        {
+          "id": "bc4486eeb4e809e7",
+          "source": "Oura",
+          "title": "Conventions",
+          "score": 27.813,
+          "contentPreview": "## Conventions  It is possible to send all Event to a single stream or create multiple streams, one for each event type. By appling the [selection](/oura/v1/filters/selection) filter it is possible to"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.706Z"
+    },
+    {
+      "queryId": "cip113-programmable",
+      "query": "CIP-113 programmable tokens standard",
+      "mode": "hybrid",
+      "category": "smart-contracts",
+      "expectedSources": [
+        "CIP-113 Programmable Tokens",
+        "CIPs"
+      ],
+      "results": [
+        {
+          "id": "68265b3d4aacda26",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "Standards",
+          "score": 42.956,
+          "contentPreview": "## Standards  This implementation is based on the foundational [CIP-143 (Interoperable Programmable Tokens)](https://cips.cardano.org/cip/CIP-0143) architecture and has been adapted for [CIP-113](http"
+        },
+        {
+          "id": "af81ff35d4d59c1c",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "CIP-113 Adaptation",
+          "score": 41.233,
+          "contentPreview": "### CIP-113 Adaptation  This codebase has been adapted to align with the requirements of **CIP-113**, which supersedes CIP-143 as a more comprehensive standard for programmable tokens on Cardano.  **I"
+        },
+        {
+          "id": "369d9cbe79daaa6f",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "Standards and Specifications",
+          "score": 26.916,
+          "contentPreview": "## Standards and Specifications  - **CIP-143:** [Interoperable Programmable Tokens](https://cips.cardano.org/cip/CIP-0143) (Original specification, now inactive) - **CIP-113:** [Programmable Tokens](h"
+        },
+        {
+          "id": "6a417ffff0c04a68",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "CIP-113 Programmable Tokens Implementation",
+          "score": 26.304,
+          "contentPreview": "# CIP-113 Programmable Tokens Implementation  A comprehensive implementation of programmable tokens for Cardano, consisting of smart contracts (Aiken) and off-chain infrastructure (Java)."
+        },
+        {
+          "id": "63c5c3945b81b1b3",
+          "source": "CIP-113 Programmable Tokens",
+          "title": "CIP-143 Standard",
+          "score": 25.622,
+          "contentPreview": "## CIP-143 Standard\r \r This implementation is based on **[CIP-143 (Interoperable Programmable Tokens)](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0143)**, which defines a standard for "
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.710Z"
+    },
+    {
+      "queryId": "keyword-only-aiken",
+      "query": "Aiken hello world validator",
+      "mode": "keyword",
+      "category": null,
+      "expectedSources": [
+        "Aiken",
+        "Aiken Examples"
+      ],
+      "results": [
+        {
+          "id": "dbc7f6f66983fbf1",
+          "source": "Aiken",
+          "title": "Q5: How do I create a new Aiken project?",
+          "score": 43.472,
+          "contentPreview": "## Q5: How do I create a new Aiken project?  **Answer:** Use the `aiken new` command followed by an `{organisation}/{repository}` name. This scaffolds a project with the standard folder structure, con"
+        },
+        {
+          "id": "82ca21a146ebffdc",
+          "source": "Aiken",
+          "title": "Writing a test (1/2)",
+          "score": 36.637,
+          "contentPreview": "## Writing a test  Aiken has support for tests built-in! As you'll see shortly, tests can also serve as benchmarks since they display the exact memory and steps execution units required to run them. T"
+        },
+        {
+          "id": "7e34cd44daf346e6",
+          "source": "CIPs",
+          "title": "Example(s)",
+          "score": 34.697,
+          "contentPreview": "## Example(s)  <details>   <summary>Aiken's Hello World</summary>  ```json {   \"$schema\": \"https://cips.cardano.org/cips/cip57/schemas/plutus-blueprint.json\",    \"$id\": \"https://github.com/aiken-lang/"
+        },
+        {
+          "id": "b9216784c3979696",
+          "source": "Aiken",
+          "title": "validator",
+          "score": 33.739,
+          "contentPreview": "## `validator`  **Definition:** Keyword that defines a named block containing one or more handler functions corresponding to Cardano script purposes. Validators are the entry points for on-chain smart"
+        },
+        {
+          "id": "07e13c6d1ed3746b",
+          "source": "Aiken",
+          "title": "Our first validator",
+          "score": 33.269,
+          "contentPreview": "## Our first validator  Let's write our first validator as `validators/hello_world.ak`:  ```aiken filename=\"validators/hello_world.ak\" use aiken/collection/list use aiken/crypto.{VerificationKeyHash} "
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.717Z"
+    },
+    {
+      "queryId": "semantic-only-mesh",
+      "query": "how do I connect a wallet to my dApp",
+      "mode": "semantic",
+      "category": null,
+      "expectedSources": [
+        "Mesh SDK",
+        "Developer Portal"
+      ],
+      "results": [
+        {
+          "id": "95cddaaf32a1cdb7",
+          "source": "CIPs",
+          "title": "Abstract",
+          "score": 28.241,
+          "contentPreview": "## Abstract Wallets the foundational element of Web3, being the primary interface between users and blockchains. Wallet connectors allow users to connect their wallet to client stacks (i.e. dApps), fa"
+        },
+        {
+          "id": "b48c3a97cb2eb19e",
+          "source": "CIPs",
+          "title": "User Flow",
+          "score": 17.631,
+          "contentPreview": "### User Flow  ```mermaid sequenceDiagram     dApp-->>Wallet: Share address using Deeplink /Universal Link / QR     Wallet-->>Tracker List: Accept connection and start quering using the address     Wa"
+        },
+        {
+          "id": "9c64d3cfd4a96cd8",
+          "source": "CIPs",
+          "title": "Establish a WebRTC Connection Using a Signaling Server (State-of-the-art approach)",
+          "score": 16.371,
+          "contentPreview": "### Establish a WebRTC Connection Using a Signaling Server (State-of-the-art approach)  ```mermaid sequenceDiagram     dApp-->>+Signaling Server: Who am I?     Signaling Server-->>dApp: You are <ip:po"
+        },
+        {
+          "id": "0057030f6e0bf3ed",
+          "source": "Developer Portal",
+          "title": "cardano-wallet-connector",
+          "score": 15.867,
+          "contentPreview": "## cardano-wallet-connector `cardano-wallet-connector` is a Create React App boilerplate code that includes examples of how to use the Serialization-Lib to connect to different Cardano Web wallets and"
+        },
+        {
+          "id": "4f7da023c2f771c6",
+          "source": "CIPs",
+          "title": "Establish a WebRTC Connection Using WebTorrent Tracker (Our approach)",
+          "score": 15.771,
+          "contentPreview": "### Establish a WebRTC Connection Using WebTorrent Tracker (Our approach)  ```mermaid flowchart LR     subgraph dApp         subgraph .torrent server         end     end      subgraph Wallet[Wallet Ap"
+        }
+      ],
+      "topSourceMatch": false,
+      "timestamp": "2026-04-02T21:45:25.722Z"
+    },
+    {
+      "queryId": "db-sync-schema",
+      "query": "DB-Sync PostgreSQL schema tables",
+      "mode": "hybrid",
+      "category": "infrastructure",
+      "expectedSources": [
+        "DB-Sync"
+      ],
+      "results": [
+        {
+          "id": "d2755278c08b28a9",
+          "source": "DB-Sync",
+          "title": "Upgrade the Schemas",
+          "score": 20.924,
+          "contentPreview": "## Upgrade the Schemas  Stop Cardano DB Sync PostgreSQL  ```bash sudo systemctl stop postgresql sudo pkill -f cardano-db-sync ```  Upgrade the existing schemas  ```bash cd /tmp sudo -u postgres /usr/l"
+        },
+        {
+          "id": "4b07dc9cbf5089b2",
+          "source": "DB-Sync",
+          "title": "Restoring from a Snapshot",
+          "score": 18.18,
+          "contentPreview": "# Restoring from a Snapshot  Restoring the state from a snapsot will drop the current database, recreate the tables and then populate them. It can be done as simply as: ``` PGPASSFILE=config/pgpass-ma"
+        },
+        {
+          "id": "974d4836e9c8cb44",
+          "source": "DB-Sync",
+          "title": "schemaversion",
+          "score": 17.81,
+          "contentPreview": "### `schema_version`  The version of the database schema. Schema versioning is split into three stages as detailed below. This table should only ever have a single row.  * Primary Id: `id`  | Column n"
+        },
+        {
+          "id": "b94859795baf147c",
+          "source": "DB-Sync",
+          "title": "Using Nix:",
+          "score": 17.315,
+          "contentPreview": "## Using Nix:  **Build the Project**: Build the cardano-db-sync project using Nix ```sh nix build -v .#cardano-db-sync -o db-sync-node ```  Set up the PostgreSQL database using the provided script wit"
+        },
+        {
+          "id": "51fb44932255fa2e",
+          "source": "DB-Sync",
+          "title": "Using Cabal",
+          "score": 16.927,
+          "contentPreview": "## Using Cabal  **Database Setup**: Set up the PostgreSQL database using the provided script with the configuration in `config/pgpass-mainnet`. ```sh PGPASSFILE=config/pgpass-mainnet scripts/postgresq"
+        }
+      ],
+      "topSourceMatch": true,
+      "timestamp": "2026-04-02T21:45:25.727Z"
+    }
+  ],
+  "summary": {
+    "total": 25,
+    "passed": 23,
+    "failed": 2,
+    "avgScore": 28.631,
+    "avgResultCount": 5
+  }
+}

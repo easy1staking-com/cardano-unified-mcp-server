@@ -17,10 +17,10 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | OpShin | 100% valid Python that compiles to UPLC. | Python | Yes |
 | Pebble | Smart contract framework by Harmonic Labs. | TypeScript | Yes |
 | CIP-113 Programmable Tokens | Reference implementation for programmable token standard. | Aiken | Yes |
+| Plutarch | Typed Haskell eDSL for highly optimized UPLC. | Haskell eDSL | Yes |
+| Plu-ts | TypeScript eDSL for on-chain and off-chain. | TypeScript | Yes |
+| Scalus | Scala 3 on-chain and off-chain platform. | Scala 3 | Yes |
 | Helios | DSL with JS/TS SDK, compiles in the browser. | JS/TS DSL | No |
-| Plutarch | Typed Haskell eDSL for highly optimized UPLC. | Haskell eDSL | No |
-| Plu-ts | TypeScript eDSL for on-chain and off-chain. | TypeScript | No |
-| Scalus | Scala 3 on-chain and off-chain platform. | Scala 3 | No |
 | Marlowe | Domain-specific for financial contracts. Community-maintained. | Haskell DSL | No |
 
 ## Off-Chain SDKs and Transaction Builders
@@ -63,6 +63,17 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Carp | Modular Postgres indexer by dcSpark. | No |
 | Scrolls | Read-optimized chain data collections by TxPipe. | No |
 | Dingo | Go node implementation by Blink Labs. | No |
+
+## Node Implementations
+
+| Node | Description | Language | Status | Indexed |
+|------|-------------|----------|--------|---------|
+| cardano-node | Official reference implementation by IOG/Intersect. | Haskell | Production | No |
+| Amaru | Lightweight full node by PRAGMA (CF, Blink Labs, dcSpark, TxPipe, Sundae Labs). <1GB RAM. | Rust | Experimental | No |
+| Dingo | Full node implementation by Blink Labs. Testnet-ready. | Go | Experimental | No |
+| Dolos | Data node by TxPipe. Fraction of full node resources. | Rust | Active | Yes |
+| Acropolis | Modular node architecture initiative using Caryatid framework. | Rust | In Development | No |
+| Antithesis | Deterministic testing platform for node implementations (CF). | — | Active | No |
 
 ## Governance (Conway Era / CIP-1694)
 

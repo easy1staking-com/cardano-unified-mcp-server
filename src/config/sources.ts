@@ -215,6 +215,33 @@ export const DOC_SOURCES: DocSource[] = [
     priority: "medium",
     globPatterns: ["README.md", "packages/**/README.md", "packages/**/*.md"],
   },
+  {
+    name: "Plutarch",
+    repo: "https://github.com/Plutonomicon/plutarch-plutus.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "medium",
+    globPatterns: ["README.md", "docs/**/*.md", "Tricks/**/*.md"],
+  },
+  {
+    name: "Plu-ts",
+    repo: "https://github.com/HarmonicLabs/plu-ts.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "medium",
+    globPatterns: ["README.md", "docs/**/*.md", "packages/**/README.md"],
+  },
+  {
+    name: "Scalus",
+    repo: "https://github.com/scalus3/scalus.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "medium",
+    globPatterns: ["README.md", "docs/**/*.md"],
+  },
 
   // --- CIP-113 Programmable Tokens (reference implementation) ---
   {

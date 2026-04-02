@@ -1,12 +1,12 @@
 # Cardano Unified MCP Server - Source Index
 
 > This index is used to periodically rebuild the documentation and tool ingestion pipeline.
-> Last updated: 2026-03-31
+> Last updated: 2026-04-02
 
 ## Scope
 
 **IN:** Everything needed to BUILD on Cardano — docs, SDKs, smart contract languages, off-chain tooling, standards, governance, scaling/L2, testing.
-**OUT:** Protocol-specific DeFi (Indigo), anything requiring local software (Cardano Node MCP, Yaci DevKit runtime), Koios tools (ecosystem runs on Kupo/Ogmios/Blockfrost).
+**OUT:** Protocol-specific DeFi (Indigo), anything requiring local software (Cardano Node MCP, Yaci DevKit runtime), node runtime operations.
 
 ## Existing MCP Servers (reference)
 
@@ -25,74 +25,78 @@
 
 ### Core Infrastructure
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| Ogmios | https://ogmios.dev | https://github.com/cardanosolutions/ogmios | Hugo/Markdown | **High** | Indexed |
-| Kupo | https://cardanosolutions.github.io/kupo | https://github.com/CardanoSolutions/kupo | OpenAPI + Markdown | **High** | Indexed |
-| Blockfrost | https://blockfrost.dev | https://github.com/blockfrost/openapi | OpenAPI YAML | **High** | Indexed |
-| Mithril | https://mithril.network/doc/ | https://github.com/input-output-hk/mithril | Markdown/MDX | **High** | Indexed |
-| Cardano Node | https://cardano-node.cardano.intersectmbo.org/ | https://github.com/input-output-hk/cardano-node-wiki | Markdown | Medium | Indexed |
-| Cardano Wallet | https://cardano-foundation.github.io/cardano-wallet/ | https://github.com/cardano-foundation/cardano-wallet | Markdown | Medium | Indexed |
-| Oura | https://docs.txpipe.io/oura/v3 | https://github.com/txpipe/oura | Markdown | Medium | Indexed |
-| Pallas | https://github.com/txpipe/pallas | https://github.com/txpipe/pallas | Markdown | Medium | Indexed |
-| DB-Sync | — | https://github.com/IntersectMBO/cardano-db-sync (doc/) | Markdown | Low | Indexed |
-| Dolos | https://github.com/txpipe/dolos | https://github.com/txpipe/dolos | Markdown | Medium | **To add** |
-| Yaci Store | https://store.yaci.xyz | https://github.com/bloxbean/yaci-store | Markdown | Medium | **To add** |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| Ogmios | https://github.com/cardanosolutions/ogmios | Markdown | **High** | Indexed |
+| Kupo | https://github.com/CardanoSolutions/kupo | OpenAPI + Markdown | **High** | Indexed |
+| Blockfrost OpenAPI | https://github.com/blockfrost/openapi | OpenAPI YAML | **High** | Indexed |
+| Mithril | https://github.com/input-output-hk/mithril | Markdown/MDX | **High** | Indexed |
+| Cardano Node Wiki | https://github.com/input-output-hk/cardano-node-wiki | Markdown | Medium | Indexed |
+| Cardano Wallet | https://github.com/cardano-foundation/cardano-wallet | Markdown | Medium | Indexed |
+| Oura | https://github.com/txpipe/oura | Markdown/MDX | Medium | Indexed |
+| Pallas | https://github.com/txpipe/pallas | Markdown | Medium | Indexed |
+| Dolos | https://github.com/txpipe/dolos | Markdown/MDX | Medium | Indexed |
+| Yaci Store | https://github.com/bloxbean/yaci-store | Markdown | Medium | Indexed |
+| Koios | https://github.com/cardano-community/koios-artifacts | OpenAPI + Markdown | Medium | Indexed |
+| Cardano GraphQL | https://github.com/cardano-foundation/cardano-graphql | Markdown | Medium | Indexed |
+| DB-Sync | https://github.com/IntersectMBO/cardano-db-sync | Markdown | Low | Indexed |
 
 ### Smart Contract Languages
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| Aiken (site) | https://aiken-lang.org | https://github.com/aiken-lang/site | Nextra/MDX | **High** | Indexed |
-| Aiken Stdlib | — | https://github.com/aiken-lang/stdlib (lib/) | Aiken (.ak) | **High** | Indexed |
-| Aiken Examples | — | https://github.com/aiken-lang/aiken (examples/) | Aiken + Markdown | **High** | Indexed |
-| CIP-113 Programmable Tokens | — | https://github.com/cardano-foundation/cip113-programmable-tokens | Markdown | **High** | Indexed |
-| Plutus / Plinth | https://plutus.cardano.intersectmbo.org/docs/ | https://github.com/IntersectMBO/plutus | Markdown | Medium | Indexed |
-| OpShin | https://opshin.opshin.dev | https://github.com/opshin/opshin | Markdown | Medium | Indexed |
-| Helios | https://helios-lang.io | https://github.com/Hyperion-BT/helios-book | mdBook/Markdown | Low | Indexed |
-| Marlowe | https://docs.marlowe.iohk.io | https://github.com/input-output-hk/marlowe-doc | Markdown | Low | Indexed |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| Aiken (site) | https://github.com/aiken-lang/site | MDX | **High** | Indexed |
+| Aiken Stdlib | https://github.com/aiken-lang/stdlib | Aiken (.ak) | **High** | Indexed |
+| Aiken Examples | https://github.com/aiken-lang/aiken (examples/) | Aiken + Markdown | **High** | Indexed |
+| Aiken Design Patterns | https://github.com/Anastasia-Labs/aiken-design-patterns | Aiken + Markdown | **High** | Indexed |
+| CIP-113 Programmable Tokens | https://github.com/cardano-foundation/cip113-programmable-tokens | Markdown | Medium | Indexed |
+| Plutus | https://github.com/IntersectMBO/plutus | Markdown | Medium | Indexed |
+| OpShin | https://github.com/opshin/opshin | Markdown | Medium | Indexed |
+| Pebble | https://github.com/HarmonicLabs/pebble | Markdown | Medium | Indexed |
+| Plutarch | https://github.com/Plutonomicon/plutarch-plutus | Markdown | Medium | Indexed |
+| Plu-ts | https://github.com/HarmonicLabs/plu-ts | Markdown | Medium | Indexed |
+| Scalus | https://github.com/scalus3/scalus | Markdown | Medium | Indexed |
 
 ### Off-chain SDKs & Frameworks
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| Mesh SDK | https://meshjs.dev | https://github.com/MeshJS/mesh | MDX | **High** | Indexed |
-| Lucid Evolution | https://anastasia-labs.github.io/lucid-evolution | https://github.com/Anastasia-Labs/lucid-evolution | MDX | **High** | Indexed |
-| Evolution SDK | https://no-witness-labs.github.io/evolution-sdk/ | https://github.com/IntersectMBO/evolution-sdk | Fumadocs/MDX | **High** | Indexed |
-| cardano-js-sdk | https://input-output-hk.github.io/cardano-js-sdk/ | https://github.com/input-output-hk/cardano-js-sdk | Markdown | Medium | Indexed |
-| PyCardano | https://pycardano.readthedocs.io | https://github.com/Python-Cardano/pycardano | Sphinx/RST | Medium | Indexed |
-| cardano-client-lib | https://cardano-client.dev/ | https://github.com/bloxbean/cardano-client-lib | Markdown | Medium | Indexed |
-| Cardano Serialization Lib | — | https://github.com/Emurgo/cardano-serialization-lib | Markdown | Medium | Indexed |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| Mesh SDK | https://github.com/MeshJS/mesh | MDX | **High** | Indexed |
+| Evolution SDK | https://github.com/IntersectMBO/evolution-sdk (docs/) | MDX | **High** | Indexed |
+| Evolution SDK Packages | https://github.com/IntersectMBO/evolution-sdk (packages/) | Markdown | **High** | Indexed |
+| cardano-js-sdk | https://github.com/input-output-hk/cardano-js-sdk | Markdown | Medium | Indexed |
+| PyCardano | https://github.com/Python-Cardano/pycardano | RST | Medium | Indexed |
+| cardano-client-lib | https://github.com/bloxbean/cardano-client-lib | Markdown | Medium | Indexed |
+| Cardano Serialization Lib | https://github.com/Emurgo/cardano-serialization-lib | Markdown | Medium | Indexed |
+| Buildooor | https://github.com/HarmonicLabs/buildooor | Markdown | Low | Indexed |
 
 ### Testing & DevNets
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| Yaci DevKit | https://devkit.yaci.xyz | https://github.com/bloxbean/yaci-devkit | Markdown | **High** | Indexed (recategorize) |
-| Plutip | — | https://github.com/mlabs-haskell/plutip | Markdown | Medium | **To add** |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| Yaci DevKit | https://github.com/bloxbean/yaci-devkit | MDX | **High** | Indexed |
 
 ### Governance (Conway Era)
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| GovTool | https://docs.gov.tools | https://github.com/IntersectMBO/govtool | Markdown | **High** | **To add** |
-| SanchoNet | https://docs.sanchogov.tools | https://github.com/input-output-hk/sanchonet | Markdown | **High** | **To add** |
-| Intersect Docs | https://docs.intersectmbo.org | https://github.com/IntersectMBO/intersect-documentation | Markdown | Medium | **To add** |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| GovTool | https://github.com/IntersectMBO/govtool | Markdown/MDX | **High** | Indexed |
+| SanchoNet | https://github.com/input-output-hk/sanchonet | Markdown/MDX | **High** | Indexed |
 
 ### Scaling / Layer 2
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| Hydra | https://hydra.family/head-protocol/ | https://github.com/cardano-scaling/hydra | Markdown/MDX | **High** | **To add** |
-| Ouroboros Leios | https://leios.cardano-scaling.org/ | https://github.com/input-output-hk/ouroboros-leios | Markdown | Medium | **To add** |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| Hydra | https://github.com/cardano-scaling/hydra | Markdown/MDX | **High** | Indexed |
+| Ouroboros Leios | https://github.com/input-output-hk/ouroboros-leios | Markdown | Medium | Indexed |
 
 ### Standards & Portals
 
-| Source | Docs URL | Raw Docs (GitHub) | Format | Priority | Status |
-|--------|----------|-------------------|--------|----------|--------|
-| CIPs & CPS | https://cips.cardano.org | https://github.com/cardano-foundation/CIPs | Markdown | **High** | Indexed |
-| Developer Portal | https://developers.cardano.org | https://github.com/cardano-foundation/developer-portal | Markdown | **High** | Indexed |
-| Cardano Docs | https://docs.cardano.org | https://github.com/input-output-hk/cardano-documentation | Markdown | **High** | Indexed |
+| Source | Raw Docs (GitHub) | Format | Priority | Status |
+|--------|-------------------|--------|----------|--------|
+| CIPs & CPS | https://github.com/cardano-foundation/CIPs | Markdown | **High** | Indexed |
+| Developer Portal | https://github.com/cardano-foundation/developer-portal | Markdown | **High** | Indexed |
+| Cardano Docs | https://github.com/input-output-hk/cardano-documentation | Markdown | **High** | Indexed |
 
 ---
 
@@ -101,14 +105,14 @@
 ### Smart Contract Languages
 | Tool | Why | Priority |
 |------|-----|----------|
-| Plutarch | Most optimized UPLC — used by serious DeFi (Plutonomicon) | Medium |
-| Plu-ts | TypeScript on-chain + off-chain (Harmonic Labs) | Medium |
-| Scalus | Scala 3 smart contracts | Low |
+| Helios | DSL with JS/TS SDK, browser compilation | Medium |
+| Marlowe | Financial contract DSL, community-maintained | Low |
 | Stellar Contracts | Higher-level Helios patterns | Low |
 
 ### Off-chain SDKs
 | Tool | Why | Priority |
 |------|-----|----------|
+| Lucid Evolution | Production-ready TS tx builder by Anastasia Labs | **High** |
 | Blaze SDK | Major TS tx builder by Butane Protocol, rising fast | Medium |
 | Atlas (GeniusYield) | Most mature Haskell PAB | Medium |
 | Cardano Multiplatform Lib (CML) | dcSpark Rust/WASM foundation | Medium |
@@ -120,12 +124,15 @@
 ### Infrastructure & Indexers
 | Tool | Why | Priority |
 |------|-----|----------|
-| Dingo | Blink Labs' Go node implementation | Low |
 | Scrolls | TxPipe read-optimized chain data | Low |
 | Carp | dcSpark modular Postgres indexer | Low |
 | Ledger Sync | Cardano Foundation Java indexer | Low |
 | gOuroboros | Go Ouroboros protocol (Blink Labs) | Low |
-| Cardano GraphQL | GraphQL API | Low |
+
+### Governance
+| Tool | Why | Priority |
+|------|-----|----------|
+| Intersect Docs | Governance and ecosystem documentation | Medium |
 
 ### Wallet Connectors
 | Tool | Why | Priority |
