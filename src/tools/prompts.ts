@@ -440,4 +440,134 @@ Focus on practical, actionable information from the indexed documentation.`,
       };
     }
   );
+
+  server.prompt(
+    "explain-eutxo",
+    "Explain a Cardano eUTxO concept for developers coming from account-based chains",
+    {
+      concept: z
+        .string()
+        .describe(
+          "Concept to explain: datum, redeemer, script-context, validator, reference-input, reference-script, collateral, utxo-selection, script-address, stake-credential, withdraw-zero-pattern, or any other eUTxO concept"
+        ),
+      background: z
+        .string()
+        .optional()
+        .describe("Developer background: ethereum, web2, bitcoin, new-to-blockchain"),
+    },
+    async ({ concept, background }) => {
+      const bgHint = background
+        ? `The developer is coming from a ${background} background.`
+        : "";
+
+      return {
+        messages: [
+          {
+            role: "user" as const,
+            content: {
+              type: "text" as const,
+              text: `Using the search_docs tool, explain the Cardano eUTxO concept: "${concept}"
+${bgHint}
+
+Provide:
+1. **What it is** — Plain-English definition, no jargon
+2. **Why it exists** — What problem it solves in the eUTxO model
+3. **How it differs from account-based chains** — Concrete comparison (e.g. "in Ethereum you would X, in Cardano you Y instead")
+4. **Practical example** — A real scenario showing when and how a developer encounters this concept
+5. **Code example** — How it appears in an Aiken validator and/or in an off-chain transaction (Evolution SDK or Mesh)
+6. **Common mistakes** — What developers get wrong about this concept and how to avoid it
+
+Search the Developer Portal, Aiken docs, and SDK docs for explanations and examples.`,
+            },
+          },
+        ],
+      };
+    }
+  );
+
+  server.prompt(
+    "connect-wallet",
+    "Integrate a Cardano wallet into a web dApp using CIP-30",
+    {
+      framework: z
+        .string()
+        .optional()
+        .describe("Frontend framework: react, nextjs, svelte, vue, vanilla-js"),
+      sdk: z
+        .string()
+        .default("mesh")
+        .describe("SDK for transaction building: mesh, evolution-sdk"),
+    },
+    async ({ framework, sdk }) => {
+      const fwHint = framework
+        ? `The dApp uses ${framework}.`
+        : "";
+
+      return {
+        messages: [
+          {
+            role: "user" as const,
+            content: {
+              type: "text" as const,
+              text: `Using the search_docs tool, help me integrate a Cardano wallet into my web dApp.
+${fwHint}
+Transaction building SDK: ${sdk}
+
+Cover:
+1. **CIP-30 basics** — What is the wallet connector API, how does \`window.cardano\` work, how to detect available wallets
+2. **Connecting** — How to call \`.enable()\`, handle the API object, detect network (mainnet vs testnet)
+3. **Reading wallet state** — Get balance, UTxOs, change address, reward address, collateral
+4. **Building and signing** — How to build a transaction with ${sdk}, pass it to the wallet for signing, and submit
+5. **CIP-95 governance** — How to access governance features (DRep registration, voting) if the wallet supports it
+6. **Common issues** — "window.cardano undefined" (wallet not installed / page not loaded), wrong network, popup blockers, multiple wallets conflicting
+7. **Code example** — Complete working snippet: detect wallet → connect → build tx → sign → submit
+
+Search the CIP-30 spec, CIP-95, ${sdk} docs, and Developer Portal for the actual APIs.`,
+            },
+          },
+        ],
+      };
+    }
+  );
+
+  server.prompt(
+    "solve-contention",
+    "Design around UTxO contention in a Cardano smart contract protocol",
+    {
+      protocol_description: z
+        .string()
+        .describe(
+          "Describe your protocol, e.g. 'DEX with shared liquidity pool UTxO', 'auction with single bid UTxO', 'oracle feed that many users read'"
+        ),
+    },
+    async ({ protocol_description }) => {
+      return {
+        messages: [
+          {
+            role: "user" as const,
+            content: {
+              type: "text" as const,
+              text: `Using the search_docs tool, help me solve UTxO contention in my Cardano protocol.
+
+Protocol: "${protocol_description}"
+
+In the eUTxO model, only one transaction can consume a UTxO. When multiple users try to interact with the same UTxO simultaneously, all but one transaction will fail. This is the "contention" problem.
+
+Analyze my protocol and suggest:
+1. **Where contention occurs** — Identify the shared UTxOs that are bottlenecks
+2. **Pattern: UTxO splitting** — Can the state be split across multiple UTxOs? (e.g. order-book DEX instead of AMM pool)
+3. **Pattern: Batching** — Can a batcher aggregate multiple user intents into one transaction?
+4. **Pattern: Reference inputs** — Can any shared state be read-only via CIP-31 reference inputs instead of consumed?
+5. **Pattern: Stake validator (withdraw-zero)** — Can validation be moved to a stake validator that runs once per tx regardless of input count? (CIP-113 pattern)
+6. **Pattern: Optimistic concurrency** — Can users retry with a fresh UTxO set on failure?
+7. **Recommended architecture** — Which combination of patterns best fits this protocol
+8. **Code sketch** — High-level validator structure showing the contention-free design
+
+Search for Hydra (L2 scaling), CIP-113 architecture (withdraw-zero pattern), Aiken design patterns, and relevant SDK docs.`,
+            },
+          },
+        ],
+      };
+    }
+  );
 }
