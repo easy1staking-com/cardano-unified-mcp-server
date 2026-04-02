@@ -9,7 +9,7 @@ A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP)
 40+ documentation sources across 7 categories, continuously ingested from GitHub:
 
 - **Infrastructure** — Ogmios, Kupo, Blockfrost, Mithril, Oura, Pallas, Dolos, Yaci Store, Koios, Cardano GraphQL, Cardano Wallet, Cardano Node Wiki, DB-Sync
-- **Smart Contracts** — Aiken (lang + stdlib + examples + design patterns), Plutus, OpShin, Plutarch, Plu-ts, Scalus, Pebble, CIP-113 Programmable Tokens
+- **Smart Contracts** — Aiken (lang + stdlib + examples + design patterns), Plutus, OpShin, Plutarch, Plu-ts, Scalus, Pebble, CIP-113 Programmable Tokens, Smart Contract Vulnerabilities (26 patterns)
 - **SDKs** — Mesh SDK, Evolution SDK, cardano-js-sdk, PyCardano, cardano-client-lib, Cardano Serialization Lib, Buildooor
 - **Governance** — GovTool, SanchoNet
 - **Scaling** — Hydra, Ouroboros Leios

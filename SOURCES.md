@@ -53,6 +53,7 @@
 | Plutus | https://github.com/IntersectMBO/plutus | Markdown | Medium | Indexed |
 | OpShin | https://github.com/opshin/opshin | Markdown | Medium | Indexed |
 | Pebble | https://github.com/HarmonicLabs/pebble | Markdown | Medium | Indexed |
+| Smart Contract Vulnerabilities | https://github.com/easy1staking-com/cardano-smart-contract-vulnerabilities | Markdown | **High** | Indexed |
 | Plutarch | https://github.com/Plutonomicon/plutarch-plutus | Markdown | Medium | Indexed |
 | Plu-ts | https://github.com/HarmonicLabs/plu-ts | Markdown | Medium | Indexed |
 | Scalus | https://github.com/scalus3/scalus | Markdown | Medium | Indexed |

@@ -14,6 +14,17 @@ export function registerPrompts(server: McpServer, db: VectorDB) {
       code: z.string().describe("The smart contract code to review"),
     },
     async ({ language, code }) => {
+      // Pre-fetch vulnerability reference from indexed docs
+      const vulnResults = db.searchFTS(
+        '"vulnerability" OR "double satisfaction" OR "datum hijacking" OR "unbounded" OR "contention" OR "minting" OR "authentication"',
+        15,
+        "smart-contracts"
+      ).filter(r => r.source === "Smart Contract Vulnerabilities");
+
+      const vulnContext = vulnResults.length > 0
+        ? `\n\n---\nREFERENCE: Known Cardano Smart Contract Vulnerabilities (from indexed security database):\n\n${vulnResults.map(r => `### ${r.title}\n${r.content}`).join("\n\n---\n\n")}`
+        : "";
+
       return {
         messages: [
           {
@@ -22,8 +33,10 @@ export function registerPrompts(server: McpServer, db: VectorDB) {
               type: "text" as const,
               text: `You are a Cardano smart contract security reviewer specializing in ${language}.
 
-Review the following ${language} smart contract for:
-1. **Security vulnerabilities** — double satisfaction, datum hijacking, unbounded computation, missing authorization checks, token value leaks
+Review the following ${language} smart contract against the known vulnerability reference below. For each vulnerability in the reference, check whether this contract is susceptible.
+
+Check for:
+1. **Security vulnerabilities** — systematically check each vulnerability from the reference below
 2. **Best practices** — proper use of validators, redeemer patterns, datum design
 3. **Optimization** — script size, execution units, unnecessary computation
 4. **Correctness** — logic errors, edge cases, off-by-one errors in value checks
@@ -38,7 +51,9 @@ Contract code:
 ${code}
 \`\`\`
 
-Provide your review with severity ratings (Critical/High/Medium/Low/Info) for each finding.`,
+Provide your review with severity ratings (Critical/High/Medium/Low/Info) for each finding. For each vulnerability found, reference the specific vulnerability name from the database and include the recommended mitigation.
+
+If you need more detail on any vulnerability or mitigation pattern, use the search_docs tool to search for it.${vulnContext}`,
             },
           },
         ],

@@ -216,6 +216,15 @@ export const DOC_SOURCES: DocSource[] = [
     globPatterns: ["README.md", "packages/**/README.md", "packages/**/*.md"],
   },
   {
+    name: "Smart Contract Vulnerabilities",
+    repo: "https://github.com/easy1staking-com/cardano-smart-contract-vulnerabilities.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "smart-contracts",
+    priority: "high",
+    globPatterns: ["CARDANO-SMART-CONTRACT-VULNERABILITIES.md", "README.md"],
+  },
+  {
     name: "Plutarch",
     repo: "https://github.com/Plutonomicon/plutarch-plutus.git",
     docsPath: ".",

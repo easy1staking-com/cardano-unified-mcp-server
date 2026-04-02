@@ -17,6 +17,7 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | OpShin | 100% valid Python that compiles to UPLC. | Python | Yes |
 | Pebble | Smart contract framework by Harmonic Labs. | TypeScript | Yes |
 | CIP-113 Programmable Tokens | Reference implementation for programmable token standard. | Aiken | Yes |
+| Smart Contract Vulnerabilities | 26 documented eUTxO vulnerability patterns with mitigations. | Reference | Yes |
 | Plutarch | Typed Haskell eDSL for highly optimized UPLC. | Haskell eDSL | Yes |
 | Plu-ts | TypeScript eDSL for on-chain and off-chain. | TypeScript | Yes |
 | Scalus | Scala 3 on-chain and off-chain platform. | Scala 3 | Yes |
