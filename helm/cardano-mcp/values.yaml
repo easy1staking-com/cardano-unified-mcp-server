@@ -1,0 +1,58 @@
+replicaCount: 1
+
+image:
+  repository: cardano-unified-mcp-server
+  tag: latest
+  pullPolicy: Never  # Set to IfNotPresent or Always for registry images
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+  sessionAffinity: true
+  sessionAffinityTimeout: 3600
+
+ingress:
+  enabled: false
+  host: cardano-mcp.local
+  tls:
+    enabled: false
+    secretName: cardano-mcp-tls
+  annotations: {}
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: "1"
+    memory: 2Gi
+
+persistence:
+  enabled: true
+  size: 2Gi
+  # storageClassName: ""
+
+repos:
+  sizeLimit: 5Gi
+
+env:
+  PORT: "3000"
+  HOST: "0.0.0.0"
+  DB_READ_ONLY: "true"
+
+secrets:
+  embeddingsApiKey: ""
+  mcpApiKey: ""
+  # existingSecret: ""  # Use a pre-created secret instead
+
+cronjob:
+  enabled: false
+  schedule: "0 4 * * 0"
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi

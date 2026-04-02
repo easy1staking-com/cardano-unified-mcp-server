@@ -1,0 +1,11 @@
+Cardano MCP Server has been deployed!
+
+Endpoint: http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/mcp
+Health:   http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/health
+
+To port-forward locally:
+  kubectl port-forward svc/{{ .Release.Name }} 3000:{{ .Values.service.port }}
+
+{{- if .Values.ingress.enabled }}
+Ingress: http://{{ .Values.ingress.host }}
+{{- end }}
