@@ -14,12 +14,22 @@ All notable changes to the Cardano Unified MCP Server are documented here.
 - **MCP Prompts** — `review-contract`, `explain-cip`, `suggest-tooling`, `build-transaction`, `governance-guide`
 - **stdio transport** — Run with `--stdio` for local use with Claude Desktop, Claude Code, Cursor
 - **New source categories** — `governance`, `scaling`, `testing` alongside existing `infrastructure`, `smart-contracts`, `sdk`, `standards`
-- **9 new documentation sources** — GovTool, SanchoNet, Intersect Docs, Hydra, Ouroboros Leios, Dolos, Yaci Store, Plutip. Yaci DevKit recategorized from sdk to testing.
+- **sqlite-vec** for ANN vector search — Replaces brute-force in-memory cosine similarity. Embeddings are searched in C inside SQLite via `vec0` virtual table with cosine distance metric. Eliminates ~120MB memory spike per query.
+- **Read-only DB mode** — Server pods open SQLite with `DB_READ_ONLY=true`, preventing writes and allowing safe concurrent reads. Only the ingest CronJob writes.
+- **Embeddings upgrade** — Switched to `text-embedding-3-large` (3072 dims), batch size 100, 500ms inter-batch delay
+- **Keep-alive headers** on HTTP responses for persistent MCP client connections
 - **Evaluation harness** (`eval/`) — 25 golden queries with snapshot/compare workflow. `npm run eval:snapshot` to baseline, `npm run eval -- --compare <file>` to detect regressions. Exits with code 1 on quality regression for CI use.
 - `ECOSYSTEM.md` — Comprehensive Cardano developer tooling landscape
 - `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `CHANGELOG.md`
 
+### Sources
+- **Added**: Aiken Design Patterns (Anastasia Labs), Pebble (Harmonic Labs TS smart contract DSL), Buildooor (Harmonic Labs tx builder), Koios (community chain indexer API + OpenAPI spec), Cardano GraphQL, Evolution SDK Packages, GovTool, SanchoNet, Hydra, Ouroboros Leios, Dolos, Yaci Store
+- **Removed**: Helios (abandoned since Jan 2024), Marlowe (dead), Plutip (stale since Nov 2024, superseded by Yaci DevKit), Lucid Evolution (Anastasia Labs — abandoned, superseded by Evolution SDK), Intersect Docs (repo does not exist)
+- **Fixed**: Mesh SDK path (apps/docs/ 404 → packages/), OpShin path (docs/ is pdoc HTML → root README only), Kupo path (narrowed to README + API spec), Aiken source (was pointing at compiler repo → now aiken-lang/site)
+- Yaci DevKit recategorized from sdk to testing
+
 ### Fixed
+- **Stateless MCP server** — Fixed "Already connected to a transport" crash by creating a fresh McpServer per request, following official SDK `simpleStatelessStreamableHttp` pattern. GET/DELETE now return 405.
 - **Source filter bug** — `search_docs` source filter was applied after the limit, potentially returning 0 results. Now filters before limiting.
 - **Format mismatches** — Kupo (markdown format but YAML files), Aiken Stdlib (markdown format but .ak files), Aiken Examples (markdown format but .ak + .toml) now correctly declared
 - Expanded `extractTitle()` to handle `.yaml`, `.yml`, `.json`, `.ak`, `.toml` extensions
@@ -29,6 +39,7 @@ All notable changes to the Cardano Unified MCP Server are documented here.
 - HTTP transport dynamically imported (only loaded when not in stdio mode)
 - `RawDoc` now carries a `format` field through the pipeline
 - `fetchSource()` split into `cloneSource()` (git only) and `readSourceFiles()` (read + format resolution)
+- K8s deployment: `DB_READ_ONLY=true` env var for server pods, single replica recommended (sticky sessions needed for multi-pod)
 
 ## [0.1.0] — 2026-03-26
 
