@@ -10,25 +10,31 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Tool | Description | Language | Indexed |
 |------|-------------|----------|---------|
 | Aiken | Most popular SC language (~75% adoption). Rust-like syntax. | Rust-like DSL | Yes |
-| Plinth (Plutus Tx) | Original Haskell-based SC language by IOG/Intersect. | Haskell | Yes |
+| Aiken Stdlib | Aiken standard library — list, option, transaction helpers. | Aiken | Yes |
+| Aiken Examples | Official Aiken code examples and patterns. | Aiken | Yes |
+| Aiken Design Patterns | Best practices and design patterns for Aiken (Anastasia Labs). | Aiken | Yes |
+| Plutus | Original Haskell-based SC platform by IOG/Intersect. | Haskell | Yes |
 | OpShin | 100% valid Python that compiles to UPLC. | Python | Yes |
-| Helios | DSL with JS/TS SDK, compiles in the browser. | JS/TS DSL | Yes |
-| Marlowe | Domain-specific for financial contracts. Community-maintained. | Haskell DSL | Yes |
+| Pebble | Smart contract framework by Harmonic Labs. | TypeScript | Yes |
+| CIP-113 Programmable Tokens | Reference implementation for programmable token standard. | Aiken | Yes |
+| Helios | DSL with JS/TS SDK, compiles in the browser. | JS/TS DSL | No |
 | Plutarch | Typed Haskell eDSL for highly optimized UPLC. | Haskell eDSL | No |
 | Plu-ts | TypeScript eDSL for on-chain and off-chain. | TypeScript | No |
 | Scalus | Scala 3 on-chain and off-chain platform. | Scala 3 | No |
+| Marlowe | Domain-specific for financial contracts. Community-maintained. | Haskell DSL | No |
 
 ## Off-Chain SDKs and Transaction Builders
 
 | Tool | Description | Language | Indexed |
 |------|-------------|----------|---------|
 | Mesh SDK | Leading open-source TS SDK. Tx builder, wallet connectors, React. | TypeScript | Yes |
-| Lucid Evolution | Production-ready TS tx builder by Anastasia Labs. | TypeScript | Yes |
-| Evolution SDK | Next-gen Intersect SDK built on Effect. | TypeScript | Yes |
+| Evolution SDK | Next-gen Intersect SDK built on Effect. Docs and package READMEs. | TypeScript | Yes |
 | Cardano JS SDK | IOG's comprehensive TS SDK. Powers Lace wallet. | TypeScript | Yes |
 | PyCardano | Lightweight Python library for tx building. | Python | Yes |
 | cardano-client-lib | Java client library by BloxBean. | Java | Yes |
 | Cardano Serialization Lib | Low-level Rust/WASM serialization. | Rust/WASM | Yes |
+| Buildooor | Smart contract builder tool by Harmonic Labs. | TypeScript | Yes |
+| Lucid Evolution | Production-ready TS tx builder by Anastasia Labs. | TypeScript | No |
 | Blaze SDK | High-perf TS tx builder by Butane Protocol. | TypeScript | No |
 | Atlas | Haskell PAB by GeniusYield. | Haskell | No |
 | CML (Cardano Multiplatform Lib) | Rust/WASM by dcSpark. Conway era. | Rust/WASM | No |
@@ -42,7 +48,7 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 |------|-------------|---------|
 | Ogmios | WebSocket bridge for cardano-node. JSON/RPC interface. | Yes |
 | Kupo | Fast, lightweight UTxO chain-index. | Yes |
-| Blockfrost | Most popular hosted REST API (~25% adoption). | Yes |
+| Blockfrost | Most popular hosted REST API (~25% adoption). OpenAPI specs. | Yes |
 | Mithril | Stake-based snapshots for fast node bootstrapping. | Yes |
 | Oura | Rust pipeline for chain event streaming (TxPipe). | Yes |
 | Pallas | Rust building blocks for Ouroboros/Cardano (TxPipe). | Yes |
@@ -50,12 +56,13 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Dolos | Lightweight data node by TxPipe. Fraction of node resources. | Yes |
 | Yaci Store | Modular Java indexer with Blockfrost-compatible APIs. | Yes |
 | DB-Sync | Official PostgreSQL chain indexer. Resource-heavy. | Yes |
-| Koios | Decentralized community REST query layer. | No |
+| Koios | Decentralized community REST query layer. OpenAPI specs. | Yes |
+| Cardano GraphQL | Cross-platform typed GraphQL API. | Yes |
+| Cardano Node Wiki | Node documentation and operational guides. | Yes |
 | Maestro | Managed blockchain indexer and APIs. | No |
 | Carp | Modular Postgres indexer by dcSpark. | No |
 | Scrolls | Read-optimized chain data collections by TxPipe. | No |
 | Dingo | Go node implementation by Blink Labs. | No |
-| Cardano GraphQL | Cross-platform typed GraphQL API. | No |
 
 ## Governance (Conway Era / CIP-1694)
 
@@ -63,8 +70,8 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 |------|-------------|---------|
 | GovTool | Official governance UI. Register as DRep, delegate, vote. | Yes |
 | SanchoNet | Governance testnet for CIP-1694 features. | Yes |
-| Intersect Docs | Governance and ecosystem documentation. | Yes |
 | CIP-1694 | The governance proposal itself (in CIPs index). | Yes |
+| Intersect Docs | Governance and ecosystem documentation. | No |
 
 ## Scaling and Layer 2
 
@@ -81,10 +88,10 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Tool | Description | Indexed |
 |------|-------------|---------|
 | Yaci DevKit | Complete local devnet. Instant creation, sub-second blocks. | Yes |
-| Plutip | Disposable Cardano clusters for automated testing. | Yes |
 | Aiken (built-in) | Unit tests and property-based testing for Aiken contracts. | Yes |
 | Preview Testnet | Public testnet for early-stage testing. | No |
 | Pre-Production Testnet | Public testnet resembling mainnet. | No |
+| Plutip | Disposable Cardano clusters for automated testing. | No |
 
 ## Wallet Connectors
 
@@ -131,4 +138,4 @@ These are protocol-specific and out of scope for this MCP server, which focuses 
 
 ---
 
-*Last updated: 2026-03-31. Sources: Cardano Foundation 2025 Developer Survey, developer.cardano.org, essential cardano.io.*
+*Last updated: 2026-04-02. Sources: Cardano Foundation 2025 Developer Survey, developer.cardano.org, essential cardano.io.*
