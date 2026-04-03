@@ -271,18 +271,25 @@ export const DOC_SOURCES: DocSource[] = [
 
   // --- Off-chain SDKs & Frameworks ---
   {
-    // FIX: apps/docs/ is 404 — repo restructured, packages/ has current content
     name: "Mesh SDK",
-    repo: "https://github.com/MeshJS/mesh.git",
-    docsPath: ".",
+    repo: "https://github.com/MeshJS/meshjs.dev.git",
+    docsPath: "content/docs",
     format: "mdx",
     category: "sdk",
     priority: "high",
+    globPatterns: ["**/*.mdx"],
+  },
+  {
+    name: "Mesh SDK Packages",
+    repo: "https://github.com/MeshJS/mesh.git",
+    docsPath: ".",
+    format: "markdown",
+    category: "sdk",
+    priority: "medium",
     globPatterns: [
       "README.md",
       "packages/**/README.md",
       "packages/**/*.md",
-      "packages/**/*.mdx",
     ],
   },
   {

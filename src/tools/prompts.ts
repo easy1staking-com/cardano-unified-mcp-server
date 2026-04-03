@@ -143,7 +143,7 @@ For each recommendation, explain why it fits this project and link to the releva
       sdk: z
         .string()
         .default("mesh")
-        .describe("SDK to use: mesh, lucid-evolution, evolution-sdk, pycardano, cardano-client-lib"),
+        .describe("SDK to use: mesh (recommended, most examples), evolution-sdk (recommended, comprehensive docs), pycardano, cardano-client-lib"),
       transaction_type: z
         .string()
         .describe(
@@ -158,6 +158,8 @@ For each recommendation, explain why it fits this project and link to the releva
             content: {
               type: "text" as const,
               text: `Using the search_docs tool, find documentation for the "${sdk}" SDK and help me build a "${transaction_type}" transaction.
+
+Note: The best-documented SDKs in this knowledge base are **Mesh SDK** and **Evolution SDK** (TypeScript). If using another SDK and docs are sparse, supplement with Mesh/Evolution examples and adapt.
 
 Provide:
 1. **Prerequisites** — What packages to install, how to set up the provider/wallet
@@ -227,7 +229,7 @@ Search for the relevant CIP specs and SDK examples from the indexed docs.`,
       language: z
         .string()
         .default("aiken")
-        .describe("Language: aiken, plutus, opshin, pebble"),
+        .describe("Language: aiken (recommended, best docs + stdlib + examples), plutus, opshin, pebble"),
       description: z
         .string()
         .describe(
@@ -338,44 +340,6 @@ Cover:
 6. **CI integration** — How to run tests in CI with Yaci DevKit
 
 Use the actual documentation from Yaci DevKit and the relevant SDK docs.`,
-            },
-          },
-        ],
-      };
-    }
-  );
-
-  server.prompt(
-    "migrate-sdk",
-    "Migrate Cardano dApp code between SDKs or from deprecated libraries",
-    {
-      from_sdk: z
-        .string()
-        .describe(
-          "Current SDK: lucid, lucid-evolution, cardano-serialization-lib, mesh-v1, cardano-cli"
-        ),
-      to_sdk: z
-        .string()
-        .default("evolution-sdk")
-        .describe("Target SDK: evolution-sdk, mesh, pycardano, cardano-client-lib"),
-    },
-    async ({ from_sdk, to_sdk }) => {
-      return {
-        messages: [
-          {
-            role: "user" as const,
-            content: {
-              type: "text" as const,
-              text: `Using the search_docs tool, help me migrate from "${from_sdk}" to "${to_sdk}".
-
-Provide:
-1. **Key API differences** — Side-by-side comparison of common operations (create tx, sign, submit, query UTxOs, interact with scripts)
-2. **Migration checklist** — What needs to change: imports, provider setup, wallet handling, datum/redeemer encoding, transaction building
-3. **Code examples** — Before/after for the most common patterns: simple payment, minting, script interaction, staking
-4. **Breaking changes** — What works differently (e.g. Data encoding, address handling, error handling)
-5. **Gotchas** — Common mistakes when migrating
-
-Use the actual API from the indexed docs for both SDKs.`,
             },
           },
         ],
@@ -545,44 +509,4 @@ Search the CIP-30 spec, CIP-95, ${sdk} docs, and Developer Portal for the actual
     }
   );
 
-  server.prompt(
-    "solve-contention",
-    "Design around UTxO contention in a Cardano smart contract protocol",
-    {
-      protocol_description: z
-        .string()
-        .describe(
-          "Describe your protocol, e.g. 'DEX with shared liquidity pool UTxO', 'auction with single bid UTxO', 'oracle feed that many users read'"
-        ),
-    },
-    async ({ protocol_description }) => {
-      return {
-        messages: [
-          {
-            role: "user" as const,
-            content: {
-              type: "text" as const,
-              text: `Using the search_docs tool, help me solve UTxO contention in my Cardano protocol.
-
-Protocol: "${protocol_description}"
-
-In the eUTxO model, only one transaction can consume a UTxO. When multiple users try to interact with the same UTxO simultaneously, all but one transaction will fail. This is the "contention" problem.
-
-Analyze my protocol and suggest:
-1. **Where contention occurs** — Identify the shared UTxOs that are bottlenecks
-2. **Pattern: UTxO splitting** — Can the state be split across multiple UTxOs? (e.g. order-book DEX instead of AMM pool)
-3. **Pattern: Batching** — Can a batcher aggregate multiple user intents into one transaction?
-4. **Pattern: Reference inputs** — Can any shared state be read-only via CIP-31 reference inputs instead of consumed?
-5. **Pattern: Stake validator (withdraw-zero)** — Can validation be moved to a stake validator that runs once per tx regardless of input count? (CIP-113 pattern)
-6. **Pattern: Optimistic concurrency** — Can users retry with a fresh UTxO set on failure?
-7. **Recommended architecture** — Which combination of patterns best fits this protocol
-8. **Code sketch** — High-level validator structure showing the contention-free design
-
-Search for Hydra (L2 scaling), CIP-113 architecture (withdraw-zero pattern), Aiken design patterns, and relevant SDK docs.`,
-            },
-          },
-        ],
-      };
-    }
-  );
 }
