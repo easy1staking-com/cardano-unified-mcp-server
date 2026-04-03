@@ -348,6 +348,45 @@ Use the actual documentation from Yaci DevKit and the relevant SDK docs.`,
   );
 
   server.prompt(
+    "optimize-validator",
+    "Optimize an Aiken smart contract for lower execution costs and smaller script size",
+    {
+      code: z.string().describe("The Aiken validator code to optimize"),
+    },
+    async ({ code }) => {
+      return {
+        messages: [
+          {
+            role: "user" as const,
+            content: {
+              type: "text" as const,
+              text: `You are a Cardano smart contract performance engineer specializing in Aiken.
+
+Using the search_docs tool, search for "optimizing programs" and "performance" in the Aiken documentation, then optimize the following Aiken validator.
+
+Analyze and suggest improvements in these areas:
+1. **Execution units (CPU & memory)** — Identify expensive operations and suggest cheaper alternatives
+2. **Script size** — Reduce compiled UPLC size to lower reference fees and tx costs
+3. **Data structure choices** — Are lists used where pairs/tuples would suffice? Are maps used efficiently?
+4. **Pattern matching** — Can expect/when patterns be restructured to fail fast on common cases?
+5. **Redundant computation** — Are values computed multiple times that could be bound once with let?
+6. **Stdlib usage** — Are there stdlib functions that are more efficient for this use case?
+7. **Benchmarking** — How to use \`aiken bench\` to measure before/after improvements
+
+For each suggestion, explain the cost impact (CPU/memory/size) and show the before/after code.
+
+Validator code:
+\`\`\`aiken
+${code}
+\`\`\``,
+            },
+          },
+        ],
+      };
+    }
+  );
+
+  server.prompt(
     "debug-transaction",
     "Debug a failing Cardano transaction",
     {
