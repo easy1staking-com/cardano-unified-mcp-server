@@ -28,7 +28,7 @@ If the source qualifies:
 5. Verify chunks look right with `npm run dev` and the `list_topics` tool.
 6. Submit a pull request. The [Validate Sources](.github/workflows/validate-sources.yml) workflow will run automatically — a red badge on the PR means a schema error in your YAML; the job log shows the exact field path.
 
-There is **no** need to edit `src/config/sources.ts` — it is now a loader that reads the YAML. There is no need to update `SOURCES.md` either; the YAML is the single source of truth.
+There is **no** need to edit `src/config/sources.ts` — it is now a loader that reads the YAML. `config/sources.yaml` is the single source of truth.
 
 ### Bug Fixes and Improvements
 

@@ -8,5 +8,4 @@ repos
 !.env.example
 .claude
 *.md
-!SOURCES.md
 k8s
