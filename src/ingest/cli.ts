@@ -12,9 +12,6 @@ async function main() {
   const skipEmbeddings = args.includes("--skip-embeddings");
   const validateOnly = args.includes("--validate-only");
   const skipValidation = args.includes("--skip-validation");
-  const priorityFilter = args
-    .find((a) => a.startsWith("--priority="))
-    ?.split("=")[1];
 
   let sources = DOC_SOURCES;
 
@@ -26,10 +23,6 @@ async function main() {
       console.error(`No sources matching "${sourceFilter}"`);
       process.exit(1);
     }
-  }
-
-  if (priorityFilter) {
-    sources = sources.filter((s) => s.priority === priorityFilter);
   }
 
   console.log(`\nCardano Unified MCP — Documentation Ingestion`);
@@ -121,7 +114,7 @@ async function main() {
     const chunks = chunkDocuments(docs);
     allChunks.set(name, { source, chunks });
     console.log(
-      `  [${source.priority.toUpperCase()}] ${name}: ${docs.length} files → ${chunks.length} chunks`
+      `  [${source.category}] ${name}: ${docs.length} files → ${chunks.length} chunks`
     );
   }
 

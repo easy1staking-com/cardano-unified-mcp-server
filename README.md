@@ -1,8 +1,14 @@
 # Cardano Unified MCP Server
 
-A comprehensive [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that gives AI assistants deep knowledge of the Cardano ecosystem — documentation, SDKs, smart contract languages, governance, scaling, and developer standards, all searchable from a single endpoint.
+[![Validate Sources](https://github.com/easy1staking-com/cardano-unified-mcp-server/actions/workflows/validate-sources.yml/badge.svg)](https://github.com/easy1staking-com/cardano-unified-mcp-server/actions/workflows/validate-sources.yml)
 
-**Hosted instance:** `mcp.easy1staking.com`
+An independent, community-maintained [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that gives AI assistants deep knowledge of the Cardano ecosystem — documentation, SDKs, smart contract languages, governance, scaling, and developer standards, all searchable from a single endpoint.
+
+Run by [Easy1Staking](https://easy1staking.com). **Hosted instance:** `mcp.easy1staking.com`
+
+> **New here?** MCP is an open standard that lets an AI assistant plug into external knowledge servers. Connect this one and your assistant can answer Cardano development questions with citations to real upstream docs instead of making things up.
+>
+> Read [ABOUT.md](ABOUT.md) for the full story — what this project is, where the knowledge comes from, how it is vetted, and who maintains it. Read [docs/architecture.md](docs/architecture.md) for the component, query, and ingestion diagrams.
 
 ## What's Inside
 
@@ -108,34 +114,30 @@ MCP_API_KEY=your-secret npm start
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────┐
-│              MCP Clients                     │
-│  (Claude Desktop, Claude Code, Cursor, etc.) │
-└──────────────┬──────────────────────────────┘
-               │ stdio or HTTP
-┌──────────────▼──────────────────────────────┐
-│         Cardano Unified MCP Server           │
-│                                              │
-│  ┌─────────┐  ┌───────────┐  ┌───────────┐  │
-│  │  Tools  │  │ Resources │  │  Prompts  │  │
-│  └────┬────┘  └─────┬─────┘  └─────┬─────┘  │
-│       └─────────────┼───────────────┘        │
-│              ┌──────▼──────┐                 │
-│              │  VectorDB   │                 │
-│              │  (SQLite +  │                 │
-│              │  FTS5 +     │                 │
-│              │  Embeddings)│                 │
-│              └─────────────┘                 │
-└──────────────────────────────────────────────┘
+```mermaid
+graph TB
+    subgraph clients["MCP clients"]
+        CD["Claude Desktop · Claude Code · Cursor · Windsurf · …"]
+    end
 
-Ingestion Pipeline (weekly CronJob):
-  GitHub repos → clone/pull → chunk → embed → upsert
+    subgraph server["Cardano Unified MCP Server"]
+        T["Tools"]
+        R["Resources"]
+        P["Prompts"]
+        DB[("VectorDB<br/>SQLite + FTS5 + sqlite-vec")]
+        T --> DB
+        R --> DB
+        P --> DB
+    end
+
+    clients -->|"stdio or HTTP + SSE"| server
 ```
 
-### Search Modes
+Full component, query, and ingestion diagrams in [docs/architecture.md](docs/architecture.md).
 
-- **Hybrid** (default) — Combines FTS (40% weight) + vector similarity (60% weight)
+### Search modes
+
+- **Hybrid** (default) — BM25 full-text (40%) + vector similarity (60%)
 - **Semantic** — Embedding cosine similarity only
 - **Keyword** — Full-text search with Porter stemming (no API key needed)
 
@@ -160,19 +162,26 @@ kubectl create secret generic cardano-mcp-secrets \
 
 ## Ingestion
 
+The full list of indexed sources lives in [`config/sources.yaml`](config/sources.yaml). See [`docs/sources-schema.md`](docs/sources-schema.md) for the schema reference and [`ABOUT.md`](ABOUT.md#acceptance-criteria-for-a-documentation-source) for the acceptance criteria a new source must meet.
+
 ```bash
 # Ingest all sources
 npm run ingest
 
-# Ingest a specific source
+# Ingest a specific source (name substring match)
 npm run ingest -- Aiken
 
-# Ingest by priority
-npm run ingest -- --priority=high
+# Dry-run: fetch and validate, but skip chunking and embeddings
+npm run ingest -- --validate-only
 
-# Skip embeddings (keyword-only mode)
+# Skip embeddings (keyword-only mode, no API key needed)
 npm run ingest -- --skip-embeddings
+
+# Just check that config/sources.yaml loads and validates
+npm run validate:sources
 ```
+
+Pull requests that touch `config/sources.yaml` are gated by the [Validate Sources](.github/workflows/validate-sources.yml) GitHub Action — a malformed entry blocks merge with the exact Zod error in the job log.
 
 ## Development
 

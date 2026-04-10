@@ -1,7 +1,11 @@
 # Cardano Developer Ecosystem
 
 > A comprehensive map of tools, SDKs, and infrastructure for building on Cardano.
-> Items marked with a checkmark are indexed in this MCP server.
+> Items marked **Yes** in the Indexed column are indexed in this MCP server.
+>
+> This is a neutral landscape survey. See [ABOUT.md](ABOUT.md) for this
+> project's scope, acceptance criteria, and trust model. The indexed
+> allowlist itself lives in [`config/sources.yaml`](config/sources.yaml).
 
 ## Smart Contract Languages (On-Chain)
 
@@ -53,7 +57,7 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Mithril | Stake-based snapshots for fast node bootstrapping. | Yes |
 | Oura | Rust pipeline for chain event streaming (TxPipe). | Yes |
 | Pallas | Rust building blocks for Ouroboros/Cardano (TxPipe). | Yes |
-| Cardano Wallet | HTTP REST API for wallet operations (CF). | Yes |
+| Cardano Wallet | HTTP REST API for wallet operations. | Yes |
 | Dolos | Lightweight data node by TxPipe. Fraction of node resources. | Yes |
 | Yaci Store | Modular Java indexer with Blockfrost-compatible APIs. | Yes |
 | DB-Sync | Official PostgreSQL chain indexer. Resource-heavy. | Yes |
@@ -70,11 +74,11 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | Node | Description | Language | Status | Indexed |
 |------|-------------|----------|--------|---------|
 | cardano-node | Official reference implementation by IOG/Intersect. | Haskell | Production | No |
-| Amaru | Lightweight full node by PRAGMA (CF, Blink Labs, dcSpark, TxPipe, Sundae Labs). <1GB RAM. | Rust | Experimental | No |
+| Amaru | Lightweight full node by PRAGMA (Blink Labs, dcSpark, TxPipe, Sundae Labs, and others). <1GB RAM. | Rust | Experimental | No |
 | Dingo | Full node implementation by Blink Labs. Testnet-ready. | Go | Experimental | No |
 | Dolos | Data node by TxPipe. Fraction of full node resources. | Rust | Active | Yes |
 | Acropolis | Modular node architecture initiative using Caryatid framework. | Rust | In Development | No |
-| Antithesis | Deterministic testing platform for node implementations (CF). | — | Active | No |
+| Antithesis | Deterministic testing platform used for Cardano node implementations. | — | Active | No |
 
 ## Governance (Conway Era / CIP-1694)
 
@@ -112,7 +116,7 @@ All compile to Untyped Plutus Core (UPLC) for the Plutus VM.
 | CIP-30 | dApp-Wallet Web Bridge standard (in CIPs index). | Yes |
 | CIP-95 | Conway era governance wallet extension. | Yes |
 | Weld | Universal wallet connector by Cardano Forge. | No |
-| Cardano Connect with Wallet | CF React wallet components. | No |
+| Cardano Connect with Wallet | React wallet connector components. | No |
 
 ## Standards (CIPs)
 
@@ -150,4 +154,4 @@ These are protocol-specific and out of scope for this MCP server, which focuses 
 
 ---
 
-*Last updated: 2026-04-02. Sources: Cardano Foundation 2025 Developer Survey, developer.cardano.org, essential cardano.io.*
+*Last updated: 2026-04-10.*

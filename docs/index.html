@@ -13,10 +13,12 @@
   <div class="nav-inner">
     <span class="logo">Cardano MCP</span>
     <ul class="nav-links">
+      <li><a href="#what-is-mcp">What is MCP?</a></li>
       <li><a href="#tools">Tools</a></li>
       <li><a href="#prompts">Prompts</a></li>
       <li><a href="#get-started">Get Started</a></li>
       <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md">About</a></li>
       <li><a href="https://github.com/easy1staking-com/cardano-unified-mcp-server">GitHub</a></li>
     </ul>
   </div>
@@ -40,7 +42,7 @@
       <div class="label">Documentation Sources</div>
     </div>
     <div class="stat">
-      <div class="number">19,844</div>
+      <div class="number">20k+</div>
       <div class="label">Indexed Chunks</div>
     </div>
     <div class="stat">
@@ -56,6 +58,29 @@
       <div class="label">Built-in Prompts</div>
     </div>
   </div>
+</section>
+
+<!-- What is MCP? — the question everyone asks first -->
+<section id="what-is-mcp">
+  <h2>What is MCP?</h2>
+  <p>The <a href="https://modelcontextprotocol.io">Model Context Protocol</a> is an open standard that lets an AI assistant plug into external knowledge servers. Think of it as a USB port for AI: plug one in and your assistant gains whatever capabilities the server exposes. This particular server exposes <strong>Cardano developer knowledge</strong> &mdash; documentation, smart-contract references, SDK guides, standards &mdash; so your assistant can answer Cardano questions with citations to real upstream docs instead of making things up.</p>
+
+  <div class="two-col" style="margin-top: 1.5rem;">
+    <div>
+      <h3>Where does the knowledge come from?</h3>
+      <p>From a fixed, public allowlist of GitHub repositories &mdash; every single one listed in <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/config/sources.yaml"><code>config/sources.yaml</code></a>. The server <strong>never</strong> performs a live web search, never fetches arbitrary URLs, and never reads from sources the maintainer has not explicitly accepted. Every answer returned by the server carries a citation to the exact source file, so you can always verify where it came from.</p>
+    </div>
+    <div>
+      <h3>Who runs it and how is it vetted?</h3>
+      <p>This is an independent project run by <a href="https://easy1staking.com">Easy1Staking</a>. It is <strong>not</strong> affiliated with any foundation, IOG, Intersect, or ecosystem body. Changes to the allowlist happen through public pull requests that are schema-validated by CI and manually reviewed against the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md#acceptance-criteria-for-a-documentation-source">acceptance criteria</a>. No tokens, no dApps, no product endorsements, no financial advice.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 1.5rem; text-align: center;">
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md">Read the full ABOUT document &rarr;</a>
+    &nbsp;&middot;&nbsp;
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/architecture.md">Architecture &amp; data flow diagrams &rarr;</a>
+  </p>
 </section>
 
 <!-- What's Inside -->
@@ -388,27 +413,10 @@ npm start</pre>
 <!-- Architecture -->
 <section id="architecture">
   <h2>Architecture</h2>
-  <pre>
-MCP Clients (Claude, Cursor, Windsurf, etc.)
-    |
-    | stdio or HTTP (Streamable HTTP + SSE)
-    v
-Cardano Unified MCP Server
-    |
-    +-- Tools: search_docs, get_doc, list_topics
-    +-- Resources: cardano://sources, cardano://source/*, cardano://doc/*
-    +-- Prompts: 14 specialized developer prompts
-    |
-    v
-VectorDB (SQLite + FTS5 + sqlite-vec)
-    |
-    +-- Hybrid search: BM25 (40%) + cosine similarity (60%)
-    +-- 19,844 chunks from 40+ sources
-    +-- Weekly re-ingestion via CronJob
+  <p>A single stateless Node.js process. MCP clients connect over stdio or streamable HTTP. All reads hit a local SQLite database that combines BM25 full-text search (via FTS5) and vector similarity (via <code>sqlite-vec</code>). <strong>No outbound network calls at query time &mdash; no live web search, no external API fetches.</strong></p>
 
-Ingestion Pipeline:
-  GitHub repos --> clone/pull --> chunk --> embed --> upsert
-  </pre>
+  <p>Documentation is re-ingested weekly by a Kubernetes CronJob: <code>config/sources.yaml</code> &rarr; git clone &rarr; format-aware parse &rarr; chunk &rarr; embed &rarr; atomic upsert. The full component, query-flow, and ingestion-flow diagrams (in Mermaid) live in <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/architecture.md"><code>docs/architecture.md</code></a>.</p>
+
   <div class="two-col" style="margin-top: 1.5rem;">
     <div>
       <h3>Search Modes</h3>
@@ -433,19 +441,19 @@ Ingestion Pipeline:
 <!-- Contributing -->
 <section id="contributing">
   <h2>Contributing</h2>
-  <p>This project aims to be the most comprehensive MCP server for Cardano developers. Contributions welcome!</p>
+  <p>This is a neutral knowledge server for people building on Cardano. Contributions welcome &mdash; especially new documentation sources. Please read <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md">ABOUT.md</a> first for the project's scope, trust model, and acceptance criteria.</p>
   <div class="two-col">
     <div>
       <h3>Add a Documentation Source</h3>
-      <p>Check <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/SOURCES.md">SOURCES.md</a> for the current index and candidates. New sources need a public GitHub repo with markdown/MDX docs.</p>
+      <p>Edit <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/config/sources.yaml"><code>config/sources.yaml</code></a> and open a PR. See the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/sources-schema.md">schema reference</a> for every field, and the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md#acceptance-criteria-for-a-documentation-source">acceptance criteria</a> for what qualifies. Every PR is schema-validated by CI.</p>
     </div>
     <div>
       <h3>Report Issues</h3>
-      <p>Found a bug or have a feature request? <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/issues">Open an issue</a> on GitHub.</p>
+      <p>Found a bug, a broken source, or something misleading? <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/issues">Open an issue</a>. GitHub issues are the only intake channel &mdash; no email, no Discord.</p>
     </div>
   </div>
   <p style="margin-top: 1rem;">
-    See <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines and <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> for community standards.
+    See <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for the contributor workflow and <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> for community standards.
   </p>
 </section>
 
@@ -453,7 +461,11 @@ Ingestion Pipeline:
   <p>
     Apache-2.0 License &middot;
     <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server">GitHub</a> &middot;
-    Built by <a href="https://easy1staking.com">Easy1Staking</a>
+    <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md">About</a> &middot;
+    Built and run by <a href="https://easy1staking.com">Easy1Staking</a>
+  </p>
+  <p style="font-size: 0.85em; opacity: 0.7; margin-top: 0.5rem;">
+    An independent community project. Not affiliated with any foundation, IOG, Intersect, or ecosystem body.
   </p>
 </footer>
 

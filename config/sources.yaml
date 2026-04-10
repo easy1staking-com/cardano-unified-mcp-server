@@ -1,0 +1,416 @@
+# Cardano Unified MCP Server — Documentation Sources
+#
+# This file is the single source of truth for the ingestion pipeline.
+# Edit here to add, remove, or reconfigure a source. The file is validated
+# at load time — a malformed entry will cause `npm run ingest` to fail
+# with a clear error before any repo is cloned.
+#
+# See docs/sources-schema.md for the full field reference.
+
+sources:
+  # =========================================================================
+  # Core Infrastructure
+  # =========================================================================
+  - name: Ogmios
+    repo: https://github.com/cardanosolutions/ogmios.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+
+  - name: Kupo
+    repo: https://github.com/CardanoSolutions/kupo.git
+    docsPath: .
+    format: markdown
+    formatOverrides:
+      "**/*.yaml": openapi
+      "**/*.yml": openapi
+    category: infrastructure
+    # Only ingest latest version to avoid duplicate endpoint chunks.
+    globPatterns:
+      - README.md
+      - docs/api/nightly.yaml
+
+  - name: Blockfrost OpenAPI
+    repo: https://github.com/blockfrost/openapi.git
+    docsPath: .
+    format: openapi
+    category: infrastructure
+    globPatterns:
+      - "**/*.yaml"
+
+  - name: Cardano Node Wiki
+    repo: https://github.com/input-output-hk/cardano-node-wiki.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+
+  - name: DB-Sync
+    repo: https://github.com/IntersectMBO/cardano-db-sync.git
+    docsPath: doc
+    format: markdown
+    category: infrastructure
+
+  - name: Mithril
+    repo: https://github.com/input-output-hk/mithril.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: Oura
+    repo: https://github.com/txpipe/oura.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: Pallas
+    repo: https://github.com/txpipe/pallas.git
+    docsPath: .
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - README.md
+      - "**/README.md"
+
+  - name: Cardano Wallet
+    repo: https://github.com/cardano-foundation/cardano-wallet.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - "**/*.md"
+
+  - name: Koios
+    repo: https://github.com/cardano-community/koios-artifacts.git
+    docsPath: .
+    format: markdown
+    formatOverrides:
+      "**/*.yaml": openapi
+    category: infrastructure
+    globPatterns:
+      - README.md
+      - specs/results/koiosapi-mainnet.yaml
+
+  - name: Cardano GraphQL
+    repo: https://github.com/cardano-foundation/cardano-graphql.git
+    docsPath: .
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+      - packages/**/README.md
+
+  - name: Dolos
+    repo: https://github.com/txpipe/dolos.git
+    docsPath: docs
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: Yaci Store
+    repo: https://github.com/bloxbean/yaci-store.git
+    docsPath: .
+    format: markdown
+    category: infrastructure
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+
+  # =========================================================================
+  # Smart Contract Languages
+  # =========================================================================
+  - name: Aiken
+    repo: https://github.com/aiken-lang/site.git
+    docsPath: src/pages
+    format: mdx
+    category: smart-contracts
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: Aiken Stdlib
+    repo: https://github.com/aiken-lang/stdlib.git
+    docsPath: lib
+    format: aiken
+    category: smart-contracts
+    globPatterns:
+      - "**/*.ak"
+
+  - name: Aiken Examples
+    repo: https://github.com/aiken-lang/aiken.git
+    docsPath: examples
+    format: aiken
+    formatOverrides:
+      "**/*.md": markdown
+    category: smart-contracts
+    globPatterns:
+      - "**/*.ak"
+      - "**/*.md"
+
+  - name: Plutus
+    repo: https://github.com/IntersectMBO/plutus.git
+    docsPath: doc
+    format: markdown
+    category: smart-contracts
+
+  - name: OpShin
+    repo: https://github.com/opshin/opshin.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    # docs/ is pdoc HTML output, not useful markdown — narrow to root docs.
+    globPatterns:
+      - README.md
+      - ARCHITECTURE.md
+
+  - name: Aiken Design Patterns
+    repo: https://github.com/Anastasia-Labs/aiken-design-patterns.git
+    docsPath: .
+    format: aiken
+    formatOverrides:
+      "**/*.md": markdown
+    category: smart-contracts
+    globPatterns:
+      - README.md
+      - lib/**/*.ak
+
+  - name: Pebble
+    repo: https://github.com/HarmonicLabs/pebble.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    globPatterns:
+      - README.md
+      - packages/**/README.md
+      - packages/**/*.md
+
+  - name: Smart Contract Vulnerabilities
+    repo: https://github.com/easy1staking-com/cardano-smart-contract-vulnerabilities.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    description: Community-maintained catalogue of known Cardano smart-contract vulnerabilities, used by the review-contract prompt.
+    globPatterns:
+      - CARDANO-SMART-CONTRACT-VULNERABILITIES.md
+      - README.md
+
+  - name: Plutarch
+    repo: https://github.com/Plutonomicon/plutarch-plutus.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+      - Tricks/**/*.md
+
+  - name: Plu-ts
+    repo: https://github.com/HarmonicLabs/plu-ts.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+      - packages/**/README.md
+
+  - name: Scalus
+    repo: https://github.com/scalus3/scalus.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+
+  - name: CIP-113 Programmable Tokens
+    repo: https://github.com/cardano-foundation/cip113-programmable-tokens.git
+    docsPath: .
+    format: markdown
+    category: smart-contracts
+    description: Reference implementation of CIP-113 programmable tokens (on-chain Aiken + off-chain Java).
+    globPatterns:
+      - README.md
+      - RFI-REVIEW-SUMMARY.md
+      - src/programmable-tokens-onchain-aiken/README.md
+      - src/programmable-tokens-onchain-aiken/documentation/**/*.md
+      - src/programmable-tokens-offchain-java/README.md
+
+  # =========================================================================
+  # Off-chain SDKs & Frameworks
+  # =========================================================================
+  - name: Mesh SDK
+    repo: https://github.com/MeshJS/meshjs.dev.git
+    docsPath: content/docs
+    format: mdx
+    category: sdk
+    globPatterns:
+      - "**/*.mdx"
+
+  - name: Mesh SDK Packages
+    repo: https://github.com/MeshJS/mesh.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    globPatterns:
+      - README.md
+      - packages/**/README.md
+      - packages/**/*.md
+
+  - name: Evolution SDK
+    repo: https://github.com/IntersectMBO/evolution-sdk.git
+    docsPath: docs/content/docs
+    format: mdx
+    category: sdk
+    description: Next-generation Cardano off-chain framework by No Witness Labs, incubated under Intersect. Replaces Lucid Evolution.
+
+  - name: Evolution SDK Packages
+    repo: https://github.com/IntersectMBO/evolution-sdk.git
+    docsPath: packages
+    format: markdown
+    category: sdk
+    globPatterns:
+      - "**/README.md"
+      - "**/*.md"
+
+  - name: cardano-js-sdk
+    repo: https://github.com/input-output-hk/cardano-js-sdk.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    globPatterns:
+      - "**/README.md"
+      - GETTING_STARTED.md
+
+  - name: PyCardano
+    repo: https://github.com/Python-Cardano/pycardano.git
+    docsPath: docs/source
+    format: rst
+    category: sdk
+
+  - name: cardano-client-lib
+    repo: https://github.com/bloxbean/cardano-client-lib.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+      - examples/**/*.md
+
+  - name: Buildooor
+    repo: https://github.com/HarmonicLabs/buildooor.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+
+  - name: Cardano Serialization Lib
+    repo: https://github.com/Emurgo/cardano-serialization-lib.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    globPatterns:
+      - README.md
+      - doc/**/*.md
+      - examples/**/*.md
+
+  - name: CIP-113 SDK (TypeScript)
+    repo: https://github.com/easy1staking-com/cip113-sdk-ts.git
+    docsPath: .
+    format: markdown
+    category: sdk
+    description: TypeScript SDK for building applications on top of CIP-113 programmable tokens.
+    globPatterns:
+      - README.md
+      - docs/**/*.md
+      - examples/**/README.md
+
+  # =========================================================================
+  # Testing & DevNets
+  # =========================================================================
+  - name: Yaci DevKit
+    repo: https://github.com/bloxbean/yaci-devkit.git
+    docsPath: docs/pages
+    format: mdx
+    category: testing
+    globPatterns:
+      - "**/*.mdx"
+      - "**/*.md"
+
+  # =========================================================================
+  # Governance (Conway Era)
+  # =========================================================================
+  - name: GovTool
+    repo: https://github.com/IntersectMBO/govtool.git
+    docsPath: docs
+    format: markdown
+    category: governance
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: SanchoNet
+    repo: https://github.com/input-output-hk/sanchonet.git
+    docsPath: docs
+    format: markdown
+    category: governance
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  # =========================================================================
+  # Scaling / Layer 2
+  # =========================================================================
+  - name: Hydra
+    repo: https://github.com/cardano-scaling/hydra.git
+    docsPath: docs
+    format: markdown
+    category: scaling
+    globPatterns:
+      - "**/*.md"
+      - "**/*.mdx"
+
+  - name: Ouroboros Leios
+    repo: https://github.com/input-output-hk/ouroboros-leios.git
+    docsPath: docs
+    format: markdown
+    category: scaling
+    globPatterns:
+      - "**/*.md"
+
+  # =========================================================================
+  # Standards & Portals
+  # =========================================================================
+  - name: CIPs
+    repo: https://github.com/cardano-foundation/CIPs.git
+    docsPath: .
+    format: markdown
+    category: standards
+    description: Cardano Improvement Proposals and Cardano Problem Statements.
+    globPatterns:
+      - CIP-*/README.md
+      - CIP-*/**/*.md
+      - CPS-*/README.md
+
+  - name: Developer Portal
+    repo: https://github.com/cardano-foundation/developer-portal.git
+    docsPath: docs
+    format: markdown
+    category: standards
+
+  - name: Cardano Docs
+    repo: https://github.com/input-output-hk/cardano-documentation.git
+    docsPath: docs
+    format: markdown
+    category: standards
