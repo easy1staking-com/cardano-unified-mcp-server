@@ -4,7 +4,7 @@
 
 An independent, community-maintained [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) server that gives AI assistants deep knowledge of the Cardano ecosystem — documentation, SDKs, smart contract languages, governance, scaling, and developer standards, all searchable from a single endpoint.
 
-Run by [Easy1Staking](https://easy1staking.com). **Hosted instance:** `mcp.easy1staking.com`
+Run by [Easy1Staking](https://easy1staking.com). **Hosted instance:** `https://mcp.easy1staking.com/mcp`
 
 > **New here?** MCP is an open standard that lets an AI assistant plug into external knowledge servers. Connect this one and your assistant can answer Cardano development questions with citations to real upstream docs instead of making things up.
 >
