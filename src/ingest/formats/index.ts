@@ -66,6 +66,7 @@ const EXTENSION_TO_FORMAT: Record<string, DocFormat> = {
   ".json": "openapi",
   ".ak": "aiken",
   ".toml": "toml",
+  ".py": "python",
 };
 
 const FORMAT_EXTENSIONS: Record<DocFormat, string[]> = {
@@ -75,6 +76,7 @@ const FORMAT_EXTENSIONS: Record<DocFormat, string[]> = {
   openapi: [".yaml", ".yml", ".json"],
   aiken: [".ak"],
   toml: [".toml"],
+  python: [".py"],
 };
 
 /**

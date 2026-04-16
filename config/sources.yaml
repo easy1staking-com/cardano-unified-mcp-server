@@ -390,6 +390,46 @@ sources:
       - "**/*.md"
 
   # =========================================================================
+  # Oracles
+  # =========================================================================
+  - name: Charli3 Pull Oracle Contracts
+    repo: https://github.com/Charli3-Official/charli3-pull-oracle-contracts.git
+    docsPath: .
+    format: aiken
+    formatOverrides:
+      "**/*.md": markdown
+    category: oracles
+    description: Aiken (Plutus V3) smart contracts for Charli3's pull-based multisig oracle — minting policy, spending validator, IQR consensus, and reward logic.
+    globPatterns:
+      - architecture.md
+      - validators/**/*.ak
+      - lib/**/*.ak
+
+  - name: Charli3 Pull Oracle SDK
+    repo: https://github.com/Charli3-Official/charli3-pull-oracle-sdk.git
+    docsPath: .
+    format: python
+    formatOverrides:
+      "**/*.md": markdown
+    category: oracles
+    description: Python off-chain core for Charli3 ODV oracles — deployment, governance, aggregation, chain queries, and datum types.
+    globPatterns:
+      - README.md
+      - charli3_offchain_core/**/*.py
+
+  - name: Charli3 Pull Oracle Client
+    repo: https://github.com/Charli3-Official/charli3-pull-oracle-client.git
+    docsPath: .
+    format: python
+    formatOverrides:
+      "**/*.md": markdown
+    category: oracles
+    description: Python consumer SDK for Charli3 pull oracle — request feeds, build aggregation transactions, collect multisig signatures.
+    globPatterns:
+      - README.md
+      - charli3_odv_client/**/*.py
+
+  # =========================================================================
   # Standards & Portals
   # =========================================================================
   - name: CIPs

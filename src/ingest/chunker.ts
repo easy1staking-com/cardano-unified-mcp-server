@@ -8,6 +8,7 @@ import "./formats/rst.js";
 import "./formats/openapi.js";
 import "./formats/aiken.js";
 import "./formats/toml.js";
+import "./formats/python.js";
 
 export interface RawDoc {
   source: string;
@@ -121,7 +122,7 @@ function splitBySize(
 function extractTitle(path: string): string {
   const parts = path.split("/");
   const filename = parts[parts.length - 1]
-    .replace(/\.(md|mdx|rst|yaml|yml|json|ak|toml)$/, "")
+    .replace(/\.(md|mdx|rst|yaml|yml|json|ak|toml|py)$/, "")
     .replace(/README/i, parts.length > 1 ? parts[parts.length - 2] : "Overview")
     .replace(/[-_]/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());

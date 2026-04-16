@@ -10,7 +10,8 @@ export type DocFormat =
   | "rst"
   | "openapi"
   | "aiken"
-  | "toml";
+  | "toml"
+  | "python";
 
 export type DocCategory =
   | "infrastructure"
@@ -19,7 +20,8 @@ export type DocCategory =
   | "standards"
   | "governance"
   | "scaling"
-  | "testing";
+  | "testing"
+  | "oracles";
 
 export interface DocSource {
   name: string;
@@ -40,6 +42,7 @@ const DocFormatSchema = z.enum([
   "openapi",
   "aiken",
   "toml",
+  "python",
 ]);
 
 const DocCategorySchema = z.enum([
@@ -50,6 +53,7 @@ const DocCategorySchema = z.enum([
   "governance",
   "scaling",
   "testing",
+  "oracles",
 ]);
 
 const DocSourceSchema = z.object({
