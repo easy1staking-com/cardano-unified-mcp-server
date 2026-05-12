@@ -244,6 +244,23 @@ sources:
       - src/programmable-tokens-onchain-aiken/documentation/**/*.md
       - src/programmable-tokens-offchain-java/README.md
 
+  - name: CIP-113 Programmable Tokens Platform
+    repo: https://github.com/cardano-foundation/cip113-programmable-tokens-platform.git
+    docsPath: .
+    format: aiken
+    formatOverrides:
+      "**/*.md": markdown
+    category: smart-contracts
+    description: Off-chain reference platform for CIP-113 — substandard Aiken validators (KYC, KYC-extended, freeze-and-seize, dummy) and markdown explainers for the KERI / CIP-170 attestation flow. Status R&D; tracks CIP-113 PR #444.
+    globPatterns:
+      - README.md
+      - docs/substandards/**/*.md
+      - src/substandards/**/README.md
+      - src/substandards/**/validators/!(*_test|*.test|*.tests).ak
+      - src/substandards/**/lib/**/!(*_test|*.test|*.tests).ak
+      - src/programmable-tokens-offchain-java/KYC-SUBSTANDARD.md
+      - src/programmable-tokens-offchain-java/README.md
+
   # =========================================================================
   # Off-chain SDKs & Frameworks
   # =========================================================================
