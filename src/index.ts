@@ -3,6 +3,7 @@ import { VectorDB } from "./db/vectordb.js";
 import { registerDocTools } from "./tools/docs.js";
 import { registerResources } from "./tools/resources.js";
 import { registerPrompts } from "./tools/prompts.js";
+import { registerSkillTools } from "./tools/skills.js";
 import { config } from "./config/env.js";
 
 const db = new VectorDB();
@@ -15,6 +16,7 @@ function createMcpServer() {
   registerDocTools(server, db);
   registerResources(server, db);
   registerPrompts(server, db);
+  registerSkillTools(server);
   return server;
 }
 

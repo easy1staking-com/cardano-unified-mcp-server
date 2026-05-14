@@ -14,6 +14,23 @@ spec:
       labels:
         app: cardano-mcp
     spec:
+      # Fresh cardano-dev-skills checkout on every pod start, so
+      # get_skill / prompts/list reflect upstream HEAD instead of the
+      # snapshot baked into the image.
+      initContainers:
+        - name: fetch-skills
+          image: alpine/git:latest
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              rm -rf /skills/*
+              git clone --depth 1 https://github.com/easy1staking-com/cardano-dev-skills.git /skills
+              echo "Fetched skills HEAD: $(cd /skills && git rev-parse HEAD)"
+          volumeMounts:
+            - name: skills-fresh
+              mountPath: /skills
       containers:
         - name: cardano-mcp
           image: cardano-unified-mcp-server:latest
@@ -24,6 +41,8 @@ spec:
               value: "3000"
             - name: HOST
               value: "0.0.0.0"
+            - name: SKILLS_PATH
+              value: /skills-fresh
             - name: EMBEDDINGS_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -40,8 +59,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /app/data
-            - name: repos
-              mountPath: /app/repos
+            - name: skills-fresh
+              mountPath: /skills-fresh
+              readOnly: true
           livenessProbe:
             httpGet:
               path: /health
@@ -65,9 +85,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: cardano-mcp-data
-        - name: repos
+        - name: skills-fresh
           emptyDir:
-            sizeLimit: 5Gi
+            sizeLimit: 1Gi
 ---
 apiVersion: v1
 kind: Service

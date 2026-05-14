@@ -10,11 +10,30 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
+          # Init container fetches a fresh cardano-dev-skills checkout so the
+          # weekly indexer always reads the latest registry + vendored content,
+          # not the snapshot baked into the image.
+          initContainers:
+            - name: fetch-skills
+              image: alpine/git:latest
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  rm -rf /skills/*
+                  git clone --depth 1 https://github.com/easy1staking-com/cardano-dev-skills.git /skills
+                  echo "Fetched skills HEAD: $(cd /skills && git rev-parse HEAD)"
+              volumeMounts:
+                - name: skills-fresh
+                  mountPath: /skills
           containers:
             - name: ingest
               image: cardano-unified-mcp-server:latest
               command: ["node", "dist/ingest/cli.js"]
               env:
+                - name: SKILLS_PATH
+                  value: /skills-fresh
                 - name: EMBEDDINGS_API_KEY
                   valueFrom:
                     secretKeyRef:
@@ -23,8 +42,9 @@ spec:
               volumeMounts:
                 - name: data
                   mountPath: /app/data
-                - name: repos
-                  mountPath: /app/repos
+                - name: skills-fresh
+                  mountPath: /skills-fresh
+                  readOnly: true
               resources:
                 requests:
                   cpu: 500m
@@ -36,6 +56,6 @@ spec:
             - name: data
               persistentVolumeClaim:
                 claimName: cardano-mcp-data
-            - name: repos
+            - name: skills-fresh
               emptyDir:
-                sizeLimit: 10Gi
+                sizeLimit: 1Gi

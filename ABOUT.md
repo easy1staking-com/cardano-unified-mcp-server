@@ -28,17 +28,20 @@ server exposes.
 
 This particular MCP server exposes **Cardano developer knowledge** —
 documentation, smart-contract references, SDK guides, standards,
-governance tooling. Once connected, your assistant can answer
-Cardano-specific questions with citations instead of making things up
-from whatever it happened to remember from its training data.
+governance tooling, and 15 structured workflow skills. Once
+connected, your assistant can answer Cardano-specific questions with
+citations instead of making things up from whatever it happened to
+remember from its training data.
 
 ---
 
 ## What this project is — and what it is not
 
 **It is:** a searchable knowledge base of developer documentation for
-the Cardano ecosystem. Smart-contract languages, off-chain SDKs,
-chain indexers, governance tools, scaling research, CIPs.
+the Cardano ecosystem, plus a library of workflow skills (write a
+validator, debug a transaction, explain a CIP, …). Smart-contract
+languages, off-chain SDKs, chain indexers, governance tools, scaling
+research, CIPs.
 
 **It is not:**
 
@@ -60,11 +63,14 @@ scope, by design.
 ## Where the knowledge comes from
 
 **All knowledge in this server is pre-indexed from a fixed, public
-allowlist.** The server never performs a live web search at query
-time. It does not fetch arbitrary URLs. It cannot be tricked into
-reading from a site the maintainer has not explicitly accepted.
+allowlist** maintained by the
+[`cardano-dev-skills`](https://github.com/easy1staking-com/cardano-dev-skills)
+project. The server never performs a live web search at query time.
+It does not fetch arbitrary URLs. It cannot be tricked into reading
+from a site the maintainer has not explicitly accepted.
 
-The allowlist lives in [`config/sources.yaml`](./config/sources.yaml).
+The allowlist lives in
+[`cardano-dev-skills/registry/sources.yaml`](https://github.com/easy1staking-com/cardano-dev-skills/blob/main/registry/sources.yaml).
 Every entry is a public GitHub repository. Nothing else. No hidden
 data sources, no private datasets, no undocumented scraping, no
 in-server search engine.
@@ -73,11 +79,17 @@ The ingestion pipeline is described in detail in
 [`docs/architecture.md`](./docs/architecture.md), but the short
 version:
 
-1. Read `config/sources.yaml` (validated by Zod on load).
-2. `git clone` each listed repository.
-3. Parse only the file patterns the YAML tells us to.
-4. Chunk, embed, and store in a local SQLite vector database.
-5. At query time, search that local DB. Never reach the open web.
+1. `cardano-dev-skills` clones each listed repository weekly via its
+   own GitHub Action, applies per-source glob patterns, and commits
+   the resulting markdown/MDX/Aiken/Python/RST files under
+   `docs/sources/<slug>/`.
+2. This server's Sunday Kubernetes CronJob pulls a fresh
+   `cardano-dev-skills` checkout, runs `npm run ingest`, which reads
+   the vendored content, applies format-aware chunking, generates
+   embeddings, and atomically swaps the result into the SQLite vector
+   database.
+3. At query time, the MCP server searches that local DB. Never reaches
+   the open web.
 
 When an assistant returns an answer from this server, it also returns
 the **exact source** via the `cardano://doc/{source}/{path}` MCP
@@ -86,22 +98,51 @@ upstream repository. There is nothing opaque about the supply chain.
 
 ---
 
+## Workflow skills
+
+In addition to searchable documentation, this server exposes 15
+structured workflow skills as MCP prompts. Each one is a step-by-step
+guide for a common Cardano development task — writing a validator,
+debugging a failing transaction, choosing the right SDK, explaining a
+CIP, setting up a local devnet. The skills live in
+[`cardano-dev-skills/skills/`](https://github.com/easy1staking-com/cardano-dev-skills/tree/main/skills)
+and are loaded directly from the same checkout that supplies the
+documentation.
+
+Each skill is invocable both via `prompts/list` (any MCP client) and
+via the `get_skill` tool. The skill workflow itself uses the server's
+`search_docs` tool to pull cited content from the indexed
+documentation — so the agent isn't relying on training data even
+within the workflow.
+
+---
+
 ## How it is maintained
 
 The hosted instance at `mcp.easy1staking.com` is operated by
-Easy1Staking. Documentation is re-ingested weekly via a Kubernetes
-CronJob: the pipeline re-clones each repository from the allowlist,
-re-chunks, re-embeds, and atomically swaps the result into the
-database. That is the entire refresh cycle.
+Easy1Staking. The refresh cycle:
 
-Changes to the allowlist happen through pull requests to this
-repository. Every PR that touches `config/sources.yaml` is:
+1. **Monday (in `cardano-dev-skills`):** a scheduled GitHub Action
+   re-clones every upstream repo, re-vendors content, and opens a PR
+   with the diff. A maintainer reviews + merges.
+2. **Sunday (in this repo's K8s CronJob):** clones `cardano-dev-skills`
+   HEAD, re-chunks, re-embeds, swaps the SQLite database.
 
-- Schema-validated automatically by the
-  [Validate Sources](./.github/workflows/validate-sources.yml) CI
-  check — any malformed entry blocks the merge.
-- Manually reviewed by the maintainer against the acceptance criteria
-  below.
+Changes to the allowlist happen through pull requests against
+[`cardano-dev-skills`](https://github.com/easy1staking-com/cardano-dev-skills),
+not against this repository. Every PR there is:
+
+- Schema-validated by skills' own CI.
+- Manually reviewed by a maintainer against the acceptance criteria
+  (active maintenance, build-on-Cardano scope, permissive license).
+- Tested for vendoring success — globs must actually match files.
+
+This server's own CI runs a nightly
+[Skills Drift](./.github/workflows/skills-drift.yml) check that pulls
+`cardano-dev-skills` HEAD and asserts the registry shape is still
+compatible with this server's loader. A red badge means upstream has
+drifted in a way that would break Sunday's indexer — a heads-up
+before the breakage hits production.
 
 There is no CMS, no external content editor, no authenticated admin
 panel. The only way to add or change what this server knows is a PR
@@ -110,6 +151,9 @@ with a visible diff and a public review.
 ---
 
 ## Acceptance criteria for a documentation source
+
+(These criteria are enforced by `cardano-dev-skills`, since that is
+where new sources are added.)
 
 A source is accepted if **all** of the following are true:
 
@@ -121,14 +165,14 @@ A source is accepted if **all** of the following are true:
    security references — yes. Dashboards, products, protocols — no.
 3. **It is a public GitHub repository** with documentation in a
    machine-readable format (markdown, MDX, reStructuredText, OpenAPI
-   YAML, or Aiken source with doc comments).
+   YAML, or Aiken/Python source with doc comments).
 4. **It does not conflict with the exclusions above** — no tokens, no
    dApps, no DEXes, no wallets-as-product, no financial advice, no
    project endorsements.
 
-If a source clearly meets these criteria, open a PR. If there is any
-doubt, open an issue first and describe the project — we would rather
-talk it through than nack a PR you worked on.
+If a source clearly meets these criteria, open a PR against
+`cardano-dev-skills`. If there is any doubt, open an issue first and
+describe the project.
 
 ---
 
@@ -137,21 +181,23 @@ talk it through than nack a PR you worked on.
 This project does not favour one Cardano vendor, SDK, or language
 over another. The test of that claim is visible in the index itself:
 
-- **Seven smart-contract languages** side by side: Aiken, Plutus,
-  OpShin, Plutarch, Plu-ts, Scalus, Pebble.
-- **Six off-chain SDKs** side by side: Mesh, Evolution SDK,
+- **Eight smart-contract languages** side by side: Aiken, Plutus,
+  OpShin, Plutarch, Plu-ts, Scalus, Pebble, Helios.
+- **Eight off-chain SDKs** side by side: Mesh, Evolution SDK,
   cardano-js-sdk, PyCardano, cardano-client-lib, Cardano Serialization
-  Lib.
+  Lib, Buildooor, Cardano Connect with Wallet.
 - **Five chain-data tools** side by side: Ogmios, Kupo, Blockfrost,
   Koios, Cardano GraphQL, plus supporting libraries like Pallas, Oura,
   Dolos.
 
 If an actively-maintained project is missing from a category, that is
-a gap to fix, not a policy. Open an issue or a PR.
+a gap to fix, not a policy. Open an issue or a PR against
+`cardano-dev-skills`.
 
-The built-in MCP prompts (e.g. `build-transaction`, `suggest-tooling`)
-accept an SDK or language as a parameter — the user chooses, the
-prompt adapts. The server does not push a preferred stack.
+The built-in workflow skills (e.g. `build-transaction`,
+`suggest-tooling`) accept an SDK or language as part of the user's
+request — the user chooses, the workflow adapts. The server does not
+push a preferred stack.
 
 ---
 
@@ -163,15 +209,15 @@ or malicious documentation, aimed at tricking AI agents into
 generating unsafe code. The mitigations already in place:
 
 - **No live web fetch.** Even if an attacker controls a random
-  website, the server will never see it. The only way in is the
-  allowlist.
-- **Schema-validated PRs.** A broken YAML file is rejected by CI
-  before any human reviewer sees it. Attackers cannot smuggle
-  misformed entries through.
+  website, the server will never see it. The only way in is via a PR
+  to `cardano-dev-skills`.
+- **Schema-validated PRs.** A broken registry entry is rejected by
+  skills' CI before any human reviewer sees it. Attackers cannot
+  smuggle misformed entries through.
 - **Human review of every allowlist change.** Every new source is
-  read by the maintainer against the acceptance criteria.
-- **Public audit trail.** The full history of `config/sources.yaml`
-  is in git. Every change has an author, a timestamp, and a diff that
+  read by a maintainer against the acceptance criteria.
+- **Public audit trail.** The full history of skills' registry is in
+  git. Every change has an author, a timestamp, and a diff that
   anyone can inspect.
 - **Source attribution in every answer.** The MCP resources
   (`cardano://sources`, `cardano://source/{name}`,
@@ -183,8 +229,9 @@ generating unsafe code. The mitigations already in place:
   sources.
 
 These mitigations are not theatre. They compose: an attacker would
-need to ship a convincing-enough PR past a human reviewer *and* hope
-nobody notices the source citation in the eventual answer.
+need to ship a convincing-enough PR past a human reviewer in
+`cardano-dev-skills` *and* hope nobody notices the source citation
+in the eventual answer.
 
 ---
 
@@ -192,12 +239,15 @@ nobody notices the source citation in the eventual answer.
 
 - **Found a bug, a broken link, or an out-of-date source?** Open an
   issue: <https://github.com/easy1staking-com/cardano-unified-mcp-server/issues>
-- **Want a new source added?** Open an issue or a PR. See
-  [CONTRIBUTING.md](./CONTRIBUTING.md).
+- **Want a new source added?** Open an issue or a PR against
+  `cardano-dev-skills`. See its
+  [CONTRIBUTING](https://github.com/easy1staking-com/cardano-dev-skills/blob/main/docs/CONTRIBUTING.md)
+  for the acceptance criteria and the flow.
 - **Found something misleading or harmful in an indexed source?**
-  Open an issue with the source name and the path of the document.
-  The maintainer can remove or narrow the source's glob patterns
-  quickly — the next ingest run will reflect the change.
+  Open an issue on either repo with the source name and the path of
+  the document. The maintainer can remove or narrow the source's glob
+  patterns in `cardano-dev-skills`; the next ingest run will reflect
+  the change.
 
 There is no email address, no Discord, no hidden back-channel. GitHub
 issues are the one and only intake.
@@ -212,4 +262,5 @@ it is not affiliated with, endorsed by, or operated on behalf of any
 Cardano foundation, IOG, Intersect, or other ecosystem body.
 
 If you want to help, the lowest-friction contribution is adding a
-source you use and trust. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+source you use and trust to
+[`cardano-dev-skills`](https://github.com/easy1staking-com/cardano-dev-skills).

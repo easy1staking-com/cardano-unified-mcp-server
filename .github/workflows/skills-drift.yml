@@ -1,0 +1,70 @@
+name: Skills Drift Check
+
+# Catches breaking changes in cardano-dev-skills' registry shape or vendored
+# layout before they hit the Sunday indexer. Runs:
+#   - On PRs that touch the loader, contract test, or workflow itself
+#   - Nightly to detect upstream-only changes in cardano-dev-skills
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/config/sources.ts'
+      - 'src/config/env.ts'
+      - 'src/ingest/fetcher.ts'
+      - 'scripts/validate-skills.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/skills-drift.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/config/sources.ts'
+      - 'src/config/env.ts'
+      - 'src/ingest/fetcher.ts'
+      - 'scripts/validate-skills.ts'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/skills-drift.yml'
+  schedule:
+    - cron: '17 5 * * *'  # 05:17 UTC daily
+  workflow_dispatch:
+
+jobs:
+  drift:
+    name: Validate skills registry contract
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout MCP server
+        uses: actions/checkout@v4
+        with:
+          path: mcp-server
+
+      - name: Checkout cardano-dev-skills (latest main)
+        uses: actions/checkout@v4
+        with:
+          repository: easy1staking-com/cardano-dev-skills
+          path: cardano-dev-skills
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: mcp-server/package-lock.json
+
+      - name: Install dependencies
+        working-directory: mcp-server
+        run: npm ci
+
+      - name: Validate skills registry contract
+        working-directory: mcp-server
+        env:
+          SKILLS_PATH: ${{ github.workspace }}/cardano-dev-skills
+        run: npm run validate:skills
+
+      - name: Typecheck
+        working-directory: mcp-server
+        run: npm run typecheck

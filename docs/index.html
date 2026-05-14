@@ -68,7 +68,7 @@
   <div class="two-col" style="margin-top: 1.5rem;">
     <div>
       <h3>Where does the knowledge come from?</h3>
-      <p>From a fixed, public allowlist of GitHub repositories &mdash; every single one listed in <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/config/sources.yaml"><code>config/sources.yaml</code></a>. The server <strong>never</strong> performs a live web search, never fetches arbitrary URLs, and never reads from sources the maintainer has not explicitly accepted. Every answer returned by the server carries a citation to the exact source file, so you can always verify where it came from.</p>
+      <p>From a fixed, public allowlist of GitHub repositories curated in the sibling <a href="https://github.com/easy1staking-com/cardano-dev-skills/blob/main/registry/sources.yaml"><code>cardano-dev-skills</code></a> project. The server <strong>never</strong> performs a live web search, never fetches arbitrary URLs, and never reads from sources the maintainer has not explicitly accepted. Every answer returned by the server carries a citation to the exact source file, so you can always verify where it came from.</p>
     </div>
     <div>
       <h3>Who runs it and how is it vetted?</h3>
@@ -415,7 +415,7 @@ npm start</pre>
   <h2>Architecture</h2>
   <p>A single stateless Node.js process. MCP clients connect over stdio or streamable HTTP. All reads hit a local SQLite database that combines BM25 full-text search (via FTS5) and vector similarity (via <code>sqlite-vec</code>). <strong>No outbound network calls at query time &mdash; no live web search, no external API fetches.</strong></p>
 
-  <p>Documentation is re-ingested weekly by a Kubernetes CronJob: <code>config/sources.yaml</code> &rarr; git clone &rarr; format-aware parse &rarr; chunk &rarr; embed &rarr; atomic upsert. The full component, query-flow, and ingestion-flow diagrams (in Mermaid) live in <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/architecture.md"><code>docs/architecture.md</code></a>.</p>
+  <p>Documentation is re-ingested weekly by a Kubernetes CronJob: pull latest <a href="https://github.com/easy1staking-com/cardano-dev-skills"><code>cardano-dev-skills</code></a> &rarr; read vendored markdown/MDX/Aiken/Python/RST &rarr; format-aware parse &rarr; chunk &rarr; embed &rarr; atomic upsert. The full component, query-flow, and ingestion-flow diagrams (in Mermaid) live in <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/architecture.md"><code>docs/architecture.md</code></a>.</p>
 
   <div class="two-col" style="margin-top: 1.5rem;">
     <div>
@@ -445,7 +445,7 @@ npm start</pre>
   <div class="two-col">
     <div>
       <h3>Add a Documentation Source</h3>
-      <p>Edit <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/config/sources.yaml"><code>config/sources.yaml</code></a> and open a PR. See the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/docs/sources-schema.md">schema reference</a> for every field, and the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md#acceptance-criteria-for-a-documentation-source">acceptance criteria</a> for what qualifies. Every PR is schema-validated by CI.</p>
+      <p>To add a new source, open a PR against the upstream curation repo: <a href="https://github.com/easy1staking-com/cardano-dev-skills/blob/main/registry/sources.yaml"><code>cardano-dev-skills</code></a>. Skills enforces the <a href="https://github.com/easy1staking-com/cardano-unified-mcp-server/blob/main/ABOUT.md#acceptance-criteria-for-a-documentation-source">acceptance criteria</a> and vendors upstream content. This server picks the change up on the next Sunday indexer run; a nightly drift check in CI catches any registry-shape change that would break the indexer.</p>
     </div>
     <div>
       <h3>Report Issues</h3>

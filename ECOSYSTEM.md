@@ -5,7 +5,8 @@
 >
 > This is a neutral landscape survey. See [ABOUT.md](ABOUT.md) for this
 > project's scope, acceptance criteria, and trust model. The indexed
-> allowlist itself lives in [`config/sources.yaml`](config/sources.yaml).
+> allowlist itself lives in
+> [`cardano-dev-skills/registry/sources.yaml`](https://github.com/easy1staking-com/cardano-dev-skills/blob/main/registry/sources.yaml).
 
 ## Smart Contract Languages (On-Chain)
 

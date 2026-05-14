@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, resolve } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { parse as parseYaml } from "yaml";
 import { z } from "zod";
+import { config } from "./env.js";
 
 export type DocFormat =
   | "markdown"
@@ -33,6 +33,8 @@ export interface DocSource {
   branch?: string;
   globPatterns?: string[];
   description?: string;
+  /** Slug used to locate vendored content under skills' docs/sources/<slug>/. */
+  slug: string;
 }
 
 const DocFormatSchema = z.enum([
@@ -56,48 +58,88 @@ const DocCategorySchema = z.enum([
   "oracles",
 ]);
 
-const DocSourceSchema = z.object({
+// Schema for one entry in skills' registry/sources.yaml — snake_case fields.
+const SkillsEntrySchema = z.object({
   name: z.string().min(1),
   repo: z.string().url(),
-  docsPath: z.string().min(1),
+  docs_path: z.string().min(1),
   format: DocFormatSchema,
-  formatOverrides: z.record(DocFormatSchema).optional(),
+  format_overrides: z.record(DocFormatSchema).optional(),
   category: DocCategorySchema,
   branch: z.string().optional(),
-  globPatterns: z.array(z.string()).optional(),
+  glob_patterns: z.array(z.string()).optional(),
   description: z.string().optional(),
+  // Skills-only fields we don't use; tolerated, not required.
+  priority: z.string().optional(),
+  website: z.string().optional(),
 });
 
-const SourcesFileSchema = z.object({
-  sources: z.array(DocSourceSchema).min(1),
-});
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 function loadSources(): DocSource[] {
-  const here = dirname(fileURLToPath(import.meta.url));
-  // src/config/sources.ts lives at src/config/, YAML at <repo>/config/sources.yaml
-  // At runtime (dist/config/sources.js) we still resolve two levels up to repo root.
-  const yamlPath = resolve(here, "../../config/sources.yaml");
-  const raw = readFileSync(yamlPath, "utf8");
-  const parsed = parseYaml(raw);
-  const result = SourcesFileSchema.safeParse(parsed);
-  if (!result.success) {
-    const issues = result.error.issues
-      .map((i) => `  - ${i.path.join(".")}: ${i.message}`)
-      .join("\n");
+  const registryPath = join(config.skillsPath, "registry", "sources.yaml");
+  if (!existsSync(registryPath)) {
     throw new Error(
-      `Invalid config/sources.yaml:\n${issues}\n\nSee docs/sources-schema.md for the schema reference.`
+      `Skills registry not found at ${registryPath}.\n` +
+        `Set SKILLS_PATH to a cardano-dev-skills checkout, or clone it as a sibling directory.`
     );
   }
-  const names = new Set<string>();
-  for (const s of result.data.sources) {
-    if (names.has(s.name)) {
-      throw new Error(
-        `Duplicate source name in config/sources.yaml: "${s.name}". Names must be unique.`
-      );
-    }
-    names.add(s.name);
+
+  const raw = readFileSync(registryPath, "utf8");
+  const parsed = parseYaml(raw);
+  if (!Array.isArray(parsed)) {
+    throw new Error(
+      `Expected ${registryPath} to be a top-level YAML list of source entries.`
+    );
   }
-  return result.data.sources;
+
+  const sources: DocSource[] = [];
+  const names = new Set<string>();
+  const issues: string[] = [];
+
+  parsed.forEach((entry, idx) => {
+    const result = SkillsEntrySchema.safeParse(entry);
+    if (!result.success) {
+      const path = entry && typeof entry === "object" && entry.name
+        ? `"${entry.name}"`
+        : `index ${idx}`;
+      const detail = result.error.issues
+        .map((i) => `    - ${i.path.join(".")}: ${i.message}`)
+        .join("\n");
+      issues.push(`  ${path}:\n${detail}`);
+      return;
+    }
+    if (names.has(result.data.name)) {
+      issues.push(`  Duplicate name: "${result.data.name}"`);
+      return;
+    }
+    names.add(result.data.name);
+    sources.push({
+      name: result.data.name,
+      repo: result.data.repo,
+      docsPath: result.data.docs_path,
+      format: result.data.format,
+      formatOverrides: result.data.format_overrides,
+      category: result.data.category,
+      branch: result.data.branch,
+      globPatterns: result.data.glob_patterns,
+      description: result.data.description,
+      slug: slugify(result.data.name),
+    });
+  });
+
+  if (issues.length > 0) {
+    throw new Error(
+      `Invalid entries in ${registryPath}:\n${issues.join("\n")}`
+    );
+  }
+
+  return sources;
 }
 
 export const DOC_SOURCES: DocSource[] = loadSources();

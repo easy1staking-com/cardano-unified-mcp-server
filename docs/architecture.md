@@ -17,15 +17,25 @@ graph TB
         OT["Any MCP-compatible client"]
     end
 
+    subgraph skills["cardano-dev-skills (sibling checkout)"]
+        REG["registry/sources.yaml<br/>curated allowlist"]
+        VEND["docs/sources/&lt;slug&gt;/<br/>vendored markdown · mdx · ak · py · rst · yaml"]
+        SK["skills/*/SKILL.md<br/>15 workflow guides"]
+    end
+
     subgraph server["Cardano Unified MCP Server"]
-        T["Tools<br/>search_docs · get_doc · list_topics"]
+        T["Tools<br/>search_docs · get_doc · list_topics · list_skills · get_skill"]
         R["Resources<br/>cardano://sources<br/>cardano://source/{name}<br/>cardano://doc/{source}/{path}"]
-        P["Prompts<br/>14 developer prompts"]
+        P["Prompts<br/>15 skills auto-loaded from SKILL.md"]
         DB[("VectorDB<br/>SQLite + FTS5 + sqlite-vec")]
         T --> DB
         R --> DB
-        P --> DB
     end
+
+    REG --> server
+    VEND --> DB
+    SK --> P
+    SK --> T
 
     clients -->|"stdio or HTTP + SSE"| server
 ```
@@ -75,39 +85,42 @@ on top of this can always show the user where an answer came from.
 ```mermaid
 flowchart LR
     subgraph trust["Trust boundary<br/>The only way data enters the server"]
-        YAML["config/sources.yaml<br/>Zod-validated · gated by CI"]
-        Clone["git clone<br/>from allowlisted repos only"]
-        Parse["Format-aware parse<br/>markdown · mdx · rst · openapi · aiken"]
+        SKILLS["cardano-dev-skills<br/>registry + vendored content<br/>curated upstream · weekly refresh"]
+        Load["Loader<br/>Zod-validated · contract test in CI"]
+        Read["Read vendored files<br/>per source's glob patterns"]
+        Parse["Format-aware parse<br/>markdown · mdx · rst · openapi · aiken · python · toml"]
         Chunk["Chunk ~500–1000 tokens"]
     end
 
     Embed["Embeddings API<br/>OpenAI-compatible"]
     DB[("Local VectorDB<br/>SQLite + sqlite-vec")]
 
-    YAML --> Clone
-    Clone --> Parse
+    SKILLS --> Load
+    Load --> Read
+    Read --> Parse
     Parse --> Chunk
     Chunk --> Embed
     Embed --> Upsert["Atomic upsert<br/>per source"]
     Upsert --> DB
 
-    style YAML fill:#dbeafe,stroke:#1e40af,stroke-width:2px
+    style SKILLS fill:#dbeafe,stroke:#1e40af,stroke-width:2px
     style DB fill:#fef3c7,stroke:#a16207,stroke-width:2px
 ```
 
 The five phases, in order:
 
-1. **Load + validate.** `config/sources.yaml` is parsed and
-   schema-checked with Zod. A malformed entry (bad category, invalid
-   URL, missing required field, duplicate name) aborts the entire
-   ingest before any clone happens. The same validation runs on every
-   pull request via the
-   [Validate Sources](../.github/workflows/validate-sources.yml) CI
-   workflow, so bad entries are rejected before they ever reach main.
-2. **Fetch.** Each listed repository is cloned (or pulled) into
-   `./repos/`. Clone errors are collected and the pipeline continues
-   with whatever succeeded — one broken source does not block the
-   whole refresh.
+1. **Load + validate.** The skills registry at
+   `${SKILLS_PATH}/registry/sources.yaml` is parsed and schema-checked
+   with Zod (snake_case → camelCase mapping). A malformed entry
+   (bad category, invalid URL, missing required field, duplicate name)
+   aborts the entire ingest. The same loader runs nightly in CI against
+   `cardano-dev-skills` HEAD via the
+   [Skills Drift](../.github/workflows/skills-drift.yml) workflow, so
+   upstream schema drift is caught before Sunday's indexer.
+2. **Resolve.** Each source resolves to its vendored directory at
+   `${SKILLS_PATH}/docs/sources/<slug>/`. Skills did the actual git
+   cloning during its weekly refresh — this server never touches the
+   network during ingest.
 3. **Read + validate content.** Files are read according to
    `format`, `formatOverrides`, and `globPatterns`. A content
    validation pass catches empty sources, malformed OpenAPI, broken
@@ -138,12 +151,14 @@ A few design choices worth calling out:
   live in the same database, so hybrid search is one transaction
   instead of two round-trips against two backends.
 - **Allowlist over crawling.** Every ingested source is a public git
-  URL listed in a reviewable file. There is no crawler, no seed URL
-  expansion, no live fetch at query time. This is the core of the
-  project's trust model — see [`../ABOUT.md`](../ABOUT.md).
-- **YAML over code.** `config/sources.yaml` is editable by anyone who
-  can read English. Contributors do not need to touch TypeScript or
-  run a build to suggest a new source.
+  URL listed in `cardano-dev-skills/registry/sources.yaml`. There is
+  no crawler, no seed URL expansion, no live fetch at query time. This
+  is the core of the project's trust model — see
+  [`../ABOUT.md`](../ABOUT.md).
+- **Curation lives upstream.** Source additions, removals, and glob
+  refinements happen as PRs against `cardano-dev-skills`. This server
+  is a downstream consumer with a thin overlay (chunking + embedding
+  + MCP transport). Two repos, two concerns.
 - **Attribution everywhere.** Every chunk stored in the database
   carries its source name, file path, and optional upstream URL. The
   MCP resources surface that attribution to the client, so a

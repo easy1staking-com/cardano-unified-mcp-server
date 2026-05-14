@@ -1,7 +1,7 @@
 import { DOC_SOURCES, type DocSource } from "../config/sources.js";
 import { VectorDB, type DocChunk } from "../db/vectordb.js";
 import { generateEmbeddingsBatch } from "../db/embeddings.js";
-import { cloneSource, readSourceFiles } from "./fetcher.js";
+import { resolveSourceDir, readSourceFiles } from "./fetcher.js";
 import { chunkDocuments, type RawDoc } from "./chunker.js";
 import { validateDocs, printValidationReport } from "./validator.js";
 import { config } from "../config/env.js";
@@ -40,25 +40,25 @@ async function main() {
   // PHASE 1: FETCH — Clone/pull all repos
   // =========================================================================
 
-  console.log(`\n=== Phase 1: Fetching ${sources.length} repositories ===\n`);
+  console.log(`\n=== Phase 1: Resolving ${sources.length} vendored sources ===\n`);
 
   const repoDirs = new Map<string, string>();
   const fetchErrors: Array<{ source: DocSource; error: string }> = [];
 
   for (const source of sources) {
     try {
-      const dir = cloneSource(source);
+      const dir = resolveSourceDir(source);
       repoDirs.set(source.name, dir);
     } catch (err) {
       const msg = (err as Error).message;
       fetchErrors.push({ source, error: msg });
-      console.error(`  ERROR cloning ${source.name}: ${msg}`);
+      console.error(`  ERROR resolving ${source.name}: ${msg}`);
     }
   }
 
   if (fetchErrors.length > 0) {
     console.error(
-      `\n  ${fetchErrors.length} source(s) failed to clone. Continuing with ${repoDirs.size} available.\n`
+      `\n  ${fetchErrors.length} source(s) failed to resolve. Continuing with ${repoDirs.size} available.\n`
     );
   }
 

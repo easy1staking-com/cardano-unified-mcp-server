@@ -193,7 +193,7 @@ export function printValidationReport(result: ValidationResult): void {
       console.error(`    ${e.message}\n`);
     }
 
-    console.error("  Fix source definitions in src/config/sources.ts and retry.");
+    console.error("  Fix source definitions in cardano-dev-skills/registry/sources.yaml and retry.");
     console.error("  No embeddings were generated. No API costs incurred.\n");
   } else {
     console.log(`\n  ✓ All files validated successfully.\n`);

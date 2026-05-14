@@ -1,6 +1,5 @@
-import { execSync } from "child_process";
 import { existsSync, readFileSync, statSync } from "fs";
-import { join, extname } from "path";
+import { join } from "path";
 import { glob } from "glob";
 import { config } from "../config/env.js";
 import type { DocSource } from "../config/sources.js";
@@ -8,45 +7,36 @@ import type { RawDoc } from "./chunker.js";
 import { resolveFormat } from "./formats/index.js";
 
 /**
- * Phase 1: Clone or pull a source repo. Returns the repo directory path.
- * Does NOT read any files — just ensures the repo is up to date.
+ * Phase 1: Resolve a source to its on-disk location inside the
+ * cardano-dev-skills checkout. Skills already cloned the upstream repo
+ * and vendored its docs under docs/sources/<slug>/, stripping the
+ * source's docs_path prefix. So the directory returned here IS the
+ * docs root — readSourceFiles does NOT need to join docsPath again.
  */
-export function cloneSource(source: DocSource): string {
-  const repoDir = join(config.reposDir, sanitizeName(source.name));
-
-  if (existsSync(join(repoDir, ".git"))) {
-    console.log(`  Pulling ${source.name}...`);
-    execSync("git pull --ff-only 2>/dev/null || true", {
-      cwd: repoDir,
-      stdio: "pipe",
-    });
-  } else {
-    console.log(`  Cloning ${source.name}...`);
-    const branch = source.branch ? `--branch ${source.branch}` : "";
-    execSync(
-      `git clone --depth 1 ${branch} ${source.repo} "${repoDir}"`,
-      { stdio: "pipe" }
+export function resolveSourceDir(source: DocSource): string {
+  const dir = join(config.skillsPath, "docs", "sources", source.slug);
+  if (!existsSync(dir)) {
+    throw new Error(
+      `Vendored content not found for "${source.name}" at ${dir}.\n` +
+        `Run skills' fetch script (scripts/fetch-docs.sh --source "${source.name}") or pull a newer skills checkout.`
     );
   }
-
-  return repoDir;
+  return dir;
 }
 
 /**
- * Phase 2: Read files from a cloned repo, resolve format per file,
- * and return RawDocs with format attached.
+ * Phase 2: Read files from the vendored skills directory, resolve format
+ * per file, and return RawDocs ready for chunking.
  */
 export async function readSourceFiles(
   source: DocSource,
-  repoDir: string
+  docsDir: string
 ): Promise<RawDoc[]> {
-  const docsDir = join(repoDir, source.docsPath);
   if (!existsSync(docsDir)) {
-    console.warn(`  Warning: docs path not found: ${docsDir}`);
+    console.warn(`  Warning: docs dir not found: ${docsDir}`);
     return [];
   }
 
-  // Collect files
   const defaultPatterns: Record<string, string[]> = {
     markdown: ["**/*.md"],
     mdx: ["**/*.md", "**/*.mdx"],
@@ -54,6 +44,7 @@ export async function readSourceFiles(
     openapi: ["**/*.yaml", "**/*.yml", "**/*.json"],
     aiken: ["**/*.ak"],
     toml: ["**/*.toml"],
+    python: ["**/*.py"],
   };
 
   const patterns =
@@ -78,9 +69,7 @@ export async function readSourceFiles(
     files.push(...matches);
   }
 
-  // Deduplicate
   const uniqueFiles = [...new Set(files)];
-
   const docs: RawDoc[] = [];
 
   for (const file of uniqueFiles) {
@@ -95,10 +84,8 @@ export async function readSourceFiles(
       }
 
       const content = readFileSync(fullPath, "utf-8");
-
       if (content.trim().length < 100) continue;
 
-      // Resolve format for this specific file
       const format = resolveFormat(file, source);
 
       docs.push({
@@ -118,11 +105,8 @@ export async function readSourceFiles(
   return docs;
 }
 
-function sanitizeName(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-}
-
 function buildUrl(repo: string, docsPath: string, file: string): string {
   const base = repo.replace(/\.git$/, "");
-  return `${base}/blob/main/${docsPath}/${file}`;
+  const prefix = docsPath === "." ? "" : `${docsPath}/`;
+  return `${base}/blob/main/${prefix}${file}`;
 }

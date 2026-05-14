@@ -14,5 +14,8 @@ export const config = {
 
   dbPath: resolve(process.env.DB_PATH || "./data/docs.db"),
   dbReadOnly: process.env.DB_READ_ONLY === "true",
-  reposDir: resolve(process.env.REPOS_DIR || "./repos"),
+
+  // cardano-dev-skills checkout — single source of truth for sources + skills.
+  // Local dev: sibling clone. Container: cloned to /app/skills at build time.
+  skillsPath: resolve(process.env.SKILLS_PATH || "../cardano-dev-skills"),
 };
